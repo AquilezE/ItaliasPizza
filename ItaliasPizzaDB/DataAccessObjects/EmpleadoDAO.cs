@@ -1,14 +1,10 @@
-﻿using ItaliasPizzaDB.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
+﻿using System.Data.Entity;
 using System.Threading.Tasks;
+using ItaliasPizzaDB.Models;
 
-namespace ItaliasPizzaDB.Repositorios
+namespace ItaliasPizzaDB.DataAccessObjects
 {
-    public class EmpleadoRepositorio
+    public class EmpleadoDAO
     {
 
         //TODO: NEEDS TESTING

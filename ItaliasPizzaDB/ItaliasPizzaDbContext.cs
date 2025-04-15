@@ -47,8 +47,6 @@ namespace ItaliasPizzaDB
         public DbSet<TipoTransaccion> TiposTransaccion { get; set; }
         public DbSet<CorteDeCaja> CortesDeCaja { get; set; }
 
-        
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 

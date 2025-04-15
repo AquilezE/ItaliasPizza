@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Transactions;
 using System.Threading.Tasks;
-using ItaliasPizzaDB.Repositorios;
 using Xunit;
 using ItaliasPizzaDB;
 using ItaliasPizzaDB.Models;
 using System.Security.Cryptography.X509Certificates;
 using System.Runtime.InteropServices;
+using ItaliasPizzaDB.DataAccessObjects;
 
 namespace DatabaseTests
 {
-    public class ProveedorRepositorioTests
+    public class ProveedorDAOTests
     {
 
         [Fact]
@@ -39,7 +39,7 @@ namespace DatabaseTests
                     idProveedor1 = proveedor1.IdProveedor;
                 } 
 
-                var proveedorObtenido = ProveedorRepositorio.ObtenerProveedorPorId(idProveedor1);
+                var proveedorObtenido = ProveedorDAO.ObtenerProveedorPorId(idProveedor1);
 
                 Assert.Equal("Pepito", proveedorObtenido.Nombre);
                 Assert.Equal("2281401656", proveedorObtenido.Telefono);
@@ -82,7 +82,7 @@ namespace DatabaseTests
                     idProveedor2 = proveedor2.IdProveedor;
                 }
 
-                var proveedoresObtenidos = ProveedorRepositorio.ObtenerProveedores();
+                var proveedoresObtenidos = ProveedorDAO.ObtenerProveedores();
 
                 Assert.True(proveedoresObtenidos.Count == 2);
                 Assert.Contains(proveedoresObtenidos, p => p.IdProveedor == idProveedor1);
@@ -136,7 +136,7 @@ namespace DatabaseTests
                     idProveedor3 = proveedor3.IdProveedor;
                 }
 
-                var proveedoresObtenidos = ProveedorRepositorio.ObtenerProveedores("ito", "1656");
+                var proveedoresObtenidos = ProveedorDAO.ObtenerProveedores("ito", "1656");
 
                 Assert.True(proveedoresObtenidos.Count == 2);
 
@@ -187,7 +187,7 @@ namespace DatabaseTests
                     idProveedor3 = proveedor3.IdProveedor;
                 }
 
-                var proveedoresObtenidos = ProveedorRepositorio.ObtenerProveedores("", "1656");
+                var proveedoresObtenidos = ProveedorDAO.ObtenerProveedores("", "1656");
 
                 Assert.True(proveedoresObtenidos.Count == 2);
 
@@ -238,7 +238,7 @@ namespace DatabaseTests
                     idProveedor3 = proveedor3.IdProveedor;
                 }
 
-                var proveedoresObtenidos = ProveedorRepositorio.ObtenerProveedores("ito", "");
+                var proveedoresObtenidos = ProveedorDAO.ObtenerProveedores("ito", "");
 
                 Assert.True(proveedoresObtenidos.Count == 2);
 

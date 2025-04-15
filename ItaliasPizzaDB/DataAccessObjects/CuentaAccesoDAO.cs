@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using ItaliasPizzaDB.Models;
 
-namespace ItaliasPizzaDB.Repositorios
+namespace ItaliasPizzaDB.DataAccessObjects
 {
-    public class CuentaAccesoRepositorio
+    public class CuentaAccesoDAO
     {
         //TODO: NEEDS TESTING
         public static async Task<bool> VerificarCuenta(string nombreUsuario, string contrasenia)
@@ -19,7 +15,6 @@ namespace ItaliasPizzaDB.Repositorios
                     return context.CuentasAcceso
                         .Any(c => c.NombreUsuario == nombreUsuario && c.Contraseña == contrasenia);
                 });
-
             }
         }
     }

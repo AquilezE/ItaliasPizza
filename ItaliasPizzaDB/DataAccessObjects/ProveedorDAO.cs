@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ItaliasPizzaDB.Models;
 
-namespace ItaliasPizzaDB.Repositorios
+namespace ItaliasPizzaDB.DataAccessObjects
 {
-    public class ProveedorRepositorio
+    public class ProveedorDAO
     {
         public static Proveedor ObtenerProveedorPorId(int idProveedor)
         {

@@ -85,7 +85,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProveedorRepositorioTests.cs" />
+    <Compile Include="DatabaseCollection.cs" />
+    <Compile Include="DataBaseFixture.cs" />
+    <Compile Include="Inicializador\InitializadorTestDb.cs" />
+    <Compile Include="InsumoDAOTests.cs" />
+    <Compile Include="PedidoDAOTests.cs" />
+    <Compile Include="ProveedorDAOTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +107,7 @@
       <Name>ItaliasPizzaDB</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

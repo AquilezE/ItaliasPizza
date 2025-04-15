@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ItaliasPizzaDB.Models
 {
-    public abstract class Pedido
+    public class Pedido
     {
         [Key]
         public int IdPedido { get; set; }
@@ -16,9 +16,8 @@ namespace ItaliasPizzaDB.Models
         public DateTime Fecha { get; set; }
         public float Total { get; set; }
 
-        //TODO: CHECK IF WE NEED TO STORE THE IDS HERE
         public int IdEmpleado { get; set; }
-        public int? IdStatusPedido { get; set; }
+        public int IdStatusPedido { get; set; }
 
         [ForeignKey("IdEmpleado")]
         public virtual Empleado Empleado { get; set; }

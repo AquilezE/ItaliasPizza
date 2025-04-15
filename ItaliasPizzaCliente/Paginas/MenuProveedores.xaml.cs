@@ -14,8 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ItaliasPizzaCliente.Utils;
+using ItaliasPizzaDB.DataAccessObjects;
 using ItaliasPizzaDB.Models;
-using ItaliasPizzaDB.Repositorios;
 
 
 namespace ItaliasPizzaCliente.Paginas
@@ -86,7 +86,7 @@ namespace ItaliasPizzaCliente.Paginas
 
         private async void CargarProveedores()
         {
-            var proveedoresLista = await Task.Run(ProveedorRepositorio.ObtenerProveedores);
+            var proveedoresLista = await Task.Run(ProveedorDAO.ObtenerProveedores);
             Proveedores.Clear();
             foreach (var proveedor in proveedoresLista)
             {
@@ -97,7 +97,7 @@ namespace ItaliasPizzaCliente.Paginas
 
         private async void CargarProveedores(string nombre, string telefono)
         {
-            var proveedoresLista = await Task.Run(() => ProveedorRepositorio.ObtenerProveedores(nombre, telefono));
+            var proveedoresLista = await Task.Run(() => ProveedorDAO.ObtenerProveedores(nombre, telefono));
             Proveedores.Clear();
             foreach (var proveedor in proveedoresLista)
             {

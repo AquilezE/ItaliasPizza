@@ -1,7 +1,6 @@
 ﻿using ItaliasPizzaCliente.Singletons;
 using ItaliasPizzaCliente.Utils;
 using ItaliasPizzaDB.Models;
-using ItaliasPizzaDB.Repositorios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ItaliasPizzaDB.DataAccessObjects;
 
 namespace ItaliasPizzaCliente
 {
@@ -65,11 +65,11 @@ namespace ItaliasPizzaCliente
         //TODO: encuentra un nombre mejor pq qpd
         private async Task<bool> ValidarCuenta(string usuario, string contrasenia)
         {
-            bool existeCuenta = await CuentaAccesoRepositorio.VerificarCuenta(usuario, contrasenia);
+            bool existeCuenta = await CuentaAccesoDAO.VerificarCuenta(usuario, contrasenia);
 
             if (!existeCuenta) return false;
 
-            Empleado empleado = await EmpleadoRepositorio.ObtenerEmpleadoPorCuentaAcceso(usuario);
+            Empleado empleado = await EmpleadoDAO.ObtenerEmpleadoPorCuentaAcceso(usuario);
 
             UsuarioSingleton.SetUsuario(empleado);
             return true;
