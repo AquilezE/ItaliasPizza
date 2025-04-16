@@ -1,6 +1,6 @@
-﻿using System;
+﻿using ItaliasPizzaCliente.UserControllers;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,25 +13,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ItaliasPizzaCliente.UserControllers;
-using ItaliasPizzaCliente.Utils;
-using ItaliasPizzaDB.DataAccessObjects;
-using ItaliasPizzaDB.Models;
-
 
 namespace ItaliasPizzaCliente.Paginas
 {
     /// <summary>
-    /// Interaction logic for MenuProveedores.xaml
+    /// Interaction logic for MenuPedido.xaml
     /// </summary>
-    public partial class MenuProveedores : Page
+    public partial class MenuPedido : Page
     {
-        public MenuProveedores()
+        public MenuPedido()
         {
             InitializeComponent();
             navFrame.Navigated += navFrame_Navigated;
             DataContext = Singletons.UsuarioSingleton.Instance;
         }
+
 
         private void selectionChanged(object sender, RoutedEventArgs e)
         {
@@ -47,7 +43,5 @@ namespace ItaliasPizzaCliente.Paginas
                 navFrame.RemoveBackEntry();
             }
         }
-
     }
-
 }

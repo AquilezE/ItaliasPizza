@@ -104,11 +104,26 @@
     <Compile Include="Paginas\MenuInventario.xaml.cs">
       <DependentUpon>MenuInventario.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Paginas\MenuMerma.xaml.cs">
+      <DependentUpon>MenuMerma.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuPedido.xaml.cs">
+      <DependentUpon>MenuPedido.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuPedidoPages\MenuAgregarPedido.xaml.cs">
+      <DependentUpon>MenuAgregarPedido.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuPedidoPages\MenuVerPedidos.xaml.cs">
+      <DependentUpon>MenuVerPedidos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Paginas\MenuProducto.xaml.cs">
       <DependentUpon>MenuProducto.xaml</DependentUpon>
     </Compile>
     <Compile Include="Paginas\MenuProveedores.xaml.cs">
       <DependentUpon>MenuProveedores.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuProveedoresPages\MenuVisualizarProveedores.xaml.cs">
+      <DependentUpon>MenuVisualizarProveedores.xaml</DependentUpon>
     </Compile>
     <Compile Include="Singletons\UsuarioSingleton.cs" />
     <Compile Include="UserControllers\NavButton.cs" />
@@ -143,11 +158,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Paginas\MenuMerma.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuPedido.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuPedidoPages\MenuAgregarPedido.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuPedidoPages\MenuVerPedidos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Paginas\MenuProducto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Paginas\MenuProveedores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuProveedoresPages\MenuVisualizarProveedores.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
