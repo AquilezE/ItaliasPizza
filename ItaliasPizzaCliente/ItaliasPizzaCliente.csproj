@@ -104,6 +104,18 @@
     <Compile Include="Paginas\MenuInventario.xaml.cs">
       <DependentUpon>MenuInventario.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Paginas\MenuInventarioPages\MenuModificarInsumo.xaml.cs">
+      <DependentUpon>MenuModificarInsumo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuInventarioPages\MenuRegistrarInsumo.xaml.cs">
+      <DependentUpon>MenuRegistrarInsumo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuInventarioPages\MenuRegistrarPedidoAProveedor.xaml.cs">
+      <DependentUpon>MenuRegistrarPedidoAProveedor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuInventarioPages\MenuVisualizarInventario.xaml.cs">
+      <DependentUpon>MenuVisualizarInventario.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Paginas\MenuMerma.xaml.cs">
       <DependentUpon>MenuMerma.xaml</DependentUpon>
     </Compile>
@@ -155,6 +167,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Paginas\MenuInventario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuInventarioPages\MenuModificarInsumo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuInventarioPages\MenuRegistrarInsumo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuInventarioPages\MenuRegistrarPedidoAProveedor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuInventarioPages\MenuVisualizarInventario.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
