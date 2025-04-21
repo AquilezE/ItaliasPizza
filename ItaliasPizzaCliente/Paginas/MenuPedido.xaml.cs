@@ -17,16 +17,17 @@ using System.Windows.Shapes;
 namespace ItaliasPizzaCliente.Paginas
 {
     /// <summary>
-    /// Interaction logic for MenuInventario.xaml
+    /// Interaction logic for MenuPedido.xaml
     /// </summary>
-    public partial class MenuInventario : Page
+    public partial class MenuPedido : Page
     {
-        public MenuInventario()
+        public MenuPedido()
         {
             InitializeComponent();
             navFrame.Navigated += navFrame_Navigated;
             DataContext = Singletons.UsuarioSingleton.Instance;
         }
+
 
         private void selectionChanged(object sender, RoutedEventArgs e)
         {

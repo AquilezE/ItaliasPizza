@@ -154,6 +154,43 @@ namespace DatabaseTests.Inicializador
             };
             context.Empleados.Add(empleadoMeseroTest);
 
+            //CuentasAcceso
+            var cuentaAccesoGerente = new CuentaAcceso
+            {
+                IdEmpleado = empleadoGerenteTest.IdEmpleado,
+                NombreUsuario = empleadoGerenteTest.Nombre,
+                Contraseña = "kekistan"
+            };
+            context.CuentasAcceso.Add(cuentaAccesoGerente);
+
+            var cuentaAccesoCajero = new CuentaAcceso
+            {
+                IdEmpleado = empleadoCajeroTest.IdEmpleado,
+                NombreUsuario = empleadoCajeroTest.Nombre,
+                Contraseña = "kekistan"
+            };
+            context.CuentasAcceso.Add(cuentaAccesoCajero);
+            var cuentaAccesoCocinero = new CuentaAcceso
+            {
+                IdEmpleado = empleadoCocineroTest.IdEmpleado,
+                NombreUsuario = empleadoCocineroTest.Nombre,
+                Contraseña = "kekistan"
+            };
+            context.CuentasAcceso.Add(cuentaAccesoCocinero);
+            var cuentaAccesoRepartidor = new CuentaAcceso
+            {
+                IdEmpleado = empleadoRepartidorTest.IdEmpleado,
+                NombreUsuario = empleadoRepartidorTest.Nombre,
+                Contraseña = "kekistan"
+            };
+            context.CuentasAcceso.Add(cuentaAccesoRepartidor);
+            var cuentaAccesoMesero = new CuentaAcceso
+            {
+                IdEmpleado = empleadoMeseroTest.IdEmpleado,
+                NombreUsuario = empleadoMeseroTest.Nombre,
+                Contraseña = "kekistan"
+            };
+            context.CuentasAcceso.Add(cuentaAccesoMesero);
 
             //Unidades de Medida
             var unidadDeMedidaKg = new UnidadDeMedida
@@ -200,6 +237,7 @@ namespace DatabaseTests.Inicializador
                 IdCategoriaInsumo = 3,
                 CategoriaInsumoNombre = "Vegetales"
             };
+            context.CategoriasInsumo.Add(categoriaInsumoVegetales);
 
             context.SaveChanges();
             base.Seed(context);
