@@ -2,14 +2,54 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+       xmlns:userControllers="clr-namespace:ItaliasPizzaCliente.UserControllers"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ItaliasPizzaCliente.Paginas"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="1400"
       Title="MenuProducto">
 
     <Grid>
-        <Label Content="MenuProducto"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <StackPanel Grid.Row="0" HorizontalAlignment="Stretch" Background="White" >
+            <ListBox
+             Padding="5"
+             HorizontalAlignment="Center"
+             SelectionMode="Single" 
+             SelectionChanged="selectionChanged" x:Name="upperBar" Margin="0,20,0,30"  BorderThickness="0">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <userControllers:NavButton Style="{StaticResource {x:Type userControllers:NavButton}}"
+                                        Text="Visualizar Producto" 
+                                        Margin="10 0 10 0" Padding="30"
+                                        Navlink="/Paginas/MenuProductoPages/MenuVisualizarProveedores.xaml"  
+                                        Icon="M19 22H5a3 3 0 0 1-3-3V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v12h4v4a3 3 0 0 1-3 3zm-1-5v2a1 1 0 0 0 2 0v-2h-2zm-2 3V4H4v15a1 1 0 0 0 1 1h11zM6 7h8v2H6V7zm0 4h8v2H6v-2zm0 4h5v2H6v-2z"/>
+                <userControllers:NavButton Style="{StaticResource {x:Type userControllers:NavButton}}"
+                                        Text="Modificar Receta" 
+                                        Margin="10 0 10 0" Padding="30"
+                                        Navlink="/Paginas/MenuProductoPages/MenuRegistrarNuevoPedido.xaml"  
+                                        Icon="M19 22H5a3 3 0 0 1-3-3V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v12h4v4a3 3 0 0 1-3 3zm-1-5v2a1 1 0 0 0 2 0v-2h-2zm-2 3V4H4v15a1 1 0 0 0 1 1h11zM6 7h8v2H6V7zm0 4h8v2H6v-2zm0 4h5v2H6v-2z"/>
+                <userControllers:NavButton Style="{StaticResource {x:Type userControllers:NavButton}}"
+                                        Text="Registrar Producto" 
+                                        Margin="10 0 10 0" Padding="30"
+                                        Navlink="/Paginas/MenuProductoPages/MenuRegistrarProducto.xaml"  
+                                        Icon="M19 22H5a3 3 0 0 1-3-3V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v12h4v4a3 3 0 0 1-3 3zm-1-5v2a1 1 0 0 0 2 0v-2h-2zm-2 3V4H4v15a1 1 0 0 0 1 1h11zM6 7h8v2H6V7zm0 4h8v2H6v-2zm0 4h5v2H6v-2z"/>
+                <userControllers:NavButton Style="{StaticResource {x:Type userControllers:NavButton}}"
+                                        Text="Modificar Producto" 
+                                        Navlink="/Paginas/MenuProductoPages/MenuModificarProveedores.xaml" 
+                                        Margin="3" Padding="6" 
+                                        Icon="M41.267,18.557H26.832V4.134C26.832,1.851,24.99,0,22.707,0c-2.283,0-4.124,1.851-4.124,4.135v14.432H4.141   c-2.283,0-4.139,1.851-4.138,4.135c-0.001,1.141,0.46,2.187,1.207,2.934c0.748,0.749,1.78,1.222,2.92,1.222h14.453V41.27   c0,1.142,0.453,2.176,1.201,2.922c0.748,0.748,1.777,1.211,2.919,1.211c2.282,0,4.129-1.851,4.129-4.133V26.857h14.435   c2.283,0,4.134-1.867,4.133-4.15C45.399,20.425,43.548,18.557,41.267,18.557z"/>
+            </ListBox>
+        </StackPanel>
+
+        <Frame x:Name="navFrame" Grid.Row="1" NavigationUIVisibility="Hidden" 
+            Navigated="navFrame_Navigated"/>
     </Grid>
 </Page>

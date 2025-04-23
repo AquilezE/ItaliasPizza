@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItaliasPizzaCliente.UserControllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,23 @@ namespace ItaliasPizzaCliente.Paginas
         public MenuProducto()
         {
             InitializeComponent();
+            navFrame.Navigated += navFrame_Navigated;
+            DataContext = Singletons.UsuarioSingleton.Instance;
+        }
+
+        private void selectionChanged(object sender, RoutedEventArgs e)
+        {
+            var selected = upperBar.SelectedItem as NavButton;
+
+            navFrame.Navigate(selected.Navlink);
+        }
+
+        private void navFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            if (navFrame.CanGoBack)
+            {
+                navFrame.RemoveBackEntry();
+            }
         }
     }
 }
