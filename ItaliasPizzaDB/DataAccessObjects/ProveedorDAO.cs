@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ItaliasPizzaDB.Models;
 
@@ -76,5 +77,50 @@ namespace ItaliasPizzaDB.DataAccessObjects
             }
         }
 
+        public static bool AgregarInsumoAProveedor(ProveedorInsumo proveedorInsumo)
+        {
+            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            {
+
+                context.ProveedoresInsumos.Add(proveedorInsumo);
+                return context.SaveChanges() > 0;
+
+            }
+        }
+
+        public static int ValidarProveedorPorNombre(String nombreProveedor)
+        {
+            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            {
+                return context.Proveedores
+                    .Any(p => p.Nombre == nombreProveedor) ? 1 : 0;
+
+            }
+        }
+
+        public static int ValidarProveedorPorTelefono(String telefonoProveedor)
+        {
+            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            {
+                return context.Proveedores
+                    .Any(p => p.Telefono == telefonoProveedor) ? 1 : 0;
+
+            }
+        }
+
+        public static bool EliminarInsumoDeProveedor(ProveedorInsumo proveedorInsumo)
+        {
+            using (var context = new ItaliasPizzaDbContext())
+            {
+                var proveedorInsumoDb = context.ProveedoresInsumos
+                    .FirstOrDefault(pi => pi.IdProveedor == proveedorInsumo.IdProveedor && pi.IdInsumo == proveedorInsumo.IdInsumo);
+
+                if (proveedorInsumoDb == null)
+                    return false;
+
+                context.ProveedoresInsumos.Remove(proveedorInsumoDb);
+                return context.SaveChanges() > 0;
+            }
+        }
     }
 }

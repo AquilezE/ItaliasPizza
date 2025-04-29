@@ -38,5 +38,103 @@ namespace ItaliasPizzaDB.DataAccessObjects
                 return query.ToList();
             }
         }
+
+        public static bool CrearInsumo(Insumo insumo)
+        {
+            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            {
+
+                context.Insumos.Add(insumo);
+                return context.SaveChanges() > 0;
+
+            }
+        }
+
+        public static bool ActualizarInsumo(Insumo insumo)
+        {
+            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            {
+
+                Insumo insumoActual = context.Insumos.FirstOrDefault(p => p.IdInsumo == insumo.IdInsumo);
+                if (insumoActual == null)
+                {
+                    return false;
+                }
+
+                insumoActual.Nombre = insumo.Nombre;
+                insumoActual.Status = insumo.Status;
+                insumoActual.IdCategoriaInsumo = insumo.IdCategoriaInsumo;
+
+                return context.SaveChanges() > 0;
+            }
+        }
+
+        public static int ValidarInsumoPorNombreActivo(String nombreInsumo)
+        {
+            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            {
+                return context.Insumos
+             .Any(p => p.Nombre == nombreInsumo && p.Status == true) ? 1 : 0;
+            }
+        }
+
+        public static int ValidarInsumoPorNombreDesactivado(String nombreInsumo)
+        {
+            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            {
+                return context.Insumos
+                    .Any(p => p.Nombre == nombreInsumo && p.Status == false) ? 1 : 0;
+
+            }
+        }
+
+        public static int ValidarInsumoNoRegistradoEnReceta(Insumo insumo)
+        {
+            int registrado = 0;
+
+            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            {
+                bool insumoRegistrado = context.InsumosParaReceta
+                    .Any(p => p.IdInsumo == insumo.IdInsumo);
+
+                registrado = insumoRegistrado ? 1 : 0;
+            }
+            return registrado;
+        }
+
+        public static bool EliminarInsumo(Insumo insumo)
+        {
+            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            {
+
+                Insumo insumoActual = context.Insumos.FirstOrDefault(p => p.IdInsumo == insumo.IdInsumo);
+                if (insumoActual == null)
+                {
+                    return false;
+                }
+                insumoActual.Status = false;
+
+                return context.SaveChanges() > 0;
+            }
+        }
+
+        public static bool ActivarInsumo(string nombreInsumo)
+        {
+            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            {
+
+                var insumoActual = context.Insumos
+                    .FirstOrDefault(p => p.Nombre == nombreInsumo && p.Status == false);
+
+                if (insumoActual == null)
+                {
+                    return false;
+                }
+
+                insumoActual.Status = true;
+
+                return context.SaveChanges() > 0;
+            }
+        }
     }
 }
