@@ -1,4 +1,5 @@
-﻿using ItaliasPizzaCliente.UserControllers;
+﻿using ItaliasPizzaCliente.Paginas.MenuInventarioPages;
+using ItaliasPizzaCliente.UserControllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,12 @@ namespace ItaliasPizzaCliente.Paginas
             DataContext = Singletons.UsuarioSingleton.Instance;
         }
 
+        private void Child_InventarioDoubleClicked(object sender, InsumoDoubleClickedEventArgs e)
+        {
+            //Aqui namas cambiale la clase a la que navega por lo de modicar o ver insumo como sea
+            navFrame.Navigate(new EJEMPLOPARAMADREDEEVENTO(e.SelectedInsumo));
+        }
+
         private void selectionChanged(object sender, RoutedEventArgs e)
         {
             var selected = upperBar.SelectedItem as NavButton;
@@ -40,6 +47,11 @@ namespace ItaliasPizzaCliente.Paginas
             if (navFrame.CanGoBack)
             {
                 navFrame.RemoveBackEntry();
+            }
+
+            if (e.Content is MenuVisualizarInventario child)
+            {
+                child.InsumoDoubleClicked += Child_InventarioDoubleClicked;
             }
         }
     }

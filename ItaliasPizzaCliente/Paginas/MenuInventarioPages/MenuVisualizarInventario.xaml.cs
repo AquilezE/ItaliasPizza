@@ -1,4 +1,5 @@
-﻿using ItaliasPizzaDB.DataAccessObjects;
+﻿using ItaliasPizzaCliente.Paginas.MenuProveedoresPages;
+using ItaliasPizzaDB.DataAccessObjects;
 using ItaliasPizzaDB.Models;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,21 @@ namespace ItaliasPizzaCliente.Paginas.MenuInventarioPages
     /// </summary>
     public partial class MenuVisualizarInventario : Page
     {
+
+        public static readonly RoutedEvent InsumoDoubleClickedEvent =
+            EventManager.RegisterRoutedEvent(
+                nameof(InsumoDoubleClicked),
+                RoutingStrategy.Bubble,
+                typeof(EventHandler<InsumoDoubleClickedEventArgs>),
+                typeof(MenuVisualizarInventario)
+            );
+
+        public event EventHandler<InsumoDoubleClickedEventArgs> InsumoDoubleClicked
+        {
+            add => AddHandler(InsumoDoubleClickedEvent, value);
+            remove => RemoveHandler(InsumoDoubleClickedEvent, value);
+        }
+
 
         public ObservableCollection<Insumo> Insumos { get; set; }
         public ObservableCollection<CategoriaInsumo> Categorias { get; set; }
@@ -124,7 +140,21 @@ namespace ItaliasPizzaCliente.Paginas.MenuInventarioPages
             }
         }
 
+        private void OnInsumoRowDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var insumo = (Insumo)((DataGridRow)sender).Item;
+            var args = new InsumoDoubleClickedEventArgs(InsumoDoubleClickedEvent, insumo);
+            RaiseEvent(args);
+        }
+    }
 
-
+    public class InsumoDoubleClickedEventArgs : RoutedEventArgs
+    {
+        public Insumo SelectedInsumo { get; }
+        public InsumoDoubleClickedEventArgs(RoutedEvent routedEvent, Insumo p)
+            : base(routedEvent)
+        {
+            SelectedInsumo = p;
+        }
     }
 }

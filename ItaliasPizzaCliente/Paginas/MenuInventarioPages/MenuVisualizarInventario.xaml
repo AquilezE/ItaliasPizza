@@ -64,7 +64,7 @@
                             Style="{StaticResource MaterialDesignSwitchToggleButton}"
                             ToolTip="MaterialDesignSwitchToggleButton with Custom Track Background">
                             <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
-                                <StaticResource ResourceKey="PrimaryHueDarkBrush" />
+                                <StaticResource ResourceKey="ColorMoradoNeutro" />
                             </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
                             <materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
                                 <StaticResource ResourceKey="PrimaryHueDarkForegroundBrush" />
@@ -82,7 +82,7 @@
 
 
 
-                <Button x:Name="btBuscar" Content="Buscar" Margin="0 0 30 0" Click="Buscar_Click"/>
+                <Button x:Name="btBuscar" Content="Buscar" Margin="0 0 30 0" Click="Buscar_Click" Background="{StaticResource ColorBotonPositivo}" BorderBrush="{StaticResource ColorBotonPositivo}"/>
             </StackPanel>
         </Grid>
 
@@ -91,7 +91,16 @@
                    SelectionUnit="FullRow" SelectionMode="Single"
                   CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
 
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick"
+                                 Handler="OnInsumoRowDoubleClick"/>
+                </Style>
+            </DataGrid.RowStyle>
+
             <DataGrid.Columns>
+
+               
                 <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="200"/>
                 <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}" Width="*"/>
                 <DataGridTextColumn Header="Categoria" Binding="{Binding CategoriaInsumo.CategoriaInsumoNombre}" Width="120"/>
