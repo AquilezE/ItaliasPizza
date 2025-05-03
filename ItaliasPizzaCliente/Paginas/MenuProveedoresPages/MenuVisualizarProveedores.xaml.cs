@@ -25,6 +25,28 @@ namespace ItaliasPizzaCliente.Paginas.MenuProveedoresPages
     public partial class MenuVisualizarProveedores : Page
     {
 
+        public static readonly RoutedEvent ProveedorDoubleClickedEvent =
+            EventManager.RegisterRoutedEvent(
+                nameof(ProveedorDoubleClicked),
+                RoutingStrategy.Bubble,
+                typeof(EventHandler<ProveedorDoubleClickedEventArgs>),
+                typeof(MenuVisualizarProveedores)
+            );
+
+        public event EventHandler<ProveedorDoubleClickedEventArgs> ProveedorDoubleClicked
+        {
+            add => AddHandler(ProveedorDoubleClickedEvent, value);
+            remove => RemoveHandler(ProveedorDoubleClickedEvent, value);
+        }
+
+        private void OnProveedorRowDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var proveedor = (Proveedor)((DataGridRow)sender).Item;
+
+            var args = new ProveedorDoubleClickedEventArgs(ProveedorDoubleClickedEvent, proveedor);
+            RaiseEvent(args);
+        }
+
         public ObservableCollection<Proveedor> Proveedores { get; set; }
 
         public MenuVisualizarProveedores()
@@ -35,31 +57,6 @@ namespace ItaliasPizzaCliente.Paginas.MenuProveedoresPages
             CargarProveedores();
         }
 
-
-
-        private void AgregarProveedor_Click(object sender, RoutedEventArgs e)
-        {
-            var dialogoNotificacion = new DialogoNotificacion();
-            dialogoNotificacion.ShowWarningNotification("Agregar proveedor");
-        }
-
-        private void EditarProveedor_Click(object sender, RoutedEventArgs e)
-        {
-            if (dgProveedores.SelectedItem == null)
-            {
-                var dialogoNotificacion = new DialogoNotificacion();
-                dialogoNotificacion.ShowWarningNotification("No haz seleccionado nada");
-
-            }
-            else
-            {
-
-                var proveedor = (Proveedor)dgProveedores.SelectedItem;
-                var dialogoNotificacion = new DialogoNotificacion();
-                dialogoNotificacion.ShowInfoNotification($"Proveedor agarrado: {proveedor.Nombre}, {proveedor.IdProveedor}");
-                dgProveedores.SelectedItem = null;
-            }
-        }
 
         private void Buscar_Click(object sender, RoutedEventArgs e)
         {
@@ -101,6 +98,18 @@ namespace ItaliasPizzaCliente.Paginas.MenuProveedoresPages
                 Console.WriteLine(proveedor.Nombre);
                 Proveedores.Add(proveedor);
             }
+        }
+
+
+    }
+
+    public class ProveedorDoubleClickedEventArgs : RoutedEventArgs
+    {
+        public Proveedor SelectedProveedor { get; }
+        public ProveedorDoubleClickedEventArgs(RoutedEvent routedEvent, Proveedor p)
+            : base(routedEvent)
+        {
+            SelectedProveedor = p;
         }
     }
 }

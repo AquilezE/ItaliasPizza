@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ItaliasPizzaCliente.Paginas.MenuProveedoresPages;
 using ItaliasPizzaCliente.UserControllers;
 using ItaliasPizzaCliente.Utils;
 using ItaliasPizzaDB.DataAccessObjects;
@@ -40,11 +41,25 @@ namespace ItaliasPizzaCliente.Paginas
             navFrame.Navigate(selected.Navlink);
         }
 
+
+        private void Child_ProveedorDoubleClicked(object sender, ProveedorDoubleClickedEventArgs e)
+        {
+            navFrame.Navigate(new EJEMPLOPARANAVEGACIONLUEGOCAMBIENLO(e.SelectedProveedor));
+        }
+
+
+
         private void navFrame_Navigated(object sender, NavigationEventArgs e)
         {
             if (navFrame.CanGoBack)
             {
                 navFrame.RemoveBackEntry();
+            }
+
+
+            if (e.Content is MenuVisualizarProveedores child)
+            {
+                child.ProveedorDoubleClicked += Child_ProveedorDoubleClicked;
             }
         }
 

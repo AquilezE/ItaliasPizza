@@ -33,7 +33,7 @@
                 <TextBox x:Name="txtTelefono" Width="300" Margin="5 25 5 25" materialDesign:HintAssist.Hint="Teléfono" materialDesign:HintAssist.IsFloating="True"  materialDesign:HintAssist.HintOpacity=".3"
                          BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDarkSeparatorBackground}" 
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
-                <Button x:Name="btBuscar" Content="Buscar" Margin="0 0 30 0" Click="Buscar_Click"/>
+                <Button x:Name="btBuscar" Content="Buscar" Margin="0 0 30 0" Click="Buscar_Click" Background="{StaticResource ColorMoradoNeutro}" BorderBrush="{StaticResource ColorMoradoNeutro}"/>
             </StackPanel>
         </Grid>
 
@@ -41,6 +41,14 @@
                   Margin="10" HeadersVisibility="Column"
                    SelectionUnit="FullRow" SelectionMode="Single"
                   CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick"
+                                 Handler="OnProveedorRowDoubleClick"/>
+                </Style>
+            </DataGrid.RowStyle>
+
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding IdProveedor}" Width="50"/>
