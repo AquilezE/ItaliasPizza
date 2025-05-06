@@ -13,21 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ItaliasPizzaCliente.Paginas.MenuInventarioPages
+namespace ItaliasPizzaCliente.Paginas.MenuClientePages
 {
     /// <summary>
-    /// Interaction logic for MenuModificarInsumo.xaml
+    /// Lógica de interacción para MenuGestionarDireccionCliente.xaml
     /// </summary>
-    public partial class MenuModificarInsumo : Page
+    public partial class MenuGestionarDireccionCliente : Page
     {
-        public MenuModificarInsumo()
+        public MenuGestionarDireccionCliente()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
