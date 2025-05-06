@@ -1,0 +1,130 @@
+﻿<Page x:Class="ItaliasPizzaCliente.Paginas.MenuClientePages.MenuGestionarDireccionCliente"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ItaliasPizzaCliente.Paginas.MenuClientePages"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MenuGestionarDireccionCliente"
+      Background="GhostWhite">
+
+    <Page.Resources>
+        <!-- Estilo refinado de TextBox -->
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="0,3"/>
+            <Setter Property="Padding" Value="6,2"/>
+            <Setter Property="Foreground" Value="#333"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="MediumPurple"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="4">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="0"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Estilo de botones finos -->
+        <Style x:Key="BotonVerde" TargetType="Button">
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Background" Value="#2ecc71"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                            CornerRadius="4"
+                            Padding="6">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BotonRojo" TargetType="Button" BasedOn="{StaticResource BotonVerde}">
+            <Setter Property="Background" Value="#e74c3c"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Datos personales centrado -->
+            <GroupBox Header="Dirección" Grid.Row="0" Margin="209,5,209,10" Grid.RowSpan="3" Grid.ColumnSpan="3">
+                <StackPanel Margin="10">
+                    <TextBlock Text="Calle"/>
+                    <TextBox materialDesign:HintAssist.Hint="Villa Real"/>
+
+                    <TextBlock Text="Colonia" Margin="0,10,0,0"/>
+                    <TextBox materialDesign:HintAssist.Hint="La Palma"/>
+
+                    <UniformGrid Columns="2" Margin="0,10,0,0">
+                        <StackPanel Margin="0,0,5,0">
+                            <TextBlock Text="Número"/>
+                            <TextBox materialDesign:HintAssist.Hint="143"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="5,0,0,0">
+                            <TextBlock Text="Código postal"/>
+                            <TextBox materialDesign:HintAssist.Hint="91827"/>
+                        </StackPanel>
+                    </UniformGrid>
+
+                    <TextBlock Text="Referencia" Margin="0,10,0,0"/>
+                    <TextBox materialDesign:HintAssist.Hint="En la nieve" TextChanged="TextBox_TextChanged"/>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+
+        <!-- Botones debajo, centrados -->
+        <Grid Grid.Row="1" Margin="10,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Registrar"
+        Style="{StaticResource BotonVerde}"
+        HorizontalAlignment="Left"
+        Grid.Column="0"/>
+
+            <Button Content="Cancelar"
+        Style="{StaticResource BotonRojo}"
+        HorizontalAlignment="Right"
+        Grid.Column="1"/>
+        </Grid>
+
+    </Grid>
+</Page>

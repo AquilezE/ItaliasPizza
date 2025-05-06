@@ -244,5 +244,268 @@ namespace DatabaseTests
 
             }
         }
+
+        [Fact]
+        public void CrearProveedor_CrearProveedorCorrectamente()
+        {
+            using (var scope = new TransactionScope())
+            {
+                Proveedor nuevoProveedor = new Proveedor
+                {
+                    Nombre = "ProveedorTest",
+                    Telefono = "1234567890",
+                    Direccion = "Calle Ficticia 123"
+                };
+
+                bool resultado = ProveedorDAO.CrearProveedor(nuevoProveedor);
+
+                Assert.True(resultado);
+
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    var proveedorGuardado = context.Proveedores
+                        .FirstOrDefault(p => p.Nombre == "ProveedorTest" && p.Telefono == "1234567890");
+
+                    Assert.NotNull(proveedorGuardado);
+                    Assert.Equal("ProveedorTest", proveedorGuardado.Nombre);
+                    Assert.Equal("1234567890", proveedorGuardado.Telefono);
+                    Assert.Equal("Calle Ficticia 123", proveedorGuardado.Direccion);
+                }
+            }
+        }
+
+        [Fact]
+        public void AgregarInsumoAProveedor_AgregarInsumoAProveedor()
+        {
+            using (var scope = new TransactionScope())
+            {
+                int idProveedor;
+                int idInsumo;
+
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    var proveedor = new Proveedor
+                    {
+                        Nombre = "ProveedorTest",
+                        Telefono = "5551234567",
+                        Direccion = "Calle X"
+                    };
+
+                    var insumo = new Insumo
+                    {
+                        Nombre = "InsumoTest",
+                        IdCategoriaInsumo = 1,
+                        IdUnidadDeMedida = 1,
+                        Status = true
+                    };
+
+                    context.Proveedores.Add(proveedor);
+                    context.Insumos.Add(insumo);
+                    context.SaveChanges();
+
+                    idProveedor = proveedor.IdProveedor;
+                    idInsumo = insumo.IdInsumo;
+                }
+
+                var proveedorInsumo = new ProveedorInsumo
+                {
+                    IdProveedor = idProveedor,
+                    IdInsumo = idInsumo
+                };
+
+                bool resultado = ProveedorDAO.AgregarInsumoAProveedor(proveedorInsumo);
+
+                Assert.True(resultado);
+
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    var relacion = context.ProveedoresInsumos
+                        .FirstOrDefault(pi => pi.IdProveedor == idProveedor && pi.IdInsumo == idInsumo);
+
+                    Assert.NotNull(relacion);
+                }
+            }
+        }
+
+        [Fact]
+        public void ValidarProveedorPorNombre_RetornarUnoSiExiste()
+        {
+            using (var scope = new TransactionScope())
+            {
+                string nombreProveedor = "ProveedorPrueba";
+
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    var proveedor = new Proveedor
+                    {
+                        Nombre = nombreProveedor,
+                        Telefono = "1234567890",
+                        Direccion = "Dirección de prueba"
+                    };
+
+                    context.Proveedores.Add(proveedor);
+                    context.SaveChanges();
+                }
+
+                int resultado = ProveedorDAO.ValidarProveedorPorNombre(nombreProveedor);
+
+                Assert.Equal(1, resultado);
+            }
+        }
+
+        [Fact]
+        public void ValidarProveedorPorNombre_RetornarCeroSiNoExiste()
+        {
+            using (var scope = new TransactionScope())
+            {
+                string nombreProveedor = "ProveedorInexistente";
+
+                int resultado = ProveedorDAO.ValidarProveedorPorNombre(nombreProveedor);
+
+                Assert.Equal(0, resultado);
+            }
+        }
+
+        [Fact]
+        public void ValidarProveedorPorTelefono_RetornarUnoSiExiste()
+        {
+            using (var scope = new TransactionScope())
+            {
+                string numeroProveedor = "1234567890";
+
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    var proveedor = new Proveedor
+                    {
+                        Nombre = "Nestle",
+                        Telefono = numeroProveedor,
+                        Direccion = "Dirección de prueba"
+                    };
+
+                    context.Proveedores.Add(proveedor);
+                    context.SaveChanges();
+                }
+
+                int resultado = ProveedorDAO.ValidarProveedorPorTelefono(numeroProveedor);
+
+                Assert.Equal(1, resultado);
+            }
+        }
+
+        [Fact]
+        public void ValidarProveedorPorTelefono_RetornarCeroSiNoExiste()
+        {
+            using (var scope = new TransactionScope())
+            {
+                string numeroProveedor = "1234567890";
+
+                int resultado = ProveedorDAO.ValidarProveedorPorTelefono(numeroProveedor);
+
+                Assert.Equal(0, resultado);
+            }
+        }
+
+        [Fact]
+        public void ActualizarProveedor_ActualizarDatosCorrectamente()
+        {
+            using (var scope = new TransactionScope())
+            {
+                int idProveedor;
+
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    var proveedor = new Proveedor
+                    {
+                        Nombre = "ProveedorOriginal",
+                        Telefono = "1234567890",
+                        Direccion = "Dirección Original"
+                    };
+
+                    context.Proveedores.Add(proveedor);
+                    context.SaveChanges();
+                    idProveedor = proveedor.IdProveedor;
+                }
+
+                var proveedorActualizado = new Proveedor
+                {
+                    IdProveedor = idProveedor,
+                    Nombre = "ProveedorActualizado",
+                    Telefono = "0987654321",
+                    Direccion = "Nueva Dirección"
+                };
+
+                bool resultado = ProveedorDAO.ActualizarProveedor(proveedorActualizado);
+
+                Assert.True(resultado);
+
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    var proveedorDb = context.Proveedores.FirstOrDefault(p => p.IdProveedor == idProveedor);
+
+                    Assert.NotNull(proveedorDb);
+                    Assert.Equal("ProveedorActualizado", proveedorDb.Nombre);
+                    Assert.Equal("0987654321", proveedorDb.Telefono);
+                    Assert.Equal("Nueva Dirección", proveedorDb.Direccion);
+                }
+            }
+        }
+
+        [Fact]
+        public void EliminarInsumoDeProveedor_DeberiaEliminarCorrectamente()
+        {
+            using (var scope = new TransactionScope())
+            {
+                int idProveedor;
+                int idInsumo;
+
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    var proveedor = new Proveedor
+                    {
+                        Nombre = "ProveedorTest",
+                        Telefono = "123456789",
+                        Direccion = "Dirección Test"
+                    };
+                    context.Proveedores.Add(proveedor);
+
+                    var insumo = new Insumo
+                    {
+                        Nombre = "InsumoTest",
+                        IdCategoriaInsumo = 1,
+                        IdUnidadDeMedida = 1,
+                        Status = true
+                    };
+                    context.Insumos.Add(insumo);
+
+                    context.SaveChanges();
+
+                    idProveedor = proveedor.IdProveedor;
+                    idInsumo = insumo.IdInsumo;
+
+                    var proveedorInsumo = new ProveedorInsumo
+                    {
+                        IdProveedor = idProveedor,
+                        IdInsumo = idInsumo
+                    };
+                    context.ProveedoresInsumos.Add(proveedorInsumo);
+                    context.SaveChanges();
+
+                }
+
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    var proveedorInsumoDb = context.ProveedoresInsumos.FirstOrDefault(pi => pi.IdInsumo == idInsumo && pi.IdProveedor == idProveedor);
+                    Assert.NotNull(proveedorInsumoDb);
+
+                    bool resultado = ProveedorDAO.EliminarInsumoDeProveedor(proveedorInsumoDb);
+
+                    Assert.True(resultado);
+
+                    var eliminado = context.ProveedoresInsumos.FirstOrDefault(pi => pi.IdInsumo == idInsumo && pi.IdProveedor == idProveedor);
+                    Assert.Null(eliminado);
+                }
+            }
+        }
+
     }
 }

@@ -13,19 +13,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ItaliasPizzaCliente.Paginas.MenuInventarioPages
+namespace ItaliasPizzaCliente.Paginas.MenuClientePages
 {
     /// <summary>
-    /// Interaction logic for MenuModificarInsumo.xaml
+    /// Lógica de interacción para MenuRegistrarClientes.xaml
     /// </summary>
-    public partial class MenuModificarInsumo : Page
+    public partial class MenuRegistrarClientes : Page
     {
-        public MenuModificarInsumo()
+        public MenuRegistrarClientes()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
