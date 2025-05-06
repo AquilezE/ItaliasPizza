@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItaliasPizzaDB.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,18 +17,20 @@ using System.Windows.Shapes;
 namespace ItaliasPizzaCliente.Paginas.MenuInventarioPages
 {
     /// <summary>
-    /// Interaction logic for MenuModificarInsumo.xaml
+    /// Interaction logic for EJEMPLOPARAMADREDEEVENTO.xaml
     /// </summary>
-    public partial class MenuModificarInsumo : Page
+    public partial class EJEMPLOPARAMADREDEEVENTO : Page
     {
-        public MenuModificarInsumo()
+
+        public Insumo Insumo { get; set; } = new Insumo();
+
+        public EJEMPLOPARAMADREDEEVENTO(object insumo)
         {
             InitializeComponent();
+            Insumo = (Insumo)insumo;
+            DataContext = this;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
     }
 }
