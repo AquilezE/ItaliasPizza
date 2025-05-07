@@ -14,8 +14,8 @@ namespace ItaliasPizzaDB.Models
         public int IdInsumo { get; set; }
         public string Nombre { get; set; }
         public bool Status {get; set; }
-
-        //TODO: Falta ponerle cantidad 
+        public float Cantidad { get; set; }
+       
 
 
         public int IdCategoriaInsumo { get; set; }

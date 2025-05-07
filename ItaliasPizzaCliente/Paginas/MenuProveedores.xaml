@@ -7,7 +7,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:userControllers="clr-namespace:ItaliasPizzaCliente.UserControllers"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="1300"
       Title="MenuProveedores">
 
     <Grid>

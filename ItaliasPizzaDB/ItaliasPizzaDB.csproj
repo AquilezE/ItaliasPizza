@@ -55,11 +55,16 @@
     <Compile Include="DataAccessObjects\ClienteDAO.cs" />
     <Compile Include="DataAccessObjects\InsumoDAO.cs" />
     <Compile Include="DataAccessObjects\PedidoDAO.cs" />
+    <Compile Include="DataAccessObjects\SalidaDAO.cs" />
     <Compile Include="DataAccessObjects\UnidadDeMedidaDAO.cs" />
     <Compile Include="ItaliasPizzaDbContext.cs" />
     <Compile Include="Migrations\202504142359135_InitialCreate.cs" />
     <Compile Include="Migrations\202504142359135_InitialCreate.Designer.cs">
       <DependentUpon>202504142359135_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505012027228_aniadiCantidadAInsumo.cs" />
+    <Compile Include="Migrations\202505012027228_aniadiCantidadAInsumo.Designer.cs">
+      <DependentUpon>202505012027228_aniadiCantidadAInsumo.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cargo.cs" />
@@ -100,6 +105,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202504142359135_InitialCreate.resx">
       <DependentUpon>202504142359135_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505012027228_aniadiCantidadAInsumo.resx">
+      <DependentUpon>202505012027228_aniadiCantidadAInsumo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
