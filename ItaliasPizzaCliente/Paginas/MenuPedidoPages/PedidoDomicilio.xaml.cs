@@ -24,5 +24,15 @@ namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages
         {
             InitializeComponent();
         }
+
+        private void Seleccionar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Cancelar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

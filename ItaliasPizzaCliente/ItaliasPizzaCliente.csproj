@@ -98,7 +98,7 @@
     <Compile Include="Paginas\MenuEmpleados.xaml.cs">
       <DependentUpon>MenuEmpleados.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Paginas\MenuEmpleadosPäges\RegistroEmpleado.xaml.cs">
+    <Compile Include="Paginas\MenuEmpleadosPages\RegistroEmpleado.xaml.cs">
       <DependentUpon>RegistroEmpleado.xaml</DependentUpon>
     </Compile>
     <Compile Include="Paginas\MenuFinanzas.xaml.cs">
@@ -192,7 +192,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Paginas\MenuEmpleadosPäges\RegistroEmpleado.xaml">
+    <Page Include="Paginas\MenuEmpleadosPages\RegistroEmpleado.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
