@@ -137,24 +137,5 @@ namespace ItaliasPizzaCliente.Utils
             }
         }
 
-        private bool EsNombreInsumoValido(string nombre)
-        {
-            if (string.IsNullOrWhiteSpace(nombre))
-            {
-                return false;
-            }
-
-            foreach (char c in nombre)
-            {
-                if (!char.IsLetterOrDigit(c) && c != ' ' && c != '-' && c != '\'' && c != 'á' && c != 'é' && c != 'í' && c != 'ó' && c != 'ú' && c != 'Á' && c != 'É' && c != 'Í' && c != 'Ó' && c != 'Ú')
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-
     }
 }
