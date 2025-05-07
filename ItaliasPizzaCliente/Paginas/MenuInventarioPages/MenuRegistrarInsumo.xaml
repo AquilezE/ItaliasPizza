@@ -39,14 +39,14 @@
             <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,10,10">
                 <TextBlock Text="Nombre" Margin="0,0,0,5"/>
                 <Border BorderBrush="DarkOrchid" BorderThickness="1" CornerRadius="4">
-                    <TextBox Height="30" materialDesign:HintAssist.Hint="Tomate" Padding="4"/>
+                    <TextBox Height="30" materialDesign:HintAssist.Hint="Tomate" Padding="4" x:Name="txtNombre"/>
                 </Border>
             </StackPanel>
 
             <StackPanel Grid.Row="0" Grid.Column="1" Margin="10,0,0,10">
                 <TextBlock Text="Categoría" Margin="0,0,0,5"/>
                 <Border BorderBrush="YellowGreen" BorderThickness="1" CornerRadius="4" Background="MediumPurple">
-                    <ComboBox Height="30" SelectedIndex="0" Padding="4" Foreground="White" Background="MediumPurple">
+                    <ComboBox Height="30" SelectedIndex="0" Padding="4" Foreground="White" Background="MediumPurple" x:Name="comboBoxCategoria">
                         <ComboBox.Resources>
                             <!-- Estilo para todos los ComboBoxItem -->
                             <Style TargetType="ComboBoxItem">
@@ -78,7 +78,7 @@
             <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,10,10">
                 <TextBlock Text="Unidad" Margin="0,0,0,5"/>
                 <Border BorderBrush="YellowGreen" BorderThickness="1" CornerRadius="4" Background="MediumPurple">
-                    <ComboBox Height="30" SelectedIndex="0" Foreground="White" Background="MediumPurple">
+                    <ComboBox Height="30" SelectedIndex="0" Foreground="White" Background="MediumPurple" x:Name="comboBoxUnidadDeMedida">
                         <ComboBox.Resources>
                             <!-- Estilo para todos los ComboBoxItem -->
                             <Style TargetType="ComboBoxItem">
@@ -112,7 +112,7 @@
                 <StackPanel Orientation="Horizontal">
                     <Border CornerRadius="2" BorderBrush="DarkOrchid" BorderThickness="1" Padding="0">
                         <TextBox Width="50" Height="30" materialDesign:HintAssist.Hint="30" 
-             BorderThickness="0" Padding="4" Background="White" TextChanged="TextBox_TextChanged"/>
+             BorderThickness="0" Padding="4" Background="White" x:Name="txtCantidadInicial"/>
                     </Border>
                     <TextBlock Text=" kilogramos" VerticalAlignment="Center" Margin="5,0,0,0"/>
                 </StackPanel>
@@ -121,7 +121,7 @@
                 <StackPanel Orientation="Horizontal">
                     <Border CornerRadius="2" BorderBrush="DarkOrchid" BorderThickness="1" Padding="0">
                         <TextBox Width="50" Height="30" materialDesign:HintAssist.Hint="35"
-                 BorderThickness="0" Margin="0" Padding="4"/>
+                 BorderThickness="0" Margin="0" Padding="4" x:Name="txtPrecioUnitario"/>
                     </Border>
                     <TextBlock Text=" pesos" VerticalAlignment="Center" Margin="5,0,0,0"/>
                 </StackPanel>

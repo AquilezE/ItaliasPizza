@@ -47,6 +47,12 @@ namespace ItaliasPizzaDB.DataAccessObjects
                 }
             }
         }
-
+        public static List<UnidadDeMedida> ObtenerUnidadesDeMedidas()
+        {
+            using (var context = new ItaliasPizzaDbContext())
+            {
+                return context.UnidadesDeMedida.ToList();
+            }
+        }
     }
 }
