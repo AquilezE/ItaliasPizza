@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ItaliasPizzaCliente.Paginas.MenuEmpleadosPäges
+namespace ItaliasPizzaCliente.Paginas.MenuEmpleadosPages
 {
     /// <summary>
     /// Lógica de interacción para RegistroEmpleado.xaml
@@ -23,6 +23,16 @@ namespace ItaliasPizzaCliente.Paginas.MenuEmpleadosPäges
         public RegistroEmpleado()
         {
             InitializeComponent();
+        }
+
+        private void Guardar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Regresar_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
