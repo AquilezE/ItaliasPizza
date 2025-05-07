@@ -55,6 +55,7 @@
     <Compile Include="DataAccessObjects\ClienteDAO.cs" />
     <Compile Include="DataAccessObjects\InsumoDAO.cs" />
     <Compile Include="DataAccessObjects\PedidoDAO.cs" />
+    <Compile Include="DataAccessObjects\SalidaDAO.cs" />
     <Compile Include="DataAccessObjects\UnidadDeMedidaDAO.cs" />
     <Compile Include="ItaliasPizzaDbContext.cs" />
     <Compile Include="Migrations\202504142359135_InitialCreate.cs" />

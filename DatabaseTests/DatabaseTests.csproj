@@ -89,6 +89,7 @@
     <Compile Include="ClienteDAOTests.cs" />
     <Compile Include="DatabaseCollection.cs" />
     <Compile Include="DataBaseFixture.cs" />
+    <Compile Include="EmpleadoDAOTests.cs" />
     <Compile Include="Inicializador\InitializadorTestDb.cs" />
     <Compile Include="InsumoDAOTests.cs" />
     <Compile Include="PedidoDAOTests.cs" />

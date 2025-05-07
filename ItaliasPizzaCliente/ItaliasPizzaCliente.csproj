@@ -98,8 +98,14 @@
     <Compile Include="Paginas\MenuEmpleados.xaml.cs">
       <DependentUpon>MenuEmpleados.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Paginas\MenuEmpleadosPäges\RegistroEmpleado.xaml.cs">
+      <DependentUpon>RegistroEmpleado.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Paginas\MenuFinanzas.xaml.cs">
       <DependentUpon>MenuFinanzas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuFinanzasPages\RegistroSalida.xaml.cs">
+      <DependentUpon>RegistroSalida.xaml</DependentUpon>
     </Compile>
     <Compile Include="Paginas\MenuInventario.xaml.cs">
       <DependentUpon>MenuInventario.xaml</DependentUpon>
@@ -136,6 +142,9 @@
     </Compile>
     <Compile Include="Paginas\MenuPedidoPages\PedidoDetallePages\DetallePedidoLocal.xaml.cs">
       <DependentUpon>DetallePedidoLocal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuPedidoPages\PedidoDomicilio.xaml.cs">
+      <DependentUpon>PedidoDomicilio.xaml</DependentUpon>
     </Compile>
     <Compile Include="Paginas\MenuPedidoPages\PedidoPreview.xaml.cs">
       <DependentUpon>PedidoPreview.xaml</DependentUpon>
@@ -183,7 +192,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Paginas\MenuEmpleadosPäges\RegistroEmpleado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Paginas\MenuFinanzas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuFinanzasPages\RegistroSalida.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -232,6 +249,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Paginas\MenuPedidoPages\PedidoDetallePages\DetallePedidoLocal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuPedidoPages\PedidoDomicilio.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
