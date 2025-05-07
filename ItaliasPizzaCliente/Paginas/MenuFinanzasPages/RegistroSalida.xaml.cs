@@ -24,5 +24,15 @@ namespace ItaliasPizzaCliente.Paginas.MenuFinanzasPages
         {
             InitializeComponent();
         }
+
+        private void Registrar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Regresar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
