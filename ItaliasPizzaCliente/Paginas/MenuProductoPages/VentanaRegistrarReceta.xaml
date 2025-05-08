@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        Title="Registrar Nueva Receta" Height="600" Width="800"
+        Title="Registrar Nueva Receta" Height="600" Width="850"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="White">
 
     <Grid Margin="30">
@@ -51,30 +51,45 @@
                           SelectionChanged="CbCategoria_SelectionChanged"
                           ItemsSource="{Binding Categorias}"
                           DisplayMemberPath="CategoriaInsumoNombre"
-                          SelectedValuePath="IdCategoriaInsumo"
-                          />
-                            
-                   
-                
-            </StackPanel>
+                          SelectedValuePath="IdCategoriaInsumo">
+
+                    <ComboBox.ItemContainerStyle>
+                        <Style TargetType="ComboBoxItem">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="FontWeight" Value="Normal"/>
+                            <Setter Property="Padding" Value="5,2"/>
+                        </Style>
+                    </ComboBox.ItemContainerStyle>
+
+                </ComboBox>
+
+
+
+</StackPanel>
         </Grid>
 
         <!-- Tabla de insumos -->
         <DataGrid x:Name="DgInsumos" AutoGenerateColumns="False" HeadersVisibility="Column" Grid.Row="2" Height="250">
             <DataGrid.Columns>
-                <DataGridCheckBoxColumn Header="" Binding="{Binding Seleccionado}" Width="40"/>
-                <DataGridTextColumn Header="INSUMO" Binding="{Binding Nombre}" Width="*"/>
-                <DataGridTextColumn Header="Precio" Binding="{Binding Precio}" Width="100"/>
-                <DataGridTextColumn Header="Unidad" Binding="{Binding Unidad}" Width="100"/>
-                <DataGridTemplateColumn Header="Cantidad" Width="100">
+                <DataGridCheckBoxColumn Header="" Binding="{Binding Seleccionado}" Width="80"/>
+                <DataGridTextColumn IsReadOnly="True" Header="INSUMO" Binding="{Binding Nombre}" Width="*"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Precio" Binding="{Binding Precio}" Width="100"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Unidad" Binding="{Binding Unidad}" Width="100"/>
+                <DataGridTemplateColumn Header="Cantidad" Width="120">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Text="{Binding Cantidad}" Width="80"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Content="-" Width="20" Click="BtnRestar_Click"/>
+                                <TextBlock Text="{Binding Cantidad}" Width="40" TextAlignment="Center"/>
+                                <Button Content="+" Width="20" Click="BtnSumar_Click"/>
+                            </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+
 
         <!-- Campo de texto para receta -->
         <StackPanel Grid.Row="3" Margin="0,10,0,0">
@@ -84,7 +99,7 @@
 
         <!-- Botones -->
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,20,0,0">
-            <Button Content="Registrar Receta" Width="150" Margin="0,0,10,0" Background="#10B981" Foreground="White"/>
+            <Button Content="Registrar Receta" Width="150" Margin="0,0,10,0" Background="#10B981" Foreground="White" Click="Button_Click"/>
         </StackPanel>
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
             

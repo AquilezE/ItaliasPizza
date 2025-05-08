@@ -37,6 +37,8 @@ namespace ItaliasPizzaDB
         public DbSet<Insumo> Insumos { get; set; }
         public DbSet<UnidadDeMedida> UnidadesDeMedida { get; set; }
         public DbSet<CategoriaInsumo> CategoriasInsumo { get; set; }
+        public DbSet<CategoriaProducto> CategoriasProducto { get; set; }
+
         public DbSet<Proveedor> Proveedores { get; set; }
         public DbSet<ProveedorInsumo> ProveedoresInsumos { get; set; }
 

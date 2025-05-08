@@ -37,8 +37,8 @@
                         <TextBox Name="TbPrecio"   PreviewTextInput="TbPrecio_PreviewTextInput" Text="120" Foreground="Gray" GotFocus="TbPrecio_GotFocus" LostFocus="TbPrecio_LostFocus" Grid.Row="1" Grid.Column="1" Margin="0,20,10,10"/>
 
                         <TextBlock Text="Categoría" Grid.Row="1" Margin="0,0,28,35" Grid.Column="2"/>
-                        <ComboBox Name="CbCategoria" Grid.Row="1" Grid.Column="2" Margin="0,34,10,0" Height="26" VerticalAlignment="Top" ItemsSource="{Binding Categorias}" DisplayMemberPath="CategoriaInsumoNombre"
-                                  SelectedValuePath="IdCategoriaInsumo"/>
+                        <ComboBox Name="CbCategoria" Grid.Row="1" Grid.Column="2" Margin="0,34,10,0" Height="26" VerticalAlignment="Top" ItemsSource="{Binding Categorias}" DisplayMemberPath="CategoriaProductoNombre"
+                                  SelectedValuePath="IdCategoriaProducto"/>
 
                         <Image x:Name="ImgPreview"
                                Grid.Row="2" Grid.Column="2"

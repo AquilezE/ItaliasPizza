@@ -239,8 +239,68 @@ namespace DatabaseTests.Inicializador
             };
             context.CategoriasInsumo.Add(categoriaInsumoVegetales);
 
+            //Categorias de Productos
+
+            var categoriaProductoPizza = new CategoriaProducto
+            {
+                IdCategoriaProducto = 1,
+                CategoriaProductoNombre = "Pizza"
+            };
+            context.CategoriasProducto.Add(categoriaProductoPizza);
+
+            var categoriaProductoBebidas = new CategoriaProducto
+            {
+                IdCategoriaProducto = 2,
+                CategoriaProductoNombre = "Bebida"
+            };
+            context.CategoriasProducto.Add(categoriaProductoBebidas);
+
+            var categoriaProductoPapas = new CategoriaProducto
+            {
+                IdCategoriaProducto = 3,
+                CategoriaProductoNombre = "Papas"
+            };
+            context.CategoriasProducto.Add(categoriaProductoPapas);
+
+
+
+            // Insumos de prueba
+            var insumoCarne = new Insumo
+            {
+                IdInsumo=9,
+                Nombre = "Carne molida",
+                Status = true,
+                Precio = 100,
+                IdCategoriaInsumo = categoriaInsumoCarnes.IdCategoriaInsumo,
+                IdUnidadDeMedida = unidadDeMedidaKg.IdUnidadDeMedida
+            };
+            context.Insumos.Add(insumoCarne);
+
+            var insumoQueso = new Insumo
+            {
+                IdInsumo= 10,
+                Nombre = "Queso mozzarella",
+                Status = true,
+                Precio = 1,
+                IdCategoriaInsumo = categoriaInsumoLacteos.IdCategoriaInsumo,
+                IdUnidadDeMedida = unidadDeMedidaGr.IdUnidadDeMedida
+            };
+            context.Insumos.Add(insumoQueso);
+
+            var insumoTomate = new Insumo
+            {
+                IdInsumo = 11,
+                Nombre = "Tomate fresco",
+                Status = true,
+                Precio = 50,
+                IdCategoriaInsumo = categoriaInsumoVegetales.IdCategoriaInsumo,
+                IdUnidadDeMedida = unidadDeMedidaKg.IdUnidadDeMedida
+            };
+            context.Insumos.Add(insumoTomate);
+
             context.SaveChanges();
             base.Seed(context);
+
         }
     }
 }   

@@ -40,12 +40,12 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
         string textoEjemploDescripcion = "Describe el producto...";
         Receta receta = null;
         private string rutaImagenSeleccionada = null;
-        public ObservableCollection<CategoriaInsumo> Categorias { get; set; }
+        public ObservableCollection<CategoriaProducto> Categorias { get; set; }
 
         public MenuRegistrarProducto()
         {
             InitializeComponent();
-            Categorias = new ObservableCollection<CategoriaInsumo>();
+            Categorias = new ObservableCollection<CategoriaProducto>();
 
             DataContext = this;
             CargarCategorias();
@@ -53,7 +53,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
 
         public void CargarCategorias()
         {
-            var categoriasLista = CategoriaInsumoDAO.ObtenerCategoriasInsumo();
+            var categoriasLista = CategoriaProductoDAO.ObtenerCategoriasProducto();
             Categorias.Clear();
 
             foreach (var categoria in categoriasLista)
@@ -224,7 +224,6 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
             }
         }
 
-
         private void BtnRegistrarProducto_Click(object sender, RoutedEventArgs e)
         {
             if (!CampoEsValido(TbNombre))
@@ -281,7 +280,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
             {
                 Nombre = TbNombre.Text,
                 Codigo = TbCodigo.Text,
-                Categoria = CbCategoria.Text,
+                IdCategoriaProducto = (int)CbCategoria.SelectedValue,
                 Descripcion = TbDescripcion.Text,
                 Restricciones = TbRestricciones.Text,
                 Precio = float.Parse(TbPrecio.Text),

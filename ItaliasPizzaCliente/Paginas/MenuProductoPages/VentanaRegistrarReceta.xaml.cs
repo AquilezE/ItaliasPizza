@@ -23,6 +23,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
     public partial class VentanaRegistrarReceta : Window
     {
         public ObservableCollection<CategoriaInsumo> Categorias { get; set; }
+        private List<InsumoSeleccionadoViewModel> insumosViewModel;
         public Receta RecetaCreada { get; private set; }
         public VentanaRegistrarReceta()
         {
@@ -35,8 +36,18 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
 
         public void CargarTodosLosInsumos()
         {
-            var insumos = InsumoDAO.ObtenerInsumos();
-            DgInsumos.ItemsSource = insumos;
+            var insumos = InsumoDAO.ObtenerInsumos(-1, -1, true); // Debe incluir UnidadDeMedida
+            insumosViewModel = insumos.Select(i => new InsumoSeleccionadoViewModel
+            {
+                IdInsumo = i.IdInsumo,
+                Nombre = i.Nombre,
+                Precio = 0, // Reemplaza con i.Precio si tienes
+                Unidad = i.UnidadDeMedida?.UnidadDeMedidaNombre ?? "",
+                Cantidad = 1,
+                Seleccionado = false
+            }).ToList();
+
+            DgInsumos.ItemsSource = insumosViewModel;
         }
 
         public void CargarCategorias()
@@ -76,13 +87,92 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
             else
             {
                 var insumos = InsumoDAO.ObtenerInsumosPorCategoria(categoriaSeleccionada.IdCategoriaInsumo);
-                DgInsumos.ItemsSource = insumos;
+                insumosViewModel = insumos.Select(i => new InsumoSeleccionadoViewModel
+                {
+                    IdInsumo = i.IdInsumo,
+                    Nombre = i.Nombre,
+                    Precio = 0, // Ajusta si tienes el campo
+                    Unidad = i.UnidadDeMedida?.UnidadDeMedidaNombre ??"",
+                    Cantidad = 1,
+                    Seleccionado = false
+                }).ToList();
+
+                DgInsumos.ItemsSource = insumosViewModel;
             }
+
         }
 
         private void TbBuscarNombre_TextChanged(object sender, TextChangedEventArgs e)
         {
-            throw new NotImplementedException();
+
+            string texto = TbBuscarNombre.Text.Trim().ToLower();
+            var resultado = insumosViewModel
+                .Where(i => i.Nombre.ToLower().Contains(texto))
+                .ToList();
+
+            DgInsumos.ItemsSource = resultado;
+        }
+
+        public class InsumoSeleccionadoViewModel
+        {
+            public bool Seleccionado { get; set; }
+            public int IdInsumo { get; set; }
+            public string Nombre { get; set; }
+            public float Precio { get; set; }
+            public string Unidad { get; set; }
+            public float Cantidad { get; set; } = 1;
+        }
+
+        private void BtnSumar_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = ((FrameworkElement)sender).DataContext as InsumoSeleccionadoViewModel;
+            if (vm != null)
+            {
+                vm.Cantidad++;
+                DgInsumos.Items.Refresh();
+            }
+        }
+
+        private void BtnRestar_Click(object sender, RoutedEventArgs e)
+        {
+            var vm = ((FrameworkElement)sender).DataContext as InsumoSeleccionadoViewModel;
+            if (vm != null && vm.Cantidad > 1)
+            {
+                vm.Cantidad--;
+                DgInsumos.Items.Refresh();
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var insumosSeleccionados = new List<InsumoParaReceta>();
+
+            foreach (var insumoVM in insumosViewModel)
+            {
+                if (insumoVM.Seleccionado)
+                {
+                    insumosSeleccionados.Add(new InsumoParaReceta
+                    {
+                        IdInsumo = insumoVM.IdInsumo,
+                        Cantidad = insumoVM.Cantidad
+                    });
+                }
+            }
+
+            if (insumosSeleccionados.Count == 0)
+            {
+                MessageBox.Show("Debes seleccionar al menos un insumo para la receta.", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            RecetaCreada = new Receta
+            {
+                Instrucciones = "Instrucciones de ejemplo...", // Puedes capturar esto de un TextBox si tienes uno
+                InsumosParaReceta = insumosSeleccionados
+            };
+
+            DialogResult = true;
+            Close(); // Cierra la ventana y devuelve la receta a quien la llamó
         }
     }
 }

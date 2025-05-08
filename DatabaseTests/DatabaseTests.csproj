@@ -96,6 +96,7 @@
     <Compile Include="ProductoDAOTests.cs" />
     <Compile Include="ProveedorDAOTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecetaDAOTests.cs" />
     <Compile Include="UnidadDeMedidaDAOTests.cs" />
   </ItemGroup>
   <ItemGroup>
