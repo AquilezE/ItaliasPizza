@@ -136,17 +136,6 @@ namespace ItaliasPizzaCliente.Utils
                 return false;
             }
         }
-        public string ValidarNombreInsumo(string nombre)
-        {
-            if (string.IsNullOrWhiteSpace(nombre))
-            {
-                return "El campo nombre del insumo no puede estar vacío";
-            }
-
-            if (nombre.Length > 100)
-            {
-                return "El nombre del insumo no puede tener más de 100 caracteres";
-            }
 
         public string ValidarNombreInsumo(string nombre)
         {

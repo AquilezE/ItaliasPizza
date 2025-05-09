@@ -34,7 +34,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuInventarioPages
             CargarUnidadesDeMedida();
             MostrarDatosInsumo();
         }
-        
+
 
         private void Button_ClickActualizar(object sender, RoutedEventArgs e)
         {
@@ -74,7 +74,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuInventarioPages
                 }
                 else
                 {
-                    
+
                     return;
                 }
 
