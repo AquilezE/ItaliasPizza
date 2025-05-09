@@ -136,6 +136,40 @@ namespace ItaliasPizzaCliente.Utils
                 return false;
             }
         }
+        public string ValidarNombreInsumo(string nombre)
+        {
+            if (string.IsNullOrWhiteSpace(nombre))
+            {
+                return "El campo nombre del insumo no puede estar vacío";
+            }
+
+            if (nombre.Length > 100)
+            {
+                return "El nombre del insumo no puede tener más de 100 caracteres";
+            }
+
+        public string ValidarNombreInsumo(string nombre)
+        {
+            if (string.IsNullOrWhiteSpace(nombre))
+            {
+                return "El campo nombre del insumo no puede estar vacío";
+            }
+
+            if (nombre.Length > 100)
+            {
+                return "El nombre del insumo no puede tener más de 100 caracteres";
+            }
+
+            foreach (char c in nombre)
+            {
+                if (!char.IsLetterOrDigit(c) && c != ' ' && c != '-' && c != '\'' && c != 'á' && c != 'é' && c != 'í' && c != 'ó' && c != 'ú' && c != 'Á' && c != 'É' && c != 'Í' && c != 'Ó' && c != 'Ú')
+                {
+                    return "El nombre del insumo solo puede contener letras, números, espacios, guiones o apóstrofes";
+                }
+            }
+
+            return string.Empty;
+        }
 
     }
 }

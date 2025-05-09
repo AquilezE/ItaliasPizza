@@ -158,6 +158,9 @@
     <Compile Include="Paginas\MenuProductoPages\MenuRegistrarProducto.xaml.cs">
       <DependentUpon>MenuRegistrarProducto.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Paginas\MenuProductoPages\VentanaEmergente.xaml.cs">
+      <DependentUpon>VentanaEmergente.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Paginas\MenuProveedores.xaml.cs">
       <DependentUpon>MenuProveedores.xaml</DependentUpon>
     </Compile>
@@ -269,6 +272,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Paginas\MenuProductoPages\MenuRegistrarProducto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuProductoPages\VentanaEmergente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
