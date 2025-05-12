@@ -21,19 +21,28 @@ namespace ItaliasPizzaDB.DataAccessObjects
             }
         }
 
-        public static Receta ObtenerRecetaPorIdProducto(int idProducto)
+        public static void EliminarReceta(int idReceta)
         {
             using (var context = new ItaliasPizzaDbContext())
             {
-                var producto = context.Productos
-                    .Include("Receta")
-                    .Include("Receta.InsumosParaReceta")
-                    .Include("Receta.InsumosParaReceta.Insumo")
-                    .FirstOrDefault(p => p.IdProducto == idProducto);
+                var receta = context.Recetas
+                    .Include("InsumosParaReceta")
+                    .FirstOrDefault(r => r.IdReceta == idReceta);
 
-                return producto?.Receta;
+                if (receta != null)
+                {
+                    // Eliminar insumos relacionados primero
+                    context.InsumosParaReceta.RemoveRange(receta.InsumosParaReceta);
+                    context.Recetas.Remove(receta);
+                    context.SaveChanges();
+                }
             }
         }
+
+
+
+
+
     }
 
 }

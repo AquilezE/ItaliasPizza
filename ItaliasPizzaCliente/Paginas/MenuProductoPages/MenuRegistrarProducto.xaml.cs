@@ -178,7 +178,6 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
         }
 
 
-
         private void TbPrecio_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !e.Text.All(char.IsDigit);

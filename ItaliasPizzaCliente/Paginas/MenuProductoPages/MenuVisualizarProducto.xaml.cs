@@ -3,6 +3,7 @@ using ItaliasPizzaDB.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
     public partial class MenuVisualizarProducto : Page
     {
 
+        private List<ProductoVisualizacion> TodosLosProductos;
         public ObservableCollection<ProductoVisualizacion> Productos { get; set; }
         public MenuVisualizarProducto()
         {
@@ -42,40 +44,82 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
             public string Categoria { get; set; }
             public float Precio { get; set; }
             public bool TieneReceta { get; set; }
+            public string TextoBoton => TieneReceta ? "Receta" : "Foto";
         }
 
         private void CargarProductos()
         {
             var productosDb = ProductoDAO.ObtenerProductosConCategoria();
-            var productosVm = productosDb.Select(p => new ProductoVisualizacion
+            TodosLosProductos = productosDb.Select(p => new ProductoVisualizacion
             {
+                idProducto = p.IdProducto,
                 Codigo = p.Codigo,
                 Nombre = p.Nombre,
                 Categoria = p.CategoriaProducto?.CategoriaProductoNombre ?? "Sin categoría",
                 Precio = p.Precio,
-                TieneReceta = p.IdReceta != null
+                TieneReceta = p.IdReceta != null,
             }).ToList();
 
             Productos.Clear();
-            foreach (var p in productosVm)
+            foreach (var p in TodosLosProductos)
                 Productos.Add(p);
         }
 
-        private void BtnVerReceta_Click(object sender, RoutedEventArgs e)
+
+        private void BtnVerDetalleProducto_Click(object sender, RoutedEventArgs e)
         {
             var vm = ((FrameworkElement)sender).DataContext as ProductoVisualizacion;
-            if (vm != null && vm.TieneReceta)
+            if (vm == null) return;
+
+            if (vm.TieneReceta)
             {
-                var ventana = new VentanaVerReceta(vm.idProducto); // le pasas el ID para cargar receta
+                var ventana = new VentanaVerReceta(vm.idProducto);
                 ventana.Owner = Window.GetWindow(this);
                 ventana.ShowDialog();
+            }
+            else
+            {
+                // Mostrar imagen en grande
+                var producto = ProductoDAO.ObtenerProductoCompleto(vm.idProducto);
+                if (producto != null)
+                {
+                    string rutaImagenCompleta = System.IO.Path.Combine(
+                        AppDomain.CurrentDomain.BaseDirectory,
+                        "ImagenesProductos",
+                        producto.ImagenRuta);
+
+                    if (File.Exists(rutaImagenCompleta))
+                    {
+                        ImagenVista.Source = new BitmapImage(new Uri(rutaImagenCompleta));
+                        OverlayImagen.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Imagen no encontrada.");
+                    }
+                }
             }
         }
 
         private void TbBuscarNombre_TextChanged(object sender, TextChangedEventArgs e)
         {
+            string texto = TbBuscarNombre.Text.Trim().ToLower();
 
- 
+            var filtrados = TodosLosProductos
+                .Where(p => p.Nombre.ToLower().Contains(texto) ||
+                            p.Codigo.ToLower().Contains(texto) ||
+                            p.Categoria.ToLower().Contains(texto))
+                .ToList();
+
+            Productos.Clear();
+            foreach (var p in filtrados)
+                Productos.Add(p);
+        }
+
+        private void BtnCerrarImagen_Click(object sender, RoutedEventArgs e)
+        {
+            OverlayImagen.Visibility = Visibility.Collapsed;
+            ImagenVista.Source = null;
         }
     }
 }

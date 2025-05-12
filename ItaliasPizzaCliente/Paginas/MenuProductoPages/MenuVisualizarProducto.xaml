@@ -44,9 +44,6 @@
                 </DockPanel>
             </StackPanel>
 
-           
-
-
 
             
         </Grid>
@@ -96,23 +93,84 @@
                 <DataGridTemplateColumn Header="" Width="150">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Receta"
-                            Width="100"
-                            Height="30"
-                            Background="#8B5CF6"
-                            Foreground="White"
-                            BorderBrush="{x:Null}"
-                            Cursor="Hand"
-                            HorizontalAlignment="Center"
-                            Click="BtnVerReceta_Click"/>
+                            <Button Content="{Binding TextoBoton}"
+                                    Width="100"
+                                    Height="30"
+                                    Background="#8B5CF6"
+                                    Foreground="White"
+                                    BorderBrush="{x:Null}"
+                                    Cursor="Hand"
+                                    HorizontalAlignment="Center"
+                                    Click="BtnVerDetalleProducto_Click"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-
+                
             </DataGrid.Columns>
-
+    
 
             
         </DataGrid>
+
+        <Grid x:Name="OverlayImagen"
+      Visibility="Collapsed"
+      Background="#80000000"
+      HorizontalAlignment="Stretch"
+      VerticalAlignment="Stretch"
+      Panel.ZIndex="100">
+
+            <Border Background="White"
+            CornerRadius="10"
+            Padding="10"
+            Width="500"
+            Height="630"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Effect="{DynamicResource MaterialDesignElevation}">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Título -->
+                    <DockPanel Grid.Row="0">
+                        <TextBlock Text="Vista de imagen"
+                           FontWeight="Bold"
+                           FontSize="16"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Margin="0,0,10,0"/>
+                        <Button Content="✕"
+                        Width="30" Height="30"
+                        FontWeight="Bold"
+                        Background="Transparent"
+                        BorderBrush="{x:Null}"
+                        Foreground="Gray"
+                        HorizontalAlignment="Right"
+                        Click="BtnCerrarImagen_Click"/>
+                    </DockPanel>
+
+                    <!-- Imagen -->
+                    <Image x:Name="ImagenVista"
+                   Grid.Row="1"
+                   Stretch="Uniform"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Margin="0,10"/>
+
+                    <!-- Botón cerrar adicional -->
+                    <Button Content="Cerrar"
+                    Grid.Row="2"
+                    Width="80"
+                    Height="30"
+                    HorizontalAlignment="Right"
+                    Margin="0,10,0,0"
+                    Click="BtnCerrarImagen_Click"/>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </Page>

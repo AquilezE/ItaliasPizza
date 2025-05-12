@@ -202,7 +202,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
 
             RecetaCreada = new Receta
             {
-                Instrucciones = "Instrucciones de ejemplo...", // Puedes capturar esto de un TextBox si tienes uno
+                Instrucciones = TbInstrucciones.Text.Trim(),
                 InsumosParaReceta = insumosSeleccionados
             };
 

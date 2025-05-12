@@ -16,7 +16,7 @@
         <TextBlock Text="Receta" FontSize="20" FontWeight="Bold" Foreground="#6366F1" Grid.Row="0"/>
 
         <!-- Nombre del producto -->
-        <TextBlock Text="{Binding Producto.Nombre}" FontSize="26" FontWeight="Bold" Margin="0,5,0,10" Grid.Row="1"/>
+        <TextBlock Text="{Binding NombreProducto}" FontSize="26" FontWeight="Bold" Margin="0,5,0,10" Grid.Row="1"/>
 
         <!-- Contenido principal -->
         <Grid Grid.Row="2">
@@ -28,7 +28,7 @@
             <!-- Imagen y descripción -->
             <StackPanel Grid.Column="0" Margin="0,0,20,0">
                 <Border BorderThickness="2" BorderBrush="#6366F1" CornerRadius="20">
-                    <Image Source="{Binding Imagen}" Height="180" Margin="0,0,0,15"/>
+                    <Image Source="{Binding ImagenRuta}" Height="180" Margin="0,0,0,15"/>
                 </Border>
                 <TextBox Text="{Binding Instrucciones}" TextWrapping="Wrap"
                          Height="150" IsReadOnly="True"
@@ -38,16 +38,18 @@
             <!-- Tabla de insumos -->
             <StackPanel Grid.Column="1">
                 <TextBlock Text="Insumo" FontWeight="Bold" FontSize="16" />
-                <ItemsControl ItemsSource="{Binding InsumosParaReceta}">
+                <ItemsControl ItemsSource="{Binding Insumos}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="0,5">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="2*" />
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding Insumo.Nombre}" FontWeight="SemiBold" />
+                                <TextBlock Text="{Binding Nombre}" FontWeight="SemiBold" />
                                 <TextBlock Text="{Binding Cantidad}" Grid.Column="1" />
+                                <TextBlock Text="{Binding Unidad}" Grid.Column="2" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
