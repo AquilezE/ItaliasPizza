@@ -85,6 +85,14 @@
     <Compile Include="Migrations\202505080707217_cambioCategoriaProductoForaneo.Designer.cs">
       <DependentUpon>202505080707217_cambioCategoriaProductoForaneo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202505120531432_recetaModificacion.cs" />
+    <Compile Include="Migrations\202505120531432_recetaModificacion.Designer.cs">
+      <DependentUpon>202505120531432_recetaModificacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505120547353_recetaModificacion1.cs" />
+    <Compile Include="Migrations\202505120547353_recetaModificacion1.Designer.cs">
+      <DependentUpon>202505120547353_recetaModificacion1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cargo.cs" />
     <Compile Include="Models\CategoriaInsumo.cs" />
@@ -140,6 +148,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202505080707217_cambioCategoriaProductoForaneo.resx">
       <DependentUpon>202505080707217_cambioCategoriaProductoForaneo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505120531432_recetaModificacion.resx">
+      <DependentUpon>202505120531432_recetaModificacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505120547353_recetaModificacion1.resx">
+      <DependentUpon>202505120547353_recetaModificacion1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

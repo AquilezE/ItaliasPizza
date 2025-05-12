@@ -20,6 +20,20 @@ namespace ItaliasPizzaDB.DataAccessObjects
                 context.SaveChanges();
             }
         }
+
+        public static Receta ObtenerRecetaPorIdProducto(int idProducto)
+        {
+            using (var context = new ItaliasPizzaDbContext())
+            {
+                var producto = context.Productos
+                    .Include("Receta")
+                    .Include("Receta.InsumosParaReceta")
+                    .Include("Receta.InsumosParaReceta.Insumo")
+                    .FirstOrDefault(p => p.IdProducto == idProducto);
+
+                return producto?.Receta;
+            }
+        }
     }
 
 }

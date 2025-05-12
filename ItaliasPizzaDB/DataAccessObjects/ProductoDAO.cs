@@ -56,6 +56,16 @@ namespace ItaliasPizzaDB.DataAccessObjects
                     }
                 }
             }
+
+            public static List<Producto> ObtenerProductosConCategoria()
+            {
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    return context.Productos
+                        .Include("CategoriaProducto")
+                        .ToList();
+                }
+            }
         }
 
 

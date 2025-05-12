@@ -70,7 +70,7 @@
         </Grid>
 
         <!-- Tabla de insumos -->
-        <DataGrid x:Name="DgInsumos" AutoGenerateColumns="False" HeadersVisibility="Column" Grid.Row="2" Height="250">
+        <DataGrid x:Name="DgInsumos" AutoGenerateColumns="False" HeadersVisibility="Column" Grid.Row="2" Height="250"  CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn Header="" Binding="{Binding Seleccionado}" Width="80"/>
                 <DataGridTextColumn IsReadOnly="True" Header="INSUMO" Binding="{Binding Nombre}" Width="*"/>
@@ -81,7 +81,12 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Button Content="-" Width="20" Click="BtnRestar_Click"/>
-                                <TextBlock Text="{Binding Cantidad}" Width="40" TextAlignment="Center"/>
+                                <TextBox Text="{Binding Cantidad, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Width="40"
+                                         HorizontalContentAlignment="Center"
+                                         BorderThickness="0"
+                                         Background="Transparent"
+                                         IsReadOnly="True"/>
                                 <Button Content="+" Width="20" Click="BtnSumar_Click"/>
                             </StackPanel>
                         </DataTemplate>
@@ -103,7 +108,7 @@
         </StackPanel>
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
             
-            <Button Content="Cancelar" Width="150" Background="#EF4444" Foreground="White"/>
+            <Button Content="Cancelar" Width="150" Background="#EF4444" Foreground="White" Click="BtnClic_Cancelar"/>
         </StackPanel>
     </Grid>
 </Window>

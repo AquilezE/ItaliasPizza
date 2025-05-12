@@ -14,15 +14,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ItaliasPizzaDB.DataAccessObjects;
+using System.ComponentModel;
+using ItaliasPizzaCliente.Utils;
 
 namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
 {
     /// <summary>
     /// Lógica de interacción para VentanaRegistrarReceta.xaml
     /// </summary>
+    
     public partial class VentanaRegistrarReceta : Window
     {
         public ObservableCollection<CategoriaInsumo> Categorias { get; set; }
+        private List<InsumoSeleccionadoViewModel> insumosViewModelMaestro;
         private List<InsumoSeleccionadoViewModel> insumosViewModel;
         public Receta RecetaCreada { get; private set; }
         public VentanaRegistrarReceta()
@@ -37,18 +41,32 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
         public void CargarTodosLosInsumos()
         {
             var insumos = InsumoDAO.ObtenerInsumos(-1, -1, true); // Debe incluir UnidadDeMedida
-            insumosViewModel = insumos.Select(i => new InsumoSeleccionadoViewModel
+            if (insumosViewModelMaestro == null)
             {
-                IdInsumo = i.IdInsumo,
-                Nombre = i.Nombre,
-                Precio = 0, // Reemplaza con i.Precio si tienes
-                Unidad = i.UnidadDeMedida?.UnidadDeMedidaNombre ?? "",
-                Cantidad = 1,
-                Seleccionado = false
-            }).ToList();
+                insumosViewModelMaestro = insumos.Select(i => new InsumoSeleccionadoViewModel
+                {
+                    IdInsumo = i.IdInsumo,
+                    Nombre = i.Nombre,
+                    Precio = i.Precio,
+                    IdCategoriaInsumo = i.IdCategoriaInsumo,
+                    Unidad = i.UnidadDeMedida?.UnidadDeMedidaNombre ?? "",
+                    Cantidad = 1,
+                    Seleccionado = false
+                }).ToList();
+            }
+
+            ActualizarVistaFiltrada(insumosViewModelMaestro);
+        }
+
+        private void ActualizarVistaFiltrada(List<InsumoSeleccionadoViewModel> insumosFiltrados)
+        {
+            insumosViewModel = insumosFiltrados
+                .Select(i => insumosViewModelMaestro.First(m => m.IdInsumo == i.IdInsumo))
+                .ToList();
 
             DgInsumos.ItemsSource = insumosViewModel;
         }
+
 
         public void CargarCategorias()
         {
@@ -82,22 +100,15 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
 
             if (categoriaSeleccionada.IdCategoriaInsumo == -1)
             {
-                CargarTodosLosInsumos();
+                ActualizarVistaFiltrada(insumosViewModelMaestro);
             }
             else
             {
-                var insumos = InsumoDAO.ObtenerInsumosPorCategoria(categoriaSeleccionada.IdCategoriaInsumo);
-                insumosViewModel = insumos.Select(i => new InsumoSeleccionadoViewModel
-                {
-                    IdInsumo = i.IdInsumo,
-                    Nombre = i.Nombre,
-                    Precio = 0, // Ajusta si tienes el campo
-                    Unidad = i.UnidadDeMedida?.UnidadDeMedidaNombre ??"",
-                    Cantidad = 1,
-                    Seleccionado = false
-                }).ToList();
+                var filtrados = insumosViewModelMaestro
+                    .Where(i => i.IdCategoriaInsumo == categoriaSeleccionada.IdCategoriaInsumo)
+                    .ToList();
 
-                DgInsumos.ItemsSource = insumosViewModel;
+                ActualizarVistaFiltrada(filtrados);
             }
 
         }
@@ -106,40 +117,64 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
         {
 
             string texto = TbBuscarNombre.Text.Trim().ToLower();
-            var resultado = insumosViewModel
+            var filtrados = insumosViewModelMaestro
                 .Where(i => i.Nombre.ToLower().Contains(texto))
                 .ToList();
 
-            DgInsumos.ItemsSource = resultado;
+            ActualizarVistaFiltrada(filtrados);
         }
 
-        public class InsumoSeleccionadoViewModel
+        public class InsumoSeleccionadoViewModel : INotifyPropertyChanged
         {
             public bool Seleccionado { get; set; }
             public int IdInsumo { get; set; }
+            public int IdCategoriaInsumo {get; set; }
             public string Nombre { get; set; }
             public float Precio { get; set; }
             public string Unidad { get; set; }
-            public float Cantidad { get; set; } = 1;
+            private float _cantidad;
+            public float Cantidad
+            {
+                get => _cantidad;
+                set
+                {
+                    if (_cantidad != value)
+                    {
+                        _cantidad = value;
+                        OnPropertyChanged(nameof(Cantidad));
+                    }
+                }
+            }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            protected void OnPropertyChanged(string propertyName) =>
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void BtnSumar_Click(object sender, RoutedEventArgs e)
         {
+            var dataGrid = DgInsumos;
+            if (dataGrid.CommitEdit(DataGridEditingUnit.Cell, true))
+                dataGrid.CommitEdit(DataGridEditingUnit.Row, true);
+
             var vm = ((FrameworkElement)sender).DataContext as InsumoSeleccionadoViewModel;
             if (vm != null)
             {
                 vm.Cantidad++;
-                DgInsumos.Items.Refresh();
             }
         }
 
         private void BtnRestar_Click(object sender, RoutedEventArgs e)
         {
+            var dataGrid = DgInsumos;
+            if (dataGrid.CommitEdit(DataGridEditingUnit.Cell, true))
+                dataGrid.CommitEdit(DataGridEditingUnit.Row, true);
+
             var vm = ((FrameworkElement)sender).DataContext as InsumoSeleccionadoViewModel;
             if (vm != null && vm.Cantidad > 1)
             {
                 vm.Cantidad--;
-                DgInsumos.Items.Refresh();
             }
         }
 
@@ -147,7 +182,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
         {
             var insumosSeleccionados = new List<InsumoParaReceta>();
 
-            foreach (var insumoVM in insumosViewModel)
+            foreach (var insumoVM in insumosViewModelMaestro)
             {
                 if (insumoVM.Seleccionado)
                 {
@@ -173,6 +208,25 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
 
             DialogResult = true;
             Close(); // Cierra la ventana y devuelve la receta a quien la llamó
+        }
+
+        private void BtnClic_Cancelar(object sender, RoutedEventArgs e)
+        {
+            var ventanaConfirmacion = new VentanaEmergente(
+                "¿Desea cancelar el registro de receta?",
+                "Se perderán los datos registrados",
+                "Aceptar",
+                "Cancelar"
+            );
+
+            ventanaConfirmacion.Owner = this;
+            var resultado = ventanaConfirmacion.ShowDialog();
+
+            if (resultado == true && ventanaConfirmacion.Resultado)
+            {
+                this.DialogResult = false; // Indica que se canceló
+                this.Close();
+            }
         }
     }
 }
