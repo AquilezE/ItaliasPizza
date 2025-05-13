@@ -160,5 +160,41 @@ namespace ItaliasPizzaCliente.Utils
             return string.Empty;
         }
 
+        public string ValidarDireccion(string texto)
+        {
+            if (string.IsNullOrWhiteSpace(texto))
+                return "Los campos no pueden estar vacío";
+
+            texto = texto.Trim();
+
+            if (texto.Length > 100)
+                return "Confirme que los campos no tengan más de 100 caracteres";
+
+            string patron = @"^[A-ZÁÉÍÓÚÑa-záéíóúñ0-9.,\s\-°#()]+$";
+
+            if (!Regex.IsMatch(texto, patron))
+                return "El campo contiene caracteres inválidos, solo puede contener . , -  °  # ()";
+
+            return string.Empty;
+        }
+
+        public string ValidarNombrePersona(string nombre)
+        {
+            if (string.IsNullOrWhiteSpace(nombre))
+                return "El nombre no puede estar vacío";
+
+            nombre = nombre.Trim();
+
+            if (nombre.Length > 50)
+                return "El nombre no puede tener más de 50 caracteres";
+
+            string patron = @"^[A-ZÁÉÍÓÚÑa-záéíóúñ]+(?:\s[A-ZÁÉÍÓÚÑa-záéíóúñ]+)*$";
+
+            if (!Regex.IsMatch(nombre, patron))
+                return "El nombre solo puede contener letras y espacios";
+
+            return string.Empty;
+        }
+
     }
 }

@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:ItaliasPizzaCliente.Paginas.MenuClientePages"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="550" d:DesignWidth="800"
       Title="MenuGestionarDireccionCliente"
       Background="GhostWhite">
 
@@ -82,28 +82,34 @@
             </Grid.ColumnDefinitions>
 
             <!-- Datos personales centrado -->
-            <GroupBox Header="Dirección" Grid.Row="0" Margin="209,5,209,10" Grid.RowSpan="3" Grid.ColumnSpan="3">
+            <GroupBox Header="Dirección" Grid.Row="0" Margin="209,5,209,26" Grid.RowSpan="3" Grid.ColumnSpan="3">
                 <StackPanel Margin="10">
                     <TextBlock Text="Calle"/>
-                    <TextBox materialDesign:HintAssist.Hint="Villa Real"/>
+                    <TextBox materialDesign:HintAssist.Hint="Villa Real" x:Name="txtCalle"/>
 
                     <TextBlock Text="Colonia" Margin="0,10,0,0"/>
-                    <TextBox materialDesign:HintAssist.Hint="La Palma"/>
+                    <TextBox materialDesign:HintAssist.Hint="La Palma" x:Name="txtColonia"/>
 
                     <UniformGrid Columns="2" Margin="0,10,0,0">
                         <StackPanel Margin="0,0,5,0">
                             <TextBlock Text="Número"/>
-                            <TextBox materialDesign:HintAssist.Hint="143"/>
+                            <TextBox materialDesign:HintAssist.Hint="143" PreviewTextInput="SoloNumerosCasa_PreviewTextInput" x:Name="txtNumero"/>
                         </StackPanel>
 
                         <StackPanel Margin="5,0,0,0">
                             <TextBlock Text="Código postal"/>
-                            <TextBox materialDesign:HintAssist.Hint="91827"/>
+                            <TextBox materialDesign:HintAssist.Hint="91827" PreviewTextInput="SoloNumerosCP_PreviewTextInput" x:Name="txtCP"/>
                         </StackPanel>
                     </UniformGrid>
 
+                    <TextBlock Text="Estado" Margin="0,10,0,0"/>
+                    <TextBox materialDesign:HintAssist.Hint="Veracruz" x:Name="txtEstado"/>
+
+                    <TextBlock Text="Ciudad" Margin="0,10,0,0"/>
+                    <TextBox materialDesign:HintAssist.Hint="En la nieve" x:Name="txtCiudad"/>
+
                     <TextBlock Text="Referencia" Margin="0,10,0,0"/>
-                    <TextBox materialDesign:HintAssist.Hint="En la nieve" TextChanged="TextBox_TextChanged"/>
+                    <TextBox materialDesign:HintAssist.Hint="En la nieve" x:Name="txtReferencia"/>
                 </StackPanel>
             </GroupBox>
         </Grid>
@@ -118,7 +124,7 @@
             <Button Content="Registrar"
         Style="{StaticResource BotonVerde}"
         HorizontalAlignment="Left"
-        Grid.Column="0"/>
+        Grid.Column="0" Click="Button_Click" x:Name="btnAccion"/>
 
             <Button Content="Cancelar"
         Style="{StaticResource BotonRojo}"
