@@ -25,6 +25,8 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
     
     public partial class VentanaRegistrarReceta : Window
     {
+        private readonly int? idProductoEnModificacion;
+
         public ObservableCollection<CategoriaInsumo> Categorias { get; set; }
         private List<InsumoSeleccionadoViewModel> insumosViewModelMaestro;
         private List<InsumoSeleccionadoViewModel> insumosViewModel;
@@ -37,6 +39,43 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
             DataContext = this;
             CargarCategorias();
         }
+
+        public VentanaRegistrarReceta(int idProducto)
+        {
+            InitializeComponent();
+            Categorias = new ObservableCollection<CategoriaInsumo>();
+            idProductoEnModificacion = idProducto;
+            DataContext = this;
+
+            CargarCategorias();
+            CargarRecetaDeProducto(idProducto); 
+            Title = "Modificar Receta";
+            BtnClickRegistrar.Content = "Guardar Cambios"; 
+        }
+
+        private void CargarRecetaDeProducto(int idProducto)
+        {
+            var receta = RecetaDAO.ObtenerRecetaPorIdProducto(idProducto);
+            if (receta == null) return;
+
+            TbInstrucciones.Text = receta.Instrucciones;
+
+            // Marcar los insumos seleccionados y su cantidad
+            foreach (var insumoVM in insumosViewModelMaestro)
+            {
+                var insumoEnReceta = receta.InsumosParaReceta
+                    .FirstOrDefault(i => i.IdInsumo == insumoVM.IdInsumo);
+                if (insumoEnReceta != null)
+                {
+                    insumoVM.Seleccionado = true;
+                    insumoVM.Cantidad = insumoEnReceta.Cantidad;
+                }
+            }
+
+            ActualizarVistaFiltrada(insumosViewModelMaestro);
+        }
+
+
 
         public void CargarTodosLosInsumos()
         {
@@ -178,7 +217,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnClicRegistrar(object sender, RoutedEventArgs e)
         {
             var insumosSeleccionados = new List<InsumoParaReceta>();
 
@@ -188,7 +227,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
                 {
                     insumosSeleccionados.Add(new InsumoParaReceta
                     {
-                        IdInsumo = insumoVM.IdInsumo,
+                        IdInsumo = insumoVM.IdInsumo, 
                         Cantidad = insumoVM.Cantidad
                     });
                 }
@@ -200,14 +239,30 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
                 return;
             }
 
-            RecetaCreada = new Receta
+            if (idProductoEnModificacion.HasValue)
             {
-                Instrucciones = TbInstrucciones.Text.Trim(),
-                InsumosParaReceta = insumosSeleccionados
-            };
+                
+                Receta recetaExistente = new Receta
+                {
+                    Instrucciones = TbInstrucciones.Text.Trim(),
+                    InsumosParaReceta = insumosSeleccionados
+                };
 
-            DialogResult = true;
-            Close(); // Cierra la ventana y devuelve la receta a quien la llamó
+                RecetaDAO.ActualizarRecetaDeProducto(idProductoEnModificacion.Value, recetaExistente);
+                MessageBox.Show("Receta actualizada correctamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+               
+                RecetaCreada = new Receta
+                {
+                    Instrucciones = TbInstrucciones.Text.Trim(),
+                    InsumosParaReceta = insumosSeleccionados
+                };
+
+                DialogResult = true;
+            }
+            Close();
         }
 
         private void BtnClic_Cancelar(object sender, RoutedEventArgs e)

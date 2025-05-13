@@ -155,6 +155,9 @@
     <Compile Include="Paginas\MenuProductoPages\MenuModificarProducto.xaml.cs">
       <DependentUpon>MenuModificarProducto.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Paginas\MenuProductoPages\MenuModificarReceta.xaml.cs">
+      <DependentUpon>MenuModificarReceta.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Paginas\MenuProductoPages\MenuRegistrarProducto.xaml.cs">
       <DependentUpon>MenuRegistrarProducto.xaml</DependentUpon>
     </Compile>
@@ -280,6 +283,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Paginas\MenuProductoPages\MenuModificarProducto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuProductoPages\MenuModificarReceta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

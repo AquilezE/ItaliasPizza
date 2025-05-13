@@ -104,7 +104,7 @@
 
         <!-- Botones -->
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,20,0,0">
-            <Button Content="Registrar Receta" Width="150" Margin="0,0,10,0" Background="#10B981" Foreground="White" Click="Button_Click"/>
+            <Button  x:Name="BtnClickRegistrar" Content="Registrar Receta" Width="150" Margin="0,0,10,0" Background="#10B981" Foreground="White" Click="BtnClicRegistrar"/>
         </StackPanel>
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
             
