@@ -20,14 +20,13 @@ namespace ItaliasPizzaDB.DataAccessObjects
             }
         }
 
-        public static bool CrearCliente(Cliente cliente)
+        public static Cliente CrearCliente(Cliente cliente)
         {
-            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            using (var context = new ItaliasPizzaDbContext())
             {
-
                 context.Clientes.Add(cliente);
-                return context.SaveChanges() > 0;
-
+                context.SaveChanges();
+                return cliente;
             }
         }
 

@@ -61,16 +61,19 @@ namespace DatabaseTests
                     Status = true
                 };
 
-                bool resultado = ClienteDAO.CrearCliente(nuevoCliente);
+                Cliente clienteCreado = ClienteDAO.CrearCliente(nuevoCliente);
 
-                Assert.True(resultado);
+                Assert.NotNull(clienteCreado);
+                Assert.True(clienteCreado.IdCliente > 0);
 
                 using (var context = new ItaliasPizzaDbContext())
                 {
                     var clienteEnBD = context.Clientes
-                        .FirstOrDefault(c => c.Nombre == "Laura" && c.Apellidos == "González");
+                        .FirstOrDefault(c => c.IdCliente == clienteCreado.IdCliente);
 
                     Assert.NotNull(clienteEnBD);
+                    Assert.Equal("Laura", clienteEnBD.Nombre);
+                    Assert.Equal("González", clienteEnBD.Apellidos);
                     Assert.Equal("5551234567", clienteEnBD.Telefono);
                     Assert.True(clienteEnBD.Status);
                 }

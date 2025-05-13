@@ -52,14 +52,14 @@ namespace ItaliasPizzaCliente.Paginas.MenuClientePages
 
             };
 
-            bool creado = ClienteDAO.CrearCliente(nuevoCliente);
-            if (!creado)
+            Cliente creado = ClienteDAO.CrearCliente(nuevoCliente);
+            if (creado ==null)
             {
                 new DialogoNotificacion().ShowErrorNotification("No se pudo guardar el cliente.");
                 return;
             }
 
-            int idCliente = nuevoCliente.IdCliente;
+            int idCliente = creado.IdCliente;
 
             Direccion nuevaDireccion = new Direccion
             {
@@ -197,26 +197,20 @@ namespace ItaliasPizzaCliente.Paginas.MenuClientePages
         private bool ValidarCamposNumericos()
         {
             string telefono = txtTelefono.Text.Replace(" ", "");
-            string numero = txtNumero.Text.Replace(" ", "");
             string cp = txtCP.Text.Replace(" ", "");
 
             if (telefono.Length < 10)
             {
-                MessageBox.Show("El número de teléfono debe tener al menos 10 dígitos.");
+                new DialogoNotificacion().ShowWarningNotification("El número de teléfono debe tener al menos 10 dígitos.");
                 return false;
             }
 
-            if (numero.Length < 3)
+            if (cp.Length != 5)
             {
-                MessageBox.Show("El número de casa debe tener al menos 3 dígitos.");
+                new DialogoNotificacion().ShowWarningNotification("El código postal debe tener 5 dígitos."); ;
                 return false;
             }
 
-            if (cp.Length < 5)
-            {
-                MessageBox.Show("El código postal debe tener al menos 5 dígitos.");
-                return false;
-            }
 
             return true;
         }

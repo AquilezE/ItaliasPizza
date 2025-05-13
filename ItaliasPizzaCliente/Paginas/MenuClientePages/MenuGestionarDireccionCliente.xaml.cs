@@ -109,18 +109,11 @@ namespace ItaliasPizzaCliente.Paginas.MenuClientePages
 
         private bool ValidarCamposNumericos()
         {
-            string numero = txtNumero.Text.Replace(" ", "");
             string cp = txtCP.Text.Replace(" ", "");
 
-            if (numero.Length < 3)
+            if (cp.Length != 5)
             {
-                MessageBox.Show("El número de casa debe tener al menos 3 dígitos.");
-                return false;
-            }
-
-            if (cp.Length < 5)
-            {
-                MessageBox.Show("El código postal debe tener al menos 5 dígitos.");
+                new DialogoNotificacion().ShowWarningNotification("El código postal debe tener 5 dígitos."); ;
                 return false;
             }
 

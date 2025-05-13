@@ -5,13 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ItaliasPizzaCliente.Paginas.MenuProveedoresPages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="800"
       Title="MenuRegistrarProveedores"
       Background="GhostWhite">
     <Page.Resources>
         <Style TargetType="TextBox">
             <Setter Property="Margin" Value="1"/>
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Foreground" Value="Black"/>
             <Setter Property="Padding" Value="4"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -31,10 +31,11 @@
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Grid Margin="10">
-            
+
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
+                <RowDefinition Height="431*" />
+                <RowDefinition Height="80*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
@@ -44,19 +45,19 @@
             </Grid.ColumnDefinitions>
 
             <!-- Datos Proveedor -->
-            <GroupBox Header="Datos Proveedor" Margin="5" Grid.Row="0" Grid.Column="0">
+            <GroupBox Header="Datos Proveedor" Margin="5,5,5,5" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
                 <StackPanel Margin="10">
                     <TextBlock Text="Nombre"/>
                     <TextBox Name="txtNombreProveedor" Height="30" Margin="1"/>
 
                     <TextBlock Text="Teléfono" Margin="0,10,0,0"/>
-                    <TextBox Name="txtTelefonoProveedor" Height="30" Margin="0,5"/>
+                    <TextBox Name="txtTelefonoProveedor" Height="30" Margin="0,5" PreviewTextInput="SoloNumerosTelefono_PreviewTextInput"/>
 
                     <TextBlock Text="Colonia" Margin="0,10,0,0"/>
                     <TextBox Name="txtColonia" Height="30" Margin="0,5"/>
 
                     <TextBlock Text="Número" Margin="0,10,0,0"/>
-                    <TextBox Name="txtNumero" Height="30" Width="80"/>
+                    <TextBox Name="txtNumero" Height="30" Width="80" PreviewTextInput="SoloNumerosCasa_PreviewTextInput"/>
 
                     <TextBlock Text="Calle" Margin="0,10,0,0"/>
                     <TextBox Name="txtCalle" Height="30" Margin="0,5"/>
@@ -65,12 +66,12 @@
                     <TextBox Name="txtEstado" Height="30" Margin="0,5"/>
 
                     <TextBlock Text="Código postal" Margin="0,10,0,0"/>
-                    <TextBox Name="txtCodigoPostal" Height="30" Width="100"/>
+                    <TextBox Name="txtCP" Height="30" Width="100" PreviewTextInput="SoloNumerosCP_PreviewTextInput"/>
                 </StackPanel>
             </GroupBox>
 
             <!-- Insumos -->
-            <GroupBox Header="Insumos" Grid.Row="0" Grid.Column="1" Margin="5">
+            <GroupBox Header="Insumos" Grid.Row="0" Grid.Column="1" Margin="5,5,5,5" Grid.RowSpan="2">
                 <Grid Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -80,14 +81,24 @@
 
                     <StackPanel Grid.Row="0">
                         <TextBlock Text="Busca el insumo"/>
-                        <DockPanel Margin="0,5">
+                        <DockPanel Margin="0,5" Cursor="Hand">
                             <TextBox Name="txtBuscarInsumo" Height="30" DockPanel.Dock="Left" Width="200"/>
-                            <Button Content="🔍" Width="30" Height="30" Margin="5,0,0,0"/>
+                            <Button Width="30" Height="30"
+                            FontFamily="Segoe MDL2 Assets"
+                            FontSize="16"
+                            Foreground="Black"
+                            Background="White"
+                            BorderBrush="{x:Null}"
+                            BorderThickness="1"
+                            Content="&#xE721;"
+                            ToolTip="Buscar"
+                            Click="BuscarInsumo_Click"
+                            Style="{x:Null}"/>
                         </DockPanel>
                     </StackPanel>
 
                     <Button Content="Agregar insumo" Background="#f39c12" Foreground="White" Height="35"
-                            Margin="0,10,0,10" Grid.Row="1"/>
+                            Margin="0,10,0,10" Grid.Row="1" Click="AgregarInsumo_Click"/>
 
                     <!-- Lista de insumos -->
                     <GroupBox Header="INSUMOS QUE PROVEE" Grid.Row="2">
@@ -97,8 +108,8 @@
                                     <DockPanel Margin="5">
                                         <TextBlock Text="{Binding}" DockPanel.Dock="Left"/>
                                         <Button Content="X" Width="25" Height="25" DockPanel.Dock="Right"
-                                                Background="#e74c3c" Foreground="White" FontWeight="Bold"
-                                                Margin="5,0,0,0"/>
+        Background="#e74c3c" Foreground="White" FontWeight="Bold"
+        Margin="5,0,0,0" Click="EliminarInsumo_Click" Style="{x:Null}"/>
                                     </DockPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -108,7 +119,7 @@
             </GroupBox>
 
             <!-- Botones Inferiores -->
-            <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="0,10,0,0">
+            <Grid Grid.Row="2" Grid.ColumnSpan="2" Margin="0,10,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -116,7 +127,7 @@
 
                 <!-- Botón Registrar -->
                 <Button Content="Registrar" Width="120" Height="40" Background="#2ecc71" Foreground="White"
-                        HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10" Grid.Column="0"/>
+                        HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10" Grid.Column="0" Click="Button_Click"/>
 
                 <!-- Botón Cancelar -->
                 <Button Content="Cancelar" Width="120" Height="40" Background="#e74c3c" Foreground="White"

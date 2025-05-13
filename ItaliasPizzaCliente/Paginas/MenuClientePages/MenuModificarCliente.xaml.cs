@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -113,14 +114,22 @@ namespace ItaliasPizzaCliente.Paginas.MenuClientePages
         private bool ValidarCamposNumericos()
         {
             string telefono = txtTelefono.Text.Replace(" ", "");
-            
+
             if (telefono.Length < 10)
             {
-                MessageBox.Show("El número de teléfono debe tener al menos 10 dígitos.");
+                new DialogoNotificacion().ShowWarningNotification("El número de teléfono debe tener al menos 10 dígitos.");
                 return false;
             }
 
             return true;
         }
+
+        private void SoloNumerosTelefono_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            string newText = textBox.Text.Insert(textBox.SelectionStart, e.Text);
+            e.Handled = !Regex.IsMatch(newText, @"^[\d ]*$") || newText.Replace(" ", "").Length > 10;
+        }
+
     }
 }

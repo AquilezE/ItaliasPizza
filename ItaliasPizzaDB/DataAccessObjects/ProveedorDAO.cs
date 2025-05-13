@@ -46,14 +46,13 @@ namespace ItaliasPizzaDB.DataAccessObjects
             }
         }
 
-        public static bool CrearProveedor(Proveedor proveedor)
+        public static Proveedor CrearProveedor(Proveedor proveedor)
         {
-            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            using (var context = new ItaliasPizzaDbContext())
             {
-
-                    context.Proveedores.Add(proveedor);
-                    return context.SaveChanges() > 0;
-   
+                context.Proveedores.Add(proveedor);
+                context.SaveChanges();
+                return proveedor;
             }
         }
 
@@ -79,12 +78,19 @@ namespace ItaliasPizzaDB.DataAccessObjects
 
         public static bool AgregarInsumoAProveedor(ProveedorInsumo proveedorInsumo)
         {
-            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            using (var context = new ItaliasPizzaDbContext())
             {
+                bool yaExiste = context.ProveedoresInsumos
+                    .Any(pi => pi.IdProveedor == proveedorInsumo.IdProveedor &&
+                               pi.IdInsumo == proveedorInsumo.IdInsumo);
+
+                if (yaExiste)
+                {
+                    return false;
+                }
 
                 context.ProveedoresInsumos.Add(proveedorInsumo);
                 return context.SaveChanges() > 0;
-
             }
         }
 
