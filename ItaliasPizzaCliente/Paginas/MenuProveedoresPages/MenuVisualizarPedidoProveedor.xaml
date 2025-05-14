@@ -1,0 +1,34 @@
+﻿<Page x:Class="ItaliasPizzaCliente.Paginas.MenuProveedoresPages.MenuVisualizarPedidoProveedor"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ItaliasPizzaCliente.Paginas.MenuProveedoresPages"
+      mc:Ignorable="d" 
+      Background="White"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MenuVisualizarPedidoProveedor">
+
+    <Grid>
+        <StackPanel Margin="20">
+            <TextBlock Text="Filtrar por Fecha" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <DatePicker x:Name="DpDesde" Background="#A78BFA" Width="150" Margin="0,0,10,0"/>
+                <DatePicker x:Name="DpHasta" Background="#A78BFA" Width="150"/>
+                <Button Content="Buscar" Click="BtnBuscar_Click" Margin="10,0,0,0"/>
+            </StackPanel>
+
+            <DataGrid x:Name="dgPedidos"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      Height="300">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Proveedor" Binding="{Binding NombreProveedor}" Width="*"/>
+                    <DataGridTextColumn Header="Fecha" Binding="{Binding FechaPedido}" Width="Auto"/>
+                    <DataGridTextColumn Header="Total" Binding="{Binding Total, StringFormat=C}" Width="Auto"/>
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="Auto"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Page>

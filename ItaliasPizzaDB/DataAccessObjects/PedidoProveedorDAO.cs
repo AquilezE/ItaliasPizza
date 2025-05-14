@@ -1,6 +1,8 @@
 ﻿using ItaliasPizzaDB.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +28,16 @@ namespace ItaliasPizzaDB.DataAccessObjects
                 context.SaveChanges();
             }
         }
-    }
 
+        public static List<PedidoProveedor> ObtenerPedidosPorRango(DateTime desde, DateTime hasta)
+        {
+            using (var context = new ItaliasPizzaDbContext())
+            {
+                return context.PedidosProveedores
+                    .Where(p => p.FechaPedido >= desde && p.FechaPedido <= hasta)
+                    .Include(p => p.Proveedor)
+                    .ToList();
+            }
+        }
+    }
 }

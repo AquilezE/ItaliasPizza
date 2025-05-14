@@ -185,6 +185,9 @@
     <Compile Include="Paginas\MenuProveedoresPages\MenuRegistrarNuevoPedido.xaml.cs">
       <DependentUpon>MenuRegistrarNuevoPedido.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Paginas\MenuProveedoresPages\MenuVisualizarPedidoProveedor.xaml.cs">
+      <DependentUpon>MenuVisualizarPedidoProveedor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Paginas\MenuProveedoresPages\MenuVisualizarProveedores.xaml.cs">
       <DependentUpon>MenuVisualizarProveedores.xaml</DependentUpon>
     </Compile>
@@ -329,6 +332,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Paginas\MenuProveedoresPages\MenuRegistrarNuevoPedido.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuProveedoresPages\MenuVisualizarPedidoProveedor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
