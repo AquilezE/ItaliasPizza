@@ -56,10 +56,12 @@
     <Compile Include="DataAccessObjects\ClienteDAO.cs" />
     <Compile Include="DataAccessObjects\InsumoDAO.cs" />
     <Compile Include="DataAccessObjects\PedidoDAO.cs" />
+    <Compile Include="DataAccessObjects\PedidoProveedorDAO.cs" />
     <Compile Include="DataAccessObjects\ProductoDAO.cs" />
     <Compile Include="DataAccessObjects\RecetaDAO.cs" />
     <Compile Include="DataAccessObjects\SalidaDAO.cs" />
     <Compile Include="DataAccessObjects\UnidadDeMedidaDAO.cs" />
+    <Compile Include="DataAccessObjects\VistaProveedorInsumosAO.cs" />
     <Compile Include="ItaliasPizzaDbContext.cs" />
     <Compile Include="Migrations\202504142359135_InitialCreate.cs" />
     <Compile Include="Migrations\202504142359135_InitialCreate.Designer.cs">
@@ -118,6 +120,7 @@
     <Compile Include="Models\TipoTransaccion.cs" />
     <Compile Include="Models\Transaccion.cs" />
     <Compile Include="Models\UnidadDeMedida.cs" />
+    <Compile Include="Models\VistaProveedorInsumos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataAccessObjects\CuentaAccesoDAO.cs" />
     <Compile Include="DataAccessObjects\EmpleadoDAO.cs" />

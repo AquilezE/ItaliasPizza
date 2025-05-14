@@ -15,7 +15,15 @@ namespace ItaliasPizzaDB
         public ItaliasPizzaDbContext()
             : base("ItaliasPizzaDbContext") // Name of the connection string
         {
+            this.Configuration.ProxyCreationEnabled = false;
+            this.Configuration.LazyLoadingEnabled = false;
+
+            //Mierda para la fukin vista
+            Database.SetInitializer<ItaliasPizzaDbContext>(null);
         }
+
+
+        public DbSet<VistaProveedorInsumos> VistaInsumosPorProveedor { get; set; }
 
         public DbSet<Empleado> Empleados { get; set; }
         public DbSet<Cargo> Cargos { get; set; }

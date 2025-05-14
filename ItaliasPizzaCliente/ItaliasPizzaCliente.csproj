@@ -182,8 +182,14 @@
     <Compile Include="Paginas\MenuProveedoresPages\EJEMPLOPARANAVEGACIONLUEGOCAMBIENLO.xaml.cs">
       <DependentUpon>EJEMPLOPARANAVEGACIONLUEGOCAMBIENLO.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Paginas\MenuProveedoresPages\MenuRegistrarNuevoPedido.xaml.cs">
+      <DependentUpon>MenuRegistrarNuevoPedido.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Paginas\MenuProveedoresPages\MenuVisualizarProveedores.xaml.cs">
       <DependentUpon>MenuVisualizarProveedores.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuProveedoresPages\VentanaResumenPedido.xaml.cs">
+      <DependentUpon>VentanaResumenPedido.xaml</DependentUpon>
     </Compile>
     <Compile Include="Singletons\UsuarioSingleton.cs" />
     <Compile Include="UserControllers\NavButton.cs" />
@@ -322,7 +328,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Paginas\MenuProveedoresPages\MenuRegistrarNuevoPedido.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Paginas\MenuProveedoresPages\MenuVisualizarProveedores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuProveedoresPages\VentanaResumenPedido.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

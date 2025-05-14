@@ -239,6 +239,7 @@ namespace DatabaseTests.Inicializador
             };
             context.CategoriasInsumo.Add(categoriaInsumoVegetales);
 
+
             //Categorias de Productos
 
             var categoriaProductoPizza = new CategoriaProducto
@@ -275,7 +276,16 @@ namespace DatabaseTests.Inicializador
                 IdUnidadDeMedida = unidadDeMedidaKg.IdUnidadDeMedida
             };
             context.Insumos.Add(insumoCarne);
-
+            var insumoPepperoni = new Insumo
+            {
+                IdInsumo = 12,
+                Nombre = "Pepperoni",
+                Status = true,
+                Precio = 70,
+                IdCategoriaInsumo = categoriaInsumoCarnes.IdCategoriaInsumo,
+                IdUnidadDeMedida = unidadDeMedidaKg.IdUnidadDeMedida
+            };
+            context.Insumos.Add(insumoPepperoni);
             var insumoQueso = new Insumo
             {
                 IdInsumo= 10,
@@ -298,8 +308,60 @@ namespace DatabaseTests.Inicializador
             };
             context.Insumos.Add(insumoTomate);
 
+            // Proveedores de prueba
+            var proveedorUno = new Proveedor
+            {
+                IdProveedor = 1,
+                Nombre = "Distribuidora Carnes del Norte",
+                Telefono = "123456789",
+                Direccion = "Av. Norte 123"
+            };
+            context.Proveedores.Add(proveedorUno);
+
+            var proveedorDos = new Proveedor
+            {
+                IdProveedor = 2,
+                Nombre = "Lácteos del Sur",
+                Telefono = "987654321",
+                Direccion = "Calle Sur 456"
+            };
+            context.Proveedores.Add(proveedorDos);
+
+            var proveedorTres = new Proveedor
+            {
+                IdProveedor = 3,
+                Nombre = "Hortalizas de Puebla",
+                Telefono = "456789123",
+                Direccion = "Camino Central 789"
+            };
+            context.Proveedores.Add(proveedorTres);
+
+            // Relación Proveedor-Insumo
+            var proveedorInsumoCarne = new ProveedorInsumo
+            {
+                IdProveedor = proveedorUno.IdProveedor,
+                IdInsumo = insumoCarne.IdInsumo
+            };
+            context.ProveedoresInsumos.Add(proveedorInsumoCarne);
+
+            var proveedorInsumoQueso = new ProveedorInsumo
+            {
+                IdProveedor = proveedorDos.IdProveedor,
+                IdInsumo = insumoQueso.IdInsumo
+            };
+            context.ProveedoresInsumos.Add(proveedorInsumoQueso);
+
+            var proveedorInsumoTomate = new ProveedorInsumo
+            {
+                IdProveedor = proveedorTres.IdProveedor,
+                IdInsumo = insumoTomate.IdInsumo
+            };
+            context.ProveedoresInsumos.Add(proveedorInsumoTomate);
+
             context.SaveChanges();
             base.Seed(context);
+
+
 
         }
     }
