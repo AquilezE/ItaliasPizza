@@ -113,7 +113,23 @@ namespace ItaliasPizzaDB.DataAccessObjects
 
             }
         }
+        public static int ValidarProveedorPorNombreDiferente(string nombreProveedor, int idProveedor)
+        {
+            using (var context = new ItaliasPizzaDbContext())
+            {
+                return context.Proveedores
+                    .Any(p => p.Nombre == nombreProveedor && p.IdProveedor != idProveedor) ? 1 : 0;
+            }
+        }
 
+        public static int ValidarProveedorPorTelefonoDiferente(string telefonoProveedor, int idProveedor)
+        {
+            using (var context = new ItaliasPizzaDbContext())
+            {
+                return context.Proveedores
+                    .Any(p => p.Telefono == telefonoProveedor && p.IdProveedor != idProveedor) ? 1 : 0;
+            }
+        }
         public static bool EliminarInsumoDeProveedor(ProveedorInsumo proveedorInsumo)
         {
             using (var context = new ItaliasPizzaDbContext())
@@ -128,5 +144,17 @@ namespace ItaliasPizzaDB.DataAccessObjects
                 return context.SaveChanges() > 0;
             }
         }
+
+        public static List<Insumo> ObtenerInsumosDeProveedor(int idProveedor)
+        {
+            using (var context = new ItaliasPizzaDbContext())
+            {
+                return context.ProveedoresInsumos
+                    .Where(pi => pi.IdProveedor == idProveedor)
+                    .Select(pi => pi.Insumo)
+                    .ToList();
+            }
+        }
+
     }
 }

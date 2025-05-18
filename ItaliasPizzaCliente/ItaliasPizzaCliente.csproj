@@ -176,6 +176,9 @@
     <Compile Include="Paginas\MenuProveedoresPages\EJEMPLOPARANAVEGACIONLUEGOCAMBIENLO.xaml.cs">
       <DependentUpon>EJEMPLOPARANAVEGACIONLUEGOCAMBIENLO.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Paginas\MenuProveedoresPages\MenuModificarProveedores.xaml.cs">
+      <DependentUpon>MenuModificarProveedores.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Paginas\MenuProveedoresPages\MenuRegistrarProveedores.xaml.cs">
       <DependentUpon>MenuRegistrarProveedores.xaml</DependentUpon>
     </Compile>
@@ -310,6 +313,10 @@
     <Page Include="Paginas\MenuProveedoresPages\EJEMPLOPARANAVEGACIONLUEGOCAMBIENLO.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuProveedoresPages\MenuModificarProveedores.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Paginas\MenuProveedoresPages\MenuRegistrarProveedores.xaml">
       <Generator>MSBuild:Compile</Generator>

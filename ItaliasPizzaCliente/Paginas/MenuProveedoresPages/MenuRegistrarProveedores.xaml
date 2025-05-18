@@ -127,11 +127,11 @@
 
                 <!-- Botón Registrar -->
                 <Button Content="Registrar" Width="120" Height="40" Background="#2ecc71" Foreground="White"
-                        HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10" Grid.Column="0" Click="Button_Click"/>
+                        HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10" Grid.Column="0" Click="Registrar_Click"/>
 
                 <!-- Botón Cancelar -->
                 <Button Content="Cancelar" Width="120" Height="40" Background="#e74c3c" Foreground="White"
-                        HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" Grid.Column="1"/>
+                        HorizontalAlignment="Left" VerticalAlignment="Top" Margin="260,10,0,0" Grid.Column="1" Click="Button_Click"/>
             </Grid>
 
         </Grid>

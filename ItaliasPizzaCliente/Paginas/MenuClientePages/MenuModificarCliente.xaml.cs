@@ -103,7 +103,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuClientePages
                 return false;
             }
 
-            if (ValidarCamposNumericos())
+            if (!ValidarCamposNumericos())
             {
                 return false;
             }

@@ -174,7 +174,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuClientePages
                 return false;
             }
 
-            if (ValidarCamposNumericos() == false)
+            if (!ValidarCamposNumericos() == false)
             {
                 return false;
             }

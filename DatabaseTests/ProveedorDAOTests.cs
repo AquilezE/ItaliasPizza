@@ -511,5 +511,59 @@ namespace DatabaseTests
             }
         }
 
+        [Fact]
+        public void ValidarProveedorPorNombreDiferente_DetectaNombreDuplicadoEnOtroProveedor()
+        {
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                var proveedor1 = new Proveedor
+                {
+                    Nombre = "ProveedorDuplicado",
+                    Telefono = "1111111111",
+                    Direccion = "Dirección 1"
+                };
+                var proveedor2 = new Proveedor
+                {
+                    Nombre = "ProveedorDuplicado",
+                    Telefono = "2222222222",
+                    Direccion = "Dirección 2"
+                };
+
+                var creado1 = ProveedorDAO.CrearProveedor(proveedor1);
+                var creado2 = ProveedorDAO.CrearProveedor(proveedor2);
+
+                int resultado = ProveedorDAO.ValidarProveedorPorNombreDiferente("ProveedorDuplicado", creado1.IdProveedor);
+
+                Assert.Equal(1, resultado);
+            }
+        }
+
+        [Fact]
+        public void ValidarProveedorPorTelefonoDiferente_DetectaTelefonoDuplicadoEnOtroProveedor()
+        {
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                var proveedor1 = new Proveedor
+                {
+                    Nombre = "Proveedor 1",
+                    Telefono = "9998887777",
+                    Direccion = "Dirección 1"
+                };
+                var proveedor2 = new Proveedor
+                {
+                    Nombre = "Proveedor 2",
+                    Telefono = "9998887777",
+                    Direccion = "Dirección 2"
+                };
+
+                var creado1 = ProveedorDAO.CrearProveedor(proveedor1);
+                var creado2 = ProveedorDAO.CrearProveedor(proveedor2);
+
+                int resultado = ProveedorDAO.ValidarProveedorPorTelefonoDiferente("9998887777", creado1.IdProveedor);
+
+                Assert.Equal(1, resultado);
+            }
+        }
+
     }
 }

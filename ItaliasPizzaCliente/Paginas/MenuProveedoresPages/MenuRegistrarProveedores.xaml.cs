@@ -32,7 +32,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuProveedoresPages
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Registrar_Click(object sender, RoutedEventArgs e)
         {
             if (!ValidarFormatos())
             {
@@ -200,7 +200,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuProveedoresPages
                 return false;
             }
 
-            if (ValidarCamposNumericos())
+            if (!ValidarCamposNumericos())
             {
                 return false;
             }
@@ -262,6 +262,11 @@ namespace ItaliasPizzaCliente.Paginas.MenuProveedoresPages
             txtBuscarInsumo.Clear();
             lstInsumos.Items.Clear();
             insumosAgregados.Clear();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            LimpiarCampos();
         }
     }
 }
