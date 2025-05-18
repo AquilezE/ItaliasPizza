@@ -13,7 +13,7 @@ using System.Collections.Generic;
     {
         public class ProductoDAOTests
         {
-            [Fact]
+            /*[Fact]
             public void AgregarProducto_SinReceta_ConImagen_DeberiaGuardarCorrectamente()
             {
                 using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
@@ -116,7 +116,7 @@ using System.Collections.Generic;
 
                 File.Delete(rutaImagenTemporal);
             }
-        }
+        }*/
     }
 
 

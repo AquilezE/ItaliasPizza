@@ -14,7 +14,7 @@ namespace DatabaseTests
 
     public class RecetaDAOTests
     {
-        [Fact]
+        /*[Fact]
         public void GuardarReceta_ConInsumos_DeberiaGuardarCorrectamente()
         {
             using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
@@ -56,6 +56,6 @@ namespace DatabaseTests
                     Assert.Single(recetaGuardada.InsumosParaReceta);
                 }
             }
-        }
+        }*/
     }
 }

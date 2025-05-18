@@ -64,10 +64,10 @@ namespace ItaliasPizzaDB.DataAccessObjects
 
                     DateTime fechaNoCerrado = new DateTime(1900, 1, 1);
 
-                    /*if (corte.FechaCierre > fechaNoCerrado)
+                    if (corte.FechaCierre > fechaNoCerrado)
                     {
                         return 1; 
-                    }*/
+                    }
 
                     corte.FechaCierre = DateTime.Now;
                     context.SaveChanges();
