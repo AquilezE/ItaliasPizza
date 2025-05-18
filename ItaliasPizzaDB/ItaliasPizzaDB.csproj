@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="DataAccessObjects\CategoriaInsumoDAO.cs" />
     <Compile Include="DataAccessObjects\ClienteDAO.cs" />
+    <Compile Include="DataAccessObjects\CorteDeCajaDAO.cs" />
     <Compile Include="DataAccessObjects\InsumoDAO.cs" />
     <Compile Include="DataAccessObjects\PedidoDAO.cs" />
     <Compile Include="DataAccessObjects\SalidaDAO.cs" />

@@ -16,21 +16,41 @@ using System.Windows.Shapes;
 namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages
 {
     /// <summary>
-    /// Lógica de interacción para PedidoDomicilio.xaml
+    /// Lógica de interacción para PedidoLocal.xaml
     /// </summary>
-    public partial class PedidoDomicilio : Page
+    public partial class PedidoLocal : Page
     {
-        public PedidoDomicilio()
+        public PedidoLocal()
         {
             InitializeComponent();
         }
 
-        private void Seleccionar_Click(object sender, RoutedEventArgs e)
+        private void cbMesa_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void FinalizarPedido_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
         private void Cancelar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void IncrementarCantidad_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DecrementarCantidad_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CheckBoxProducto_Click(object sender, RoutedEventArgs e)
         {
 
         }

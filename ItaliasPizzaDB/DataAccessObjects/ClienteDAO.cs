@@ -1,4 +1,5 @@
 ﻿using ItaliasPizzaDB.Models;
+using System.Data.Entity; 
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -141,7 +142,15 @@ namespace ItaliasPizzaDB.DataAccessObjects
             }
         }
 
-
+        public static Cliente ObtenerClienteConDireccionesPorTelefono(string telefono)
+        {
+            using (var context = new ItaliasPizzaDbContext())
+            {
+                return context.Clientes
+                    .Include(c => c.Direcciones)
+                    .FirstOrDefault(c => c.Telefono == telefono && c.Status);
+            }
+        }
 
     }
 }

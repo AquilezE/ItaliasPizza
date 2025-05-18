@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ItaliasPizzaCliente.UserControllers;
 
 namespace ItaliasPizzaCliente.Paginas
 {
@@ -23,6 +24,26 @@ namespace ItaliasPizzaCliente.Paginas
         public MenuFinanzas()
         {
             InitializeComponent();
+            navFrame.Navigated += navFrame_Navigated;
+            DataContext = Singletons.UsuarioSingleton.Instance;
+            
+        }
+
+        private void selectionChanged(object sender, RoutedEventArgs e)
+        {
+            var selected = upperBar.SelectedItem as NavButton;
+
+            navFrame.Navigate(selected.Navlink);
+        }
+
+        private void navFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            if (navFrame.CanGoBack)
+            {
+                navFrame.RemoveBackEntry();
+            }
+
+
         }
     }
 }
