@@ -1,11 +1,11 @@
-﻿<Page x:Class="ItaliasPizzaCliente.Paginas.MenuProductoPages.MenuRegistrarProducto"
+﻿<Window x:Class="ItaliasPizzaCliente.Paginas.MenuProductoPages.VentanaModificarProducto"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d" 
       d:DesignHeight="650" d:DesignWidth="1200"
-      Title="MenuRegistrarProducto">
+      Title="VentanaModificarProducto">
 
     <Grid>
         <ScrollViewer Grid.Row="0" Grid.Column="0" Margin="30,10">
@@ -28,13 +28,13 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock Text="Nombre" Grid.Row="0" Grid.Column="1" Margin="0,0,0,36"/>
-                        <TextBox Name="TbNombre" Text="Pizza de Pepperoni" GotFocus="TbNombre_GotFocus" LostFocus="TbNombre_LostFocus"  Foreground="Gray" Grid.Row="0" Grid.Column="1" Margin="0,20,10,10"/>
+                        <TextBox Name="TbNombre" Text="Pizza de Pepperoni" GotFocus="TextBox_LimpiarAlEnfocar"  Foreground="Black" Grid.Row="0" Grid.Column="1" Margin="0,20,10,10"/>
 
                         <TextBlock Text="Código" Grid.Row="0" Margin="0,0,28,40" Grid.Column="2"/>
-                        <TextBox Name="TbCodigo" Text="P22" Foreground="Gray" GotFocus="TbCodigo_GotFocus" LostFocus="TbCodigo_LostFocus" Grid.Row="0" Grid.Column="2" Margin="0,20,10,10"/>
+                        <TextBox Name="TbCodigo" Text="P22" Foreground="Black" GotFocus="TextBox_LimpiarAlEnfocar"  Grid.Row="0" Grid.Column="2" Margin="0,20,10,10"/>
 
                         <TextBlock Text="Precio" Grid.Row="1" Grid.Column="1" Margin="0,0,0,35"/>
-                        <TextBox Name="TbPrecio"   PreviewTextInput="TbPrecio_PreviewTextInput" Text="120" Foreground="Gray" GotFocus="TbPrecio_GotFocus" LostFocus="TbPrecio_LostFocus" Grid.Row="1" Grid.Column="1" Margin="0,20,10,10"/>
+                        <TextBox Name="TbPrecio"   PreviewTextInput="TbPrecio_PreviewTextInput" Text="120" Foreground="Black" GotFocus="TextBox_LimpiarAlEnfocar"  Grid.Row="1" Grid.Column="1" Margin="0,20,10,10"/>
 
                         <TextBlock Text="Categoría" Grid.Row="1" Margin="0,0,28,35" Grid.Column="2"/>
                         <ComboBox Name="CbCategoria" Grid.Row="1" Grid.Column="2" Margin="0,34,10,0" Height="26" VerticalAlignment="Top" ItemsSource="{Binding Categorias}" DisplayMemberPath="CategoriaProductoNombre"
@@ -51,7 +51,7 @@
                                Visibility="Collapsed"/>
 
                         <TextBlock Text="Restricciones" Grid.Row="2" Grid.Column="1" Margin="0,0,0,35"/>
-                        <TextBox Name="TbRestricciones" Text="Coloca restricciones del producto" GotFocus="TbRestricciones_GotFocus" LostFocus="TbRestricciones_LostFocus" Grid.Row="2" Grid.Column="1" Margin="0,20,10,10" Foreground="Gray"/>
+                        <TextBox Name="TbRestricciones" Text="Coloca restricciones del producto" GotFocus="TextBox_LimpiarAlEnfocar"  Grid.Row="2" Grid.Column="1" Margin="0,20,10,10" Foreground="Black"/>
 
                         <TextBlock Text="Producto con Receta" Grid.Row="3" Grid.Column="1" Margin="0,0,0,50"/>
                         <ToggleButton Name="ToggleBProductoConReceta" Content="Sí" Background="#8B5CF6" Foreground="White" Grid.Row="3" Grid.Column="1" Margin="98,20,301,4"/>
@@ -59,7 +59,7 @@
                         <Button Name="BtnCargarImagen" Content="Cargar Imagen" Grid.Row="3" Grid.Column="2" Background="#8B5CF6" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" Height="40" Click="BtnCargarImagen_Click"/>
 
                         <TextBlock Text="Descripción" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,4,110"/>
-                        <TextBox Name="TbDescripcion" Text="Describe el producto..." GotFocus="TbDescripcion_GotFocus" LostFocus="TbDescripcion_LostFocus" Foreground="Gray" AcceptsReturn="True" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,20,10,10"/>
+                        <TextBox Name="TbDescripcion" Text="Describe el producto..." GotFocus="TextBox_LimpiarAlEnfocar"  Foreground="Black" AcceptsReturn="True" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,20,10,10"/>
 
                         <!-- Botones -->
                         <Grid Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,20,0,0">
@@ -67,14 +67,14 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Button Content="Registrar Producto" Click="BtnRegistrarProducto_Click" Background="#10B981" Foreground="White"
+                            <Button Content="Guardar Cambios" Click="BtnGuardarCambios_Click" Background="#10B981" Foreground="White"
                                     Padding="20,5" Margin="5" Grid.Column="0" HorizontalAlignment="Left"/>
                             <Button Content="Cancelar" Background="#EF4444" Foreground="White"
-                                    Padding="20,5" Margin="5" Grid.Column="1" HorizontalAlignment="Right"/>
+                                    Padding="20,5" Margin="5" Grid.Column="1" HorizontalAlignment="Right" Click="Button_Click"/>
                         </Grid>
                     </Grid>
                 </Border>
             </Grid>
         </ScrollViewer>
     </Grid>
-</Page>
+</Window>

@@ -164,8 +164,26 @@
     <Compile Include="Paginas\MenuProductoPages\MenuModificarProducto.xaml.cs">
       <DependentUpon>MenuModificarProducto.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Paginas\MenuProductoPages\MenuModificarReceta.xaml.cs">
+      <DependentUpon>MenuModificarReceta.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Paginas\MenuProductoPages\MenuRegistrarProducto.xaml.cs">
       <DependentUpon>MenuRegistrarProducto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuProductoPages\MenuVisualizarProducto.xaml.cs">
+      <DependentUpon>MenuVisualizarProducto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuProductoPages\VentanaEmergente.xaml.cs">
+      <DependentUpon>VentanaEmergente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuProductoPages\VentanaModificarProducto.xaml.cs">
+      <DependentUpon>VentanaModificarProducto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuProductoPages\VentanaRegistrarReceta.xaml.cs">
+      <DependentUpon>VentanaRegistrarReceta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuProductoPages\VentanaVerReceta.xaml.cs">
+      <DependentUpon>VentanaVerReceta.xaml</DependentUpon>
     </Compile>
     <Compile Include="Paginas\MenuProveedores.xaml.cs">
       <DependentUpon>MenuProveedores.xaml</DependentUpon>
@@ -173,8 +191,17 @@
     <Compile Include="Paginas\MenuProveedoresPages\EJEMPLOPARANAVEGACIONLUEGOCAMBIENLO.xaml.cs">
       <DependentUpon>EJEMPLOPARANAVEGACIONLUEGOCAMBIENLO.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Paginas\MenuProveedoresPages\MenuRegistrarNuevoPedido.xaml.cs">
+      <DependentUpon>MenuRegistrarNuevoPedido.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuProveedoresPages\MenuVisualizarPedidoProveedor.xaml.cs">
+      <DependentUpon>MenuVisualizarPedidoProveedor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Paginas\MenuProveedoresPages\MenuVisualizarProveedores.xaml.cs">
       <DependentUpon>MenuVisualizarProveedores.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuProveedoresPages\VentanaResumenPedido.xaml.cs">
+      <DependentUpon>VentanaResumenPedido.xaml</DependentUpon>
     </Compile>
     <Compile Include="Singletons\UsuarioSingleton.cs" />
     <Compile Include="UserControllers\NavButton.cs" />
@@ -289,7 +316,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Paginas\MenuProductoPages\MenuModificarReceta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Paginas\MenuProductoPages\MenuRegistrarProducto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuProductoPages\MenuVisualizarProducto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuProductoPages\VentanaEmergente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuProductoPages\VentanaModificarProducto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuProductoPages\VentanaRegistrarReceta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuProductoPages\VentanaVerReceta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -301,7 +352,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Paginas\MenuProveedoresPages\MenuRegistrarNuevoPedido.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuProveedoresPages\MenuVisualizarPedidoProveedor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Paginas\MenuProveedoresPages\MenuVisualizarProveedores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuProveedoresPages\VentanaResumenPedido.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

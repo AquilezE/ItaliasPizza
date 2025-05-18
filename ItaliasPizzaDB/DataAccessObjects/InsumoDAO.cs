@@ -20,6 +20,17 @@ namespace ItaliasPizzaDB.DataAccessObjects
             }
         }
 
+        public static List<Insumo> ObtenerInsumosPorCategoria(int idCategoriaInsumo)
+        {
+            using (var context = new ItaliasPizzaDbContext())
+            {
+                return context.Insumos
+                    .Include("UnidadDeMedida")
+                    .Where(i => i.IdCategoriaInsumo == idCategoriaInsumo)
+                    .ToList();
+            }
+        }
+
         public static List<Insumo> ObtenerInsumos(int idCategoria, int idUnidadDeMedida, bool isActive)
         {
             using (var context = new ItaliasPizzaDbContext())

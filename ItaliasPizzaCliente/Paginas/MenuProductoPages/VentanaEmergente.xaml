@@ -1,0 +1,23 @@
+﻿<Window x:Class = "ItaliasPizzaCliente.Paginas.MenuProductoPages.VentanaEmergente"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="VentanaEmergente" Height="200" Width="400" 
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize" WindowStyle="None" Background="White">
+    <Border CornerRadius="10" BorderBrush="#E5E7EB" BorderThickness="1" Padding="20" Background="White">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="TxtTitulo" FontSize="16" FontWeight="Bold" TextAlignment="Center" Margin="0,0,0,10"/>
+            <TextBlock x:Name="TxtMensaje" Grid.Row="1" FontSize="14" TextAlignment="Center" TextWrapping="Wrap" Margin="0,0,0,20"/>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="BtnPrimario" Width="100" Height="35" Background="#10B981" Foreground="White" Click="BtnPrimario_Click"/>
+                <Button x:Name="BtnSecundario" Width="100" Height="35" BorderBrush="#D1D5DB" BorderThickness="1" Foreground="#374151" Background="White" Click="BtnSecundario_Click"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

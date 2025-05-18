@@ -94,9 +94,11 @@
     <Compile Include="Inicializador\InitializadorTestDb.cs" />
     <Compile Include="InsumoDAOTests.cs" />
     <Compile Include="PedidoDAOTests.cs" />
+    <Compile Include="ProductoDAOTests.cs" />
     <Compile Include="ProveedorDAOTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SalidaDAOTests.cs" />
+    <Compile Include="RecetaDAOTests.cs" />
     <Compile Include="UnidadDeMedidaDAOTests.cs" />
   </ItemGroup>
   <ItemGroup>
