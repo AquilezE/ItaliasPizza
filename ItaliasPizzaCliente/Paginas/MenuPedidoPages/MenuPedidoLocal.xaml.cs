@@ -19,9 +19,9 @@ namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages
     /// <summary>
     /// Lógica de interacción para PedidoLocal.xaml
     /// </summary>
-    public partial class PedidoLocal : Page
+    public partial class MenuPedidoLocal : Page
     {
-        public PedidoLocal()
+        public MenuPedidoLocal()
         {
             InitializeComponent();
         }
@@ -62,6 +62,11 @@ namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages
         }
 
         private void CheckBoxProducto_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
 
         }
