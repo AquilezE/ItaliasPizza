@@ -44,7 +44,7 @@ namespace ItaliasPizzaCliente.Paginas
 
         private void Child_ProveedorDoubleClicked(object sender, ProveedorDoubleClickedEventArgs e)
         {
-            navFrame.Navigate(new EJEMPLOPARANAVEGACIONLUEGOCAMBIENLO(e.SelectedProveedor));
+            navFrame.Navigate(new MenuModificarProveedores(e.SelectedProveedor));
         }
 
 

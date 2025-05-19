@@ -490,6 +490,36 @@ namespace DatabaseTests
             }
         }
 
+        [Fact]
+        public void BuscarInsumoPorNombre_DevuelveInsumoCorrecto()
+        {
+            using (var scope = new TransactionScope())
+            {
+                int idInsumo;
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    var insumo = new Insumo
+                    {
+                        Nombre = "BuscarTestInsumo",
+                        IdCategoriaInsumo = 1,
+                        IdUnidadDeMedida = 1,
+                        Status = true
+                    };
+
+                    context.Insumos.Add(insumo);
+                    context.SaveChanges();
+
+                    idInsumo = insumo.IdInsumo;
+                }
+
+                var resultado = InsumoDAO.BuscarInsumoPorNombre("BuscarTest");
+
+                Assert.NotNull(resultado);
+                Assert.Equal(idInsumo, resultado.IdInsumo);
+                Assert.Equal("BuscarTestInsumo", resultado.Nombre);
+            }
+        }
+
 
     }
 }

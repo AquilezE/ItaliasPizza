@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItaliasPizzaCliente.Paginas.MenuInventarioPages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,7 +36,17 @@ namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages
 
         }
 
-        private void Cancelar_Click(object sender, RoutedEventArgs e)
+        private void Agergar_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService?.Navigate(new MenuVisualizarInventario());
+        }
+
+        private void Modificar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Agregar_Click(object sender, RoutedEventArgs e)
         {
 
         }

@@ -95,6 +95,15 @@
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Paginas\MenuClientePages\MenuGestionarDireccionCliente.xaml.cs">
+      <DependentUpon>MenuGestionarDireccionCliente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuClientePages\MenuModificarCliente.xaml.cs">
+      <DependentUpon>MenuModificarCliente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuClientePages\MenuRegistrarClientes.xaml.cs">
+      <DependentUpon>MenuRegistrarClientes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Paginas\MenuEmpleados.xaml.cs">
       <DependentUpon>MenuEmpleados.xaml</DependentUpon>
     </Compile>
@@ -191,6 +200,12 @@
     <Compile Include="Paginas\MenuProveedoresPages\EJEMPLOPARANAVEGACIONLUEGOCAMBIENLO.xaml.cs">
       <DependentUpon>EJEMPLOPARANAVEGACIONLUEGOCAMBIENLO.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Paginas\MenuProveedoresPages\MenuModificarProveedores.xaml.cs">
+      <DependentUpon>MenuModificarProveedores.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuProveedoresPages\MenuRegistrarProveedores.xaml.cs">
+      <DependentUpon>MenuRegistrarProveedores.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Paginas\MenuProveedoresPages\MenuRegistrarNuevoPedido.xaml.cs">
       <DependentUpon>MenuRegistrarNuevoPedido.xaml</DependentUpon>
     </Compile>
@@ -224,6 +239,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Paginas\MenuClientePages\MenuGestionarDireccionCliente.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Paginas\MenuClientePages\MenuModificarCliente.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Paginas\MenuClientePages\MenuRegistrarClientes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Paginas\MenuEmpleados.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -351,6 +378,14 @@
     <Page Include="Paginas\MenuProveedoresPages\EJEMPLOPARANAVEGACIONLUEGOCAMBIENLO.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuProveedoresPages\MenuModificarProveedores.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Paginas\MenuProveedoresPages\MenuRegistrarProveedores.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Paginas\MenuProveedoresPages\MenuRegistrarNuevoPedido.xaml">
       <SubType>Designer</SubType>

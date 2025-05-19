@@ -248,7 +248,7 @@ namespace DatabaseTests
         [Fact]
         public void CrearProveedor_CrearProveedorCorrectamente()
         {
-            using (var scope = new TransactionScope())
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 Proveedor nuevoProveedor = new Proveedor
                 {
@@ -257,19 +257,23 @@ namespace DatabaseTests
                     Direccion = "Calle Ficticia 123"
                 };
 
-                bool resultado = ProveedorDAO.CrearProveedor(nuevoProveedor);
+                Proveedor proveedorCreado = ProveedorDAO.CrearProveedor(nuevoProveedor);
 
-                Assert.True(resultado);
+                Assert.NotNull(proveedorCreado);
+                Assert.True(proveedorCreado.IdProveedor > 0);
+                Assert.Equal("ProveedorTest", proveedorCreado.Nombre);
+                Assert.Equal("1234567890", proveedorCreado.Telefono);
+                Assert.Equal("Calle Ficticia 123", proveedorCreado.Direccion);
 
                 using (var context = new ItaliasPizzaDbContext())
                 {
-                    var proveedorGuardado = context.Proveedores
-                        .FirstOrDefault(p => p.Nombre == "ProveedorTest" && p.Telefono == "1234567890");
+                    var proveedorEnBD = context.Proveedores
+                        .FirstOrDefault(p => p.IdProveedor == proveedorCreado.IdProveedor);
 
-                    Assert.NotNull(proveedorGuardado);
-                    Assert.Equal("ProveedorTest", proveedorGuardado.Nombre);
-                    Assert.Equal("1234567890", proveedorGuardado.Telefono);
-                    Assert.Equal("Calle Ficticia 123", proveedorGuardado.Direccion);
+                    Assert.NotNull(proveedorEnBD);
+                    Assert.Equal("ProveedorTest", proveedorEnBD.Nombre);
+                    Assert.Equal("1234567890", proveedorEnBD.Telefono);
+                    Assert.Equal("Calle Ficticia 123", proveedorEnBD.Direccion);
                 }
             }
         }
@@ -504,6 +508,60 @@ namespace DatabaseTests
                     var eliminado = context.ProveedoresInsumos.FirstOrDefault(pi => pi.IdInsumo == idInsumo && pi.IdProveedor == idProveedor);
                     Assert.Null(eliminado);
                 }
+            }
+        }
+
+        [Fact]
+        public void ValidarProveedorPorNombreDiferente_DetectaNombreDuplicadoEnOtroProveedor()
+        {
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                var proveedor1 = new Proveedor
+                {
+                    Nombre = "ProveedorDuplicado",
+                    Telefono = "1111111111",
+                    Direccion = "Dirección 1"
+                };
+                var proveedor2 = new Proveedor
+                {
+                    Nombre = "ProveedorDuplicado",
+                    Telefono = "2222222222",
+                    Direccion = "Dirección 2"
+                };
+
+                var creado1 = ProveedorDAO.CrearProveedor(proveedor1);
+                var creado2 = ProveedorDAO.CrearProveedor(proveedor2);
+
+                int resultado = ProveedorDAO.ValidarProveedorPorNombreDiferente("ProveedorDuplicado", creado1.IdProveedor);
+
+                Assert.Equal(1, resultado);
+            }
+        }
+
+        [Fact]
+        public void ValidarProveedorPorTelefonoDiferente_DetectaTelefonoDuplicadoEnOtroProveedor()
+        {
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                var proveedor1 = new Proveedor
+                {
+                    Nombre = "Proveedor 1",
+                    Telefono = "9998887777",
+                    Direccion = "Dirección 1"
+                };
+                var proveedor2 = new Proveedor
+                {
+                    Nombre = "Proveedor 2",
+                    Telefono = "9998887777",
+                    Direccion = "Dirección 2"
+                };
+
+                var creado1 = ProveedorDAO.CrearProveedor(proveedor1);
+                var creado2 = ProveedorDAO.CrearProveedor(proveedor2);
+
+                int resultado = ProveedorDAO.ValidarProveedorPorTelefonoDiferente("9998887777", creado1.IdProveedor);
+
+                Assert.Equal(1, resultado);
             }
         }
 

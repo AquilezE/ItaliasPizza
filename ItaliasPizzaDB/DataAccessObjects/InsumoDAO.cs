@@ -147,5 +147,13 @@ namespace ItaliasPizzaDB.DataAccessObjects
                 return context.SaveChanges() > 0;
             }
         }
+
+        public static Insumo BuscarInsumoPorNombre(string nombre)
+        {
+            using (var context = new ItaliasPizzaDbContext())
+            {
+                return context.Insumos.FirstOrDefault(i => i.Nombre.Contains(nombre));
+            }
+        }
     }
 }
