@@ -13,7 +13,6 @@ namespace ItaliasPizzaDB.Models
         [Key]
         public int IdProducto { get; set; }
         public string Nombre { get; set; }
-        public string Categoria { get; set; }
         public string Codigo { get; set; }
         public string Restricciones { get; set; }
         public string Descripcion { get; set; }
@@ -25,6 +24,10 @@ namespace ItaliasPizzaDB.Models
         public int? IdReceta { get; set; }
         [ForeignKey("IdReceta")]
         public virtual Receta Receta { get; set; }
+
+        public int IdCategoriaProducto { get; set; }
+        [ForeignKey("IdCategoriaProducto")]
+        public virtual CategoriaProducto CategoriaProducto { get; set; }
 
         public virtual ICollection<DetallePedido> DetallePedido { get; set;}
     }

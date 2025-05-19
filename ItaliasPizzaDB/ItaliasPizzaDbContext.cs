@@ -15,7 +15,15 @@ namespace ItaliasPizzaDB
         public ItaliasPizzaDbContext()
             : base("ItaliasPizzaDbContext") // Name of the connection string
         {
+            this.Configuration.ProxyCreationEnabled = false;
+            this.Configuration.LazyLoadingEnabled = false;
+
+            //Mierda para la fukin vista
+            Database.SetInitializer<ItaliasPizzaDbContext>(null);
         }
+
+
+        public DbSet<VistaProveedorInsumos> VistaInsumosPorProveedor { get; set; }
 
         public DbSet<Empleado> Empleados { get; set; }
         public DbSet<Cargo> Cargos { get; set; }
@@ -37,6 +45,8 @@ namespace ItaliasPizzaDB
         public DbSet<Insumo> Insumos { get; set; }
         public DbSet<UnidadDeMedida> UnidadesDeMedida { get; set; }
         public DbSet<CategoriaInsumo> CategoriasInsumo { get; set; }
+        public DbSet<CategoriaProducto> CategoriasProducto { get; set; }
+
         public DbSet<Proveedor> Proveedores { get; set; }
         public DbSet<ProveedorInsumo> ProveedoresInsumos { get; set; }
 

@@ -7,10 +7,10 @@ using ItaliasPizzaDB.Models;
 
 namespace ItaliasPizzaDB.DataAccessObjects
 {
-    internal class SalidaDAO
+    public class SalidaDAO
     {
 
-        public static async Task<bool> RegistrarTransaccion(float cantidad, string descripcion, int idTipoTransaccion, int idEmpleado)
+        public static async Task<bool> RegistrarTransaccion(float cantidad, string descripcion, int idEmpleado, int idTipoTransaccion)
         {
             using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
             {
@@ -35,9 +35,47 @@ namespace ItaliasPizzaDB.DataAccessObjects
 
                     return true;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Console.WriteLine("Error al registrar la transacción: " + ex.Message);
+
+                    Exception inner = ex.InnerException;
+                    while (inner != null)
+                    {
+                        Console.WriteLine("Inner exception: " + inner.Message);
+                        inner = inner.InnerException;
+                    }
+
                     return false;
+                }
+            }
+        }
+
+        public static int RegistrarGastoEnCorteDeCaja(float montoGasto)
+        {
+            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            {
+                try
+                {
+                    if (montoGasto <= 0)
+                        return 2;
+
+                    var corteMasReciente = context.CortesDeCaja
+                        .OrderByDescending(c => c.FechaApertura)
+                        .FirstOrDefault();
+
+                    if (corteMasReciente == null)
+                        return 1; 
+
+                    corteMasReciente.Gasto += montoGasto;
+
+                    context.SaveChanges();
+
+                    return 0;
+                }
+                catch (Exception ex)
+                {
+                    return 3; 
                 }
             }
         }

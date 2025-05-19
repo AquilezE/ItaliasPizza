@@ -21,6 +21,7 @@ using ItaliasPizzaDB.DataAccessObjects;
 using ItaliasPizzaDB.DataAccessObjects.ItaliasPizzaDB.DataAccessObjects;
 using Path = System.IO.Path;
 using System.Collections.ObjectModel;
+using ItaliasPizzaCliente.Utils;
 
 namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
 {
@@ -40,12 +41,14 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
         string textoEjemploDescripcion = "Describe el producto...";
         Receta receta = null;
         private string rutaImagenSeleccionada = null;
-        public ObservableCollection<CategoriaInsumo> Categorias { get; set; }
+        public ObservableCollection<CategoriaProducto> Categorias { get; set; }
+        private readonly DialogoNotificacion notificador = new DialogoNotificacion();
+
 
         public MenuRegistrarProducto()
         {
             InitializeComponent();
-            Categorias = new ObservableCollection<CategoriaInsumo>();
+            Categorias = new ObservableCollection<CategoriaProducto>();
 
             DataContext = this;
             CargarCategorias();
@@ -53,7 +56,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
 
         public void CargarCategorias()
         {
-            var categoriasLista = CategoriaInsumoDAO.ObtenerCategoriasInsumo();
+            var categoriasLista = CategoriaProductoDAO.ObtenerCategoriasProducto();
             Categorias.Clear();
 
             foreach (var categoria in categoriasLista)
@@ -175,7 +178,6 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
         }
 
 
-
         private void TbPrecio_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !e.Text.All(char.IsDigit);
@@ -193,7 +195,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
             return ToggleBProductoConReceta.IsChecked == true;
         }
 
-        private void CrearReceta()
+        private bool CrearReceta()
         {
             if (VerificarReceta())
             {
@@ -215,57 +217,60 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
                     else
                     {
                         receta = null;
+                        return false;
                     }
                 }
                 else
                 {
                     receta = null;
+                    return false;
                 }
             }
-        }
 
+            return true;
+        }
 
         private void BtnRegistrarProducto_Click(object sender, RoutedEventArgs e)
         {
             if (!CampoEsValido(TbNombre))
             {
-                MessageBox.Show("El campo Nombre es obligatorio.");
+                notificador.ShowWarningNotification("El campo Nombre es obligatorio.");
                 return;
             }
 
             if (!CampoEsValido(TbCodigo))
             {
-                MessageBox.Show("El campo Código es obligatorio.");
+                notificador.ShowWarningNotification("El campo Código es obligatorio.");
                 return;
             }
 
             if (!CampoEsValido(TbPrecio))
             {
-                MessageBox.Show("El campo Precio es obligatorio.");
+                notificador.ShowWarningNotification("El campo Precio es obligatorio.");
                 return;
             }
 
             if (!CampoEsValido(TbRestricciones))
             {
-                MessageBox.Show("El campo Restricciones es obligatorio.");
+                notificador.ShowWarningNotification("El campo Restricciones es obligatorio.");
                 return;
             }
 
             if (!CampoEsValido(TbDescripcion))
             {
-                MessageBox.Show("El campo Descripción es obligatorio.");
+                notificador.ShowWarningNotification("El campo Descripción es obligatorio.");
                 return;
             }
 
             if (ImgPreview.Source == null || ImgPreview.Visibility != Visibility.Visible)
             {
-                MessageBox.Show("Debes cargar una imagen del producto.");
+                notificador.ShowWarningNotification("Debes cargar una imagen del producto.");
                 return;
             }
 
             if (CbCategoria.SelectedItem == null)
             {
-                MessageBox.Show("Debes seleccionar una categoría.");
+                notificador.ShowWarningNotification("Debes seleccionar una categoría.");
                 return;
             }
 
@@ -275,13 +280,18 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
                 "Aceptar",
                 "Cancelar");
 
-            CrearReceta();
+            if (!CrearReceta())
+            {
+                // Cancelado por el usuario, no continuar
+                return;
+            }
+
 
             var producto = new Producto
             {
                 Nombre = TbNombre.Text,
                 Codigo = TbCodigo.Text,
-                Categoria = CbCategoria.Text,
+                IdCategoriaProducto = (int)CbCategoria.SelectedValue,
                 Descripcion = TbDescripcion.Text,
                 Restricciones = TbRestricciones.Text,
                 Precio = float.Parse(TbPrecio.Text),
@@ -289,8 +299,13 @@ namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
                 MaxPerOrder = 1
             };
 
+            if (VerificarReceta() && receta != null)
+            {
+                RecetaDAO.GuardarReceta(receta);
+                producto.IdReceta = receta.IdReceta; // Esto enlaza la receta con el producto
+            }
             var dao = new ProductoDAO();
-            bool guardado = dao.AgregarProducto(producto, VerificarReceta(), receta, rutaImagenSeleccionada);
+            bool guardado = dao.AgregarProducto(producto, false, null, rutaImagenSeleccionada);
 
 
 

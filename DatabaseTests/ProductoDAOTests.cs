@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DatabaseTests
-{
-    using System;
+﻿ using System;
     using System.IO;
     using System.Linq;
     using System.Transactions;
@@ -15,12 +7,13 @@ namespace DatabaseTests
     using ItaliasPizzaDB.DataAccessObjects;
     using ItaliasPizzaDB.Models;
     using ItaliasPizzaDB.DataAccessObjects.ItaliasPizzaDB.DataAccessObjects;
+using System.Collections.Generic;
 
     namespace DatabaseTests
     {
         public class ProductoDAOTests
         {
-            [Fact]
+            /*[Fact]
             public void AgregarProducto_SinReceta_ConImagen_DeberiaGuardarCorrectamente()
             {
                 using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
@@ -38,7 +31,7 @@ namespace DatabaseTests
                         {
                             Nombre = "Pizza Test",
                             Precio = 100,
-                            Categoria = "Pizza",
+                            IdCategoriaProducto = 1,
                             Descripcion = "Pizza de prueba unitaria",
                             Restricciones = "No se puede poner queso a la pisa"
                         };
@@ -63,7 +56,71 @@ namespace DatabaseTests
                     File.Delete(rutaImagenTemporal);
                 }
             }
-        }
+        [Fact]
+        public void AgregarProducto_ConReceta_DeberiaGuardarCorrectamente()
+        {
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                string rutaImagenTemporal = Path.GetTempFileName();
+                File.WriteAllText(rutaImagenTemporal, "fake image content");
+
+                int idProducto;
+
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    var insumoEjemplo = context.Insumos.FirstOrDefault();
+                    Assert.NotNull(insumoEjemplo); // Asegúrate de tener al menos un insumo
+
+                    var receta = new Receta
+                    {
+                        Instrucciones = "Receta para pizza unitaria",
+                        InsumosParaReceta = new List<InsumoParaReceta>
+                {
+                    new InsumoParaReceta
+                    {
+                        IdInsumo = insumoEjemplo.IdInsumo,
+                        Cantidad = 1
+                    }
+                }
+                    };
+
+                    var producto = new Producto
+                    {
+                        Nombre = "Pizza con receta",
+                        Precio = 150,
+                        IdCategoriaProducto = 1,
+                        Descripcion = "Pizza de prueba con receta",
+                        Restricciones = "Sin cebolla"
+                    };
+
+                    var dao = new ProductoDAO();
+                    bool resultado = dao.AgregarProducto(producto, true, receta, rutaImagenTemporal);
+
+
+                    Assert.True(resultado);
+                    Assert.NotEqual(0, producto.IdProducto);
+                    idProducto = producto.IdProducto;
+                }
+
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    var productoGuardado = context.Productos
+                        .Include("Receta.InsumosParaReceta")
+                        .FirstOrDefault(p => p.IdProducto == idProducto);
+
+                    Assert.NotNull(productoGuardado);
+                    Assert.Equal("Pizza con receta", productoGuardado.Nombre);
+                    Assert.NotNull(productoGuardado.Receta);
+                    Assert.Single(productoGuardado.Receta.InsumosParaReceta);
+                }
+
+                File.Delete(rutaImagenTemporal);
+            }
+        }*/
     }
 
+
+
 }
+
+

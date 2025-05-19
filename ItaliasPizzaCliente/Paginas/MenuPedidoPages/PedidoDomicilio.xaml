@@ -102,11 +102,11 @@
                 <Button Content="Seleccionar" Width="120" Background="#00CBA9" Foreground="White" 
                         Margin="0,0,10,0" Click="Seleccionar_Click"/>
                 <Button Content="Agregar cliente" Width="130" Background="#C664E4" Foreground="White" 
-                        Margin="0,0,10,0" Click="Cancelar_Click" />
+                        Margin="0,0,10,0" Click="Agergar_Click" />
                 <Button Content="Modificar cliente" Width="140" Background="#438BAE" Foreground="White" 
-                        Margin="0,0,10,0" Click="Cancelar_Click"/>
+                        Margin="0,0,10,0" Click="Modificar_Click"/>
                 <Button Content="Agregar dirección" Width="150" Background="#7764E4" Foreground="White" 
-                        Margin="0,0,10,0" Click="Cancelar_Click"/>
+                        Margin="0,0,10,0" Click="Agregar_Click"/>
             </StackPanel>
 
             <!-- Recursos locales para centrar celdas -->

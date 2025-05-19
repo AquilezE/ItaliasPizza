@@ -1,6 +1,7 @@
 ﻿using ItaliasPizzaDB.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -56,6 +57,75 @@ namespace ItaliasPizzaDB.DataAccessObjects
                     }
                 }
             }
+
+            public static List<Producto> ObtenerProductosConCategoria()
+            {
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    return context.Productos
+                        .Include("CategoriaProducto")
+                        .ToList();
+                }
+            }
+
+            public static Producto ObtenerProductoCompleto(int idProducto)
+            {
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    return context.Productos
+                        .Include("Receta")
+                        .Include("Receta.InsumosParaReceta")
+                        .Include("Receta.InsumosParaReceta.Insumo")
+                        .Include("Receta.InsumosParaReceta.Insumo.UnidadDeMedida")
+                        .FirstOrDefault(p => p.IdProducto == idProducto);
+                }
+            }
+
+            public bool ActualizarProducto(Producto productoModificado, string nuevaRutaImagen = null)
+            {
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    try
+                    {
+                        // 1. Recuperar el producto original del contexto
+                        var productoOriginal = context.Productos.FirstOrDefault(p => p.IdProducto == productoModificado.IdProducto);
+                        if (productoOriginal == null)
+                            return false;
+
+                        // 2. Actualizar campos
+                        productoOriginal.Nombre = productoModificado.Nombre;
+                        productoOriginal.Codigo = productoModificado.Codigo;
+                        productoOriginal.Precio = productoModificado.Precio;
+                        productoOriginal.Restricciones = productoModificado.Restricciones;
+                        productoOriginal.Descripcion = productoModificado.Descripcion;
+                        productoOriginal.IdCategoriaProducto = productoModificado.IdCategoriaProducto;
+                        productoOriginal.IdReceta = productoModificado.IdReceta;
+
+                        // 3. Imagen nueva (si aplica)
+                        if (!string.IsNullOrWhiteSpace(nuevaRutaImagen) && File.Exists(nuevaRutaImagen))
+                        {
+                            string nombreImagen = $"{Guid.NewGuid()}_{Path.GetFileName(nuevaRutaImagen)}";
+                            string carpetaDestino = "ImagenesProductos";
+                            Directory.CreateDirectory(carpetaDestino);
+                            string rutaDestino = Path.Combine(carpetaDestino, nombreImagen);
+                            File.Copy(nuevaRutaImagen, rutaDestino, true);
+
+                            productoOriginal.ImagenRuta = nombreImagen;
+                        }
+
+                        // 4. Guardar cambios
+                        context.SaveChanges();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error al actualizar producto: " + ex.Message);
+                        return false;
+                    }
+                }
+            }
+
+
         }
 
 

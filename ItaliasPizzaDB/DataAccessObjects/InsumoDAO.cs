@@ -25,11 +25,11 @@ namespace ItaliasPizzaDB.DataAccessObjects
             using (var context = new ItaliasPizzaDbContext())
             {
                 return context.Insumos
+                    .Include("UnidadDeMedida")
                     .Where(i => i.IdCategoriaInsumo == idCategoriaInsumo)
                     .ToList();
             }
         }
-
 
         public static List<Insumo> ObtenerInsumos(int idCategoria, int idUnidadDeMedida, bool isActive)
         {
@@ -145,6 +145,14 @@ namespace ItaliasPizzaDB.DataAccessObjects
                 insumoActual.Status = true;
 
                 return context.SaveChanges() > 0;
+            }
+        }
+
+        public static Insumo BuscarInsumoPorNombre(string nombre)
+        {
+            using (var context = new ItaliasPizzaDbContext())
+            {
+                return context.Insumos.FirstOrDefault(i => i.Nombre.Contains(nombre));
             }
         }
     }

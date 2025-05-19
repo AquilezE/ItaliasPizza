@@ -31,8 +31,7 @@ namespace ItaliasPizzaCliente.Paginas
 
         private void Child_InventarioDoubleClicked(object sender, InsumoDoubleClickedEventArgs e)
         {
-            //Aqui namas cambiale la clase a la que navega por lo de modicar o ver insumo como sea
-            navFrame.Navigate(new EJEMPLOPARAMADREDEEVENTO(e.SelectedInsumo));
+            navFrame.Navigate(new MenuModificarInsumo(e.SelectedInsumo));
         }
 
         private void selectionChanged(object sender, RoutedEventArgs e)

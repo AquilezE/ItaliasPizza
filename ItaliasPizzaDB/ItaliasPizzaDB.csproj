@@ -52,12 +52,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccessObjects\CategoriaInsumoDAO.cs" />
+    <Compile Include="DataAccessObjects\CategoriaProductoDAO.cs" />
     <Compile Include="DataAccessObjects\ClienteDAO.cs" />
+    <Compile Include="DataAccessObjects\CorteDeCajaDAO.cs" />
     <Compile Include="DataAccessObjects\InsumoDAO.cs" />
     <Compile Include="DataAccessObjects\PedidoDAO.cs" />
+    <Compile Include="DataAccessObjects\PedidoProveedorDAO.cs" />
     <Compile Include="DataAccessObjects\ProductoDAO.cs" />
+    <Compile Include="DataAccessObjects\RecetaDAO.cs" />
     <Compile Include="DataAccessObjects\SalidaDAO.cs" />
     <Compile Include="DataAccessObjects\UnidadDeMedidaDAO.cs" />
+    <Compile Include="DataAccessObjects\VistaProveedorInsumosAO.cs" />
     <Compile Include="ItaliasPizzaDbContext.cs" />
     <Compile Include="Migrations\202504142359135_InitialCreate.cs" />
     <Compile Include="Migrations\202504142359135_InitialCreate.Designer.cs">
@@ -71,9 +76,30 @@
     <Compile Include="Migrations\202505070320453_productoCambios.Designer.cs">
       <DependentUpon>202505070320453_productoCambios.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202505080626576_categoriasProductos.cs" />
+    <Compile Include="Migrations\202505080626576_categoriasProductos.Designer.cs">
+      <DependentUpon>202505080626576_categoriasProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505080645011_cambioCategoriaProducto.cs" />
+    <Compile Include="Migrations\202505080645011_cambioCategoriaProducto.Designer.cs">
+      <DependentUpon>202505080645011_cambioCategoriaProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505080707217_cambioCategoriaProductoForaneo.cs" />
+    <Compile Include="Migrations\202505080707217_cambioCategoriaProductoForaneo.Designer.cs">
+      <DependentUpon>202505080707217_cambioCategoriaProductoForaneo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505120531432_recetaModificacion.cs" />
+    <Compile Include="Migrations\202505120531432_recetaModificacion.Designer.cs">
+      <DependentUpon>202505120531432_recetaModificacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505120547353_recetaModificacion1.cs" />
+    <Compile Include="Migrations\202505120547353_recetaModificacion1.Designer.cs">
+      <DependentUpon>202505120547353_recetaModificacion1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cargo.cs" />
     <Compile Include="Models\CategoriaInsumo.cs" />
+    <Compile Include="Models\CategoriaProducto.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\CorteDeCaja.cs" />
     <Compile Include="Models\CuentaAcceso.cs" />
@@ -95,6 +121,7 @@
     <Compile Include="Models\TipoTransaccion.cs" />
     <Compile Include="Models\Transaccion.cs" />
     <Compile Include="Models\UnidadDeMedida.cs" />
+    <Compile Include="Models\VistaProveedorInsumos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataAccessObjects\CuentaAccesoDAO.cs" />
     <Compile Include="DataAccessObjects\EmpleadoDAO.cs" />
@@ -116,6 +143,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202505070320453_productoCambios.resx">
       <DependentUpon>202505070320453_productoCambios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505080626576_categoriasProductos.resx">
+      <DependentUpon>202505080626576_categoriasProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505080645011_cambioCategoriaProducto.resx">
+      <DependentUpon>202505080645011_cambioCategoriaProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505080707217_cambioCategoriaProductoForaneo.resx">
+      <DependentUpon>202505080707217_cambioCategoriaProductoForaneo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505120531432_recetaModificacion.resx">
+      <DependentUpon>202505120531432_recetaModificacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505120547353_recetaModificacion1.resx">
+      <DependentUpon>202505120547353_recetaModificacion1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
