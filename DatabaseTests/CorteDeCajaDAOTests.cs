@@ -182,5 +182,98 @@ namespace DatabaseTests
                 Assert.Equal(-1, resultado);
             }
         }
+
+        [Fact]
+        public void AgregarVentaAlCorteDelDia_DebeIncrementarVentaDelDiaCorrectamente()
+        {
+            using (var scope = new TransactionScope())
+            {
+                // Arrange
+                DateTime fechaNoCerrado = new DateTime(1900, 1, 1);
+                float montoPedido = 150.50f;
+                float ventaInicial = 500.0f;
+
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    var corte = new CorteDeCaja
+                    {
+                        FechaApertura = DateTime.Now,
+                        Cambio = 1000,
+                        IdEmpleado = 1,
+                        FechaCierre = fechaNoCerrado,
+                        VentaDelDia = ventaInicial,
+                        Gasto = 0
+                    };
+
+                    context.CortesDeCaja.Add(corte);
+                    context.SaveChanges();
+                }
+
+                // Act
+                int resultado = CorteDeCajaDAO.AgregarVentaAlCorteDelDia(montoPedido);
+
+                // Assert
+                Assert.Equal(0, resultado);
+
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    var corteActualizado = context.CortesDeCaja
+                        .FirstOrDefault(c => c.FechaCierre == fechaNoCerrado);
+
+                    Assert.NotNull(corteActualizado);
+                    Assert.Equal(ventaInicial + montoPedido, corteActualizado.VentaDelDia);
+                }
+            }
+        }
+
+        [Fact]
+        public void AgregarVentaAlCorteDelDia_SinCorteAbierto_DebeRetornarMenosUno()
+        {
+            using (var scope = new TransactionScope())
+            {
+                // Arrange - No creamos ningún corte abierto
+
+                // Act
+                int resultado = CorteDeCajaDAO.AgregarVentaAlCorteDelDia(150.50f);
+
+                // Assert
+                Assert.Equal(-1, resultado);
+            }
+        }
+
+        [Fact]
+        public void AgregarVentaAlCorteDelDia_ConMontoInvalido_DebeRetornarMenosDos()
+        {
+            using (var scope = new TransactionScope())
+            {
+                // Arrange
+                DateTime fechaNoCerrado = new DateTime(1900, 1, 1);
+
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    var corte = new CorteDeCaja
+                    {
+                        FechaApertura = DateTime.Now,
+                        Cambio = 1000,
+                        IdEmpleado = 1,
+                        FechaCierre = fechaNoCerrado,
+                        VentaDelDia = 0,
+                        Gasto = 0
+                    };
+
+                    context.CortesDeCaja.Add(corte);
+                    context.SaveChanges();
+                }
+
+                // Act - Monto negativo
+                int resultado = CorteDeCajaDAO.AgregarVentaAlCorteDelDia(-50.0f);
+
+                // Assert
+                Assert.Equal(-2, resultado);
+            }
+        }
+
+        
+
     }
 }

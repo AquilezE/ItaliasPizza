@@ -96,6 +96,14 @@
     <Compile Include="Migrations\202505120547353_recetaModificacion1.Designer.cs">
       <DependentUpon>202505120547353_recetaModificacion1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202505190327444_CantidadAInsumo.cs" />
+    <Compile Include="Migrations\202505190327444_CantidadAInsumo.Designer.cs">
+      <DependentUpon>202505190327444_CantidadAInsumo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505191843195_FixCantidadType.cs" />
+    <Compile Include="Migrations\202505191843195_FixCantidadType.Designer.cs">
+      <DependentUpon>202505191843195_FixCantidadType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cargo.cs" />
     <Compile Include="Models\CategoriaInsumo.cs" />
@@ -158,6 +166,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202505120547353_recetaModificacion1.resx">
       <DependentUpon>202505120547353_recetaModificacion1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505190327444_CantidadAInsumo.resx">
+      <DependentUpon>202505190327444_CantidadAInsumo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505191843195_FixCantidadType.resx">
+      <DependentUpon>202505191843195_FixCantidadType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

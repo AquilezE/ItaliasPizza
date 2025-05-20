@@ -151,5 +151,15 @@ namespace ItaliasPizzaDB.DataAccessObjects
             }
         }
 
+        public static Direccion ObtenerDireccionPorId(int idDireccion)
+        {
+            using (var context = new ItaliasPizzaDbContext())
+            {
+                return context.Direcciones
+                    .Include(d => d.Cliente) // Opcional: si necesitas los datos del cliente
+                    .FirstOrDefault(d => d.IdDireccion == idDireccion && d.Status);
+            }
+        }
+
     }
 }

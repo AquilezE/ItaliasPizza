@@ -51,9 +51,6 @@
                    VerticalAlignment="Center" Margin="0,0,10,0"/>
                 <ComboBox x:Name="cbMesa" 
                     Background="#7764E4" Width="225" Height="38" SelectionChanged="cbMesa_SelectionChanged">
-                    <ComboBoxItem Content="1"/>
-                    <ComboBoxItem Content="2"/>
-                    <ComboBoxItem Content="3"/>
                 </ComboBox>
             </StackPanel>
 
@@ -74,7 +71,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text="Selección Producto" 
+                        <TextBlock Text="Seleccione el producto deseado" 
                                    FontSize="16" FontWeight="Bold" 
                                    Margin="10" HorizontalAlignment="Center"/>
 
@@ -87,7 +84,11 @@
                                   BorderThickness="0"
                                   HeadersVisibility="Column"
                                   IsReadOnly="True"
-                                  AlternatingRowBackground="#F5F5F5">
+                                  AlternatingRowBackground="#F5F5F5"
+                                  VerticalAlignment="Stretch"  
+                                  HorizontalAlignment="Stretch"
+                                  Margin="5">
+
                             <DataGrid.Columns>
                                 <DataGridTemplateColumn Header=" " Width="Auto">
                                     <DataGridTemplateColumn.CellTemplate>
@@ -97,7 +98,8 @@
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-                                <DataGridTextColumn Header="Producto" Binding="{Binding Nombre}" Width="*"/>
+                                <DataGridTextColumn Header="IdProducto" Binding="{Binding IdProducto}" Width="Auto"/>
+                                <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="Auto"/>
                                 <DataGridTextColumn Header="Precio" Binding="{Binding Precio, StringFormat=C}" Width="Auto"/>
                             </DataGrid.Columns>
                         </DataGrid>
@@ -114,38 +116,41 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock Text="Productos seleccionados" 
-                                   FontSize="16" FontWeight="Bold" 
-                                   Margin="10" HorizontalAlignment="Center"/>
+                       FontSize="16" FontWeight="Bold" 
+                       Margin="10" HorizontalAlignment="Center"/>
 
                         <DataGrid x:Name="dgProductosSeleccionados"
-                                  Grid.Row="1"
-                                  AutoGenerateColumns="False"
-                                  CanUserAddRows="False"
-                                  SelectionMode="Single"
-                                  Background="White"
-                                  BorderThickness="0"
-                                  HeadersVisibility="Column"
-                                  AlternatingRowBackground="#F5F5F5">
+                      Grid.Row="1"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      SelectionMode="Single"
+                      Background="White"
+                      BorderThickness="0"
+                      HeadersVisibility="Column"
+                      AlternatingRowBackground="#F5F5F5">
                             <DataGrid.Columns>
+                                <!-- Columna Producto -->
                                 <DataGridTextColumn Header="Producto" Binding="{Binding Nombre}" Width="*" IsReadOnly="True"/>
 
+                                <!-- Columna Cantidad con botones +/- -->
                                 <DataGridTemplateColumn Header="Cantidad" Width="Auto">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                                 <Button Content="-" Width="25" Background="#FF5252" Foreground="White"
-                                                        Click="DecrementarCantidad_Click" Tag="{Binding}"/>
+                    Click="DecrementarCantidad_Click" Tag="{Binding}"/>
                                                 <TextBlock Text="{Binding Cantidad}" Width="30" Margin="5,0"
-                                                           TextAlignment="Center" VerticalAlignment="Center"/>
+                       TextAlignment="Center" VerticalAlignment="Center"/>
                                                 <Button Content="+" Width="25" Background="#4CAF50" Foreground="White"
-                                                        Click="IncrementarCantidad_Click" Tag="{Binding}"/>
+                    Click="IncrementarCantidad_Click" Tag="{Binding}"/>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTextColumn Header="Precio" Binding="{Binding Precio, StringFormat=C}" Width="Auto" IsReadOnly="True"/>
-                                <DataGridTextColumn Header="Total" Binding="{Binding Subtotal, StringFormat=C}" Width="Auto" IsReadOnly="True"/>
+                                <!-- Otras columnas -->
+                                <DataGridTextColumn Header="P. Unitario" Binding="{Binding Precio, StringFormat=C}" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Subtotal" Binding="{Binding Subtotal, StringFormat=C}" Width="Auto" IsReadOnly="True"/>
                             </DataGrid.Columns>
                         </DataGrid>
 

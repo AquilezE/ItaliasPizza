@@ -26,7 +26,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuClientePages
     {
 
         int tipoDeAccion;
-        int idClienteObtenido;
+        public int idClienteObtenido;
 
         public MenuGestionarDireccionCliente(Direccion direccion)
         {
@@ -58,11 +58,14 @@ namespace ItaliasPizzaCliente.Paginas.MenuClientePages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (ValidarFormatos() == false)
+            Console.WriteLine("Iniciando validación de formatos...");
+            /*if (!ValidarFormatos())
             {
+                Console.WriteLine("Validación de formatos falló");
                 return;
-            }
+            }*/
 
+            Console.WriteLine("Creando nueva dirección...");
             Direccion nuevaDireccion = new Direccion
             {
                 Calle = txtCalle.Text,
@@ -76,6 +79,8 @@ namespace ItaliasPizzaCliente.Paginas.MenuClientePages
                 IdCliente = idClienteObtenido
             };
 
+            Console.WriteLine($"ID Cliente: {idClienteObtenido}");
+            Console.WriteLine("Validando dirección repetida...");
             var direccionRepetida = ClienteDAO.ValidarDireccionRepetida(nuevaDireccion);
             if (direccionRepetida == true)
             {
@@ -85,6 +90,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuClientePages
 
             if (tipoDeAccion == 1)
             {
+                Console.WriteLine("Intentando agregar dirección...");
                 if (!ClienteDAO.AgregarDireccion(nuevaDireccion))
                 {
                     new DialogoNotificacion().ShowErrorNotification("No se pudo guardar la dirección.");
@@ -130,6 +136,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuClientePages
             {
                 DialogoNotificacion dialogo = new DialogoNotificacion();
                 dialogo.ShowErrorNotification(mensajeErrorDireccion);
+                Console.WriteLine("Calle");
                 return false;
             }
             mensajeErrorDireccion = validador.ValidarDireccion(txtColonia.Text);
@@ -138,6 +145,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuClientePages
             {
                 DialogoNotificacion dialogo = new DialogoNotificacion();
                 dialogo.ShowErrorNotification(mensajeErrorDireccion);
+                Console.WriteLine("Colonia");
                 return false;
             }
 
@@ -147,6 +155,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuClientePages
             {
                 DialogoNotificacion dialogo = new DialogoNotificacion();
                 dialogo.ShowErrorNotification(mensajeErrorDireccion);
+                Console.WriteLine("Referencia");
                 return false;
             }
 
@@ -156,6 +165,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuClientePages
             {
                 DialogoNotificacion dialogo = new DialogoNotificacion();
                 dialogo.ShowErrorNotification(mensajeErrorDireccion);
+                Console.WriteLine("Ciudad");
                 return false;
             }
 
@@ -165,6 +175,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuClientePages
             {
                 DialogoNotificacion dialogo = new DialogoNotificacion();
                 dialogo.ShowErrorNotification(mensajeErrorDireccion);
+                Console.WriteLine("Estado");
                 return false;
             }
 

@@ -64,6 +64,8 @@ namespace ItaliasPizzaCliente.Paginas.MenuClientePages
                 new DialogoNotificacion().ShowErrorNotification("No se pudo guardar el cliente.");
                 return;
             }
+
+            new DialogoNotificacion().ShowSuccessNotification("Cliente modificado correctamente.");
         }
 
         private bool ValidarFormatos()

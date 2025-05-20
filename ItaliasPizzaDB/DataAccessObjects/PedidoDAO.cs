@@ -194,6 +194,236 @@ namespace ItaliasPizzaDB.DataAccessObjects
             }
         }
 
+
+        public static int ActualizarInventarioPorPedido(int idPedido)
+        {
+            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            {
+                // Obtener el pedido con sus detalles y productos usando sintaxis de cadenas
+                var pedido = context.Pedidos
+                    .Include(p => p.Detalles)
+                    .Include("Detalles.Producto")
+                    .Include("Detalles.Producto.Receta")
+                    .Include("Detalles.Producto.Receta.InsumosParaReceta")
+                    .Include("Detalles.Producto.Receta.InsumosParaReceta.Insumo")
+                    .FirstOrDefault(p => p.IdPedido == idPedido);
+
+                if (pedido == null) return 1; // Pedido no encontrado
+
+                // Verificar que el pedido esté en estado válido para preparación
+                if (pedido.IdStatusPedido != (int)StatusPedidoEnum.Realizado &&
+                    pedido.IdStatusPedido != (int)StatusPedidoEnum.Preparando)
+                {
+                    return 2; // Estado del pedido no válido
+                }
+
+                // Usar transacción para asegurar integridad de datos
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var insumosNecesarios = CalcularInsumosNecesarios(pedido.Detalles);
+
+                        // Verificar y actualizar inventario
+                        if (!VerificarInventarioDisponible(context, insumosNecesarios, out string insumoFaltante))
+                        {
+                            transaction.Rollback();
+                            return 4; // No hay suficiente inventario
+                        }
+
+                        ActualizarInventario(context, insumosNecesarios);
+
+                        // Cambiar estado del pedido si es necesario
+                        if (pedido.IdStatusPedido == (int)StatusPedidoEnum.Realizado)
+                        {
+                            pedido.IdStatusPedido = (int)StatusPedidoEnum.Preparando;
+                        }
+
+                        context.SaveChanges();
+                        transaction.Commit();
+                        return 0; // Éxito
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        Console.WriteLine($"Error al actualizar inventario: {ex.Message}");
+                        return 5; // Error en la operación
+                    }
+                }
+            }
+        }
+
+        private static Dictionary<int, float> CalcularInsumosNecesarios(ICollection<DetallePedido> detalles)
+            {
+                var insumosNecesarios = new Dictionary<int, float>();
+
+                foreach (var detalle in detalles)
+                {
+                    if (detalle.Producto?.Receta == null) continue;
+
+                    foreach (var insumoReceta in detalle.Producto.Receta.InsumosParaReceta)
+                    {
+                        float cantidadTotal = (float)insumoReceta.Cantidad * detalle.Cantidad;
+
+                        if (insumosNecesarios.ContainsKey(insumoReceta.IdInsumo))
+                        {
+                            insumosNecesarios[insumoReceta.IdInsumo] += cantidadTotal;
+                        }
+                        else
+                        {
+                            insumosNecesarios.Add(insumoReceta.IdInsumo, cantidadTotal);
+                        }
+                    }
+                }
+
+                return insumosNecesarios;
+            }
+
+            private static bool VerificarInventarioDisponible(ItaliasPizzaDbContext context,
+                Dictionary<int, float> insumosNecesarios, out string insumoFaltante)
+            {
+                insumoFaltante = string.Empty;
+
+                foreach (var insumo in insumosNecesarios)
+                {
+                    var insumoDb = context.Insumos
+                        .Include(i => i.UnidadDeMedida)
+                        .FirstOrDefault(i => i.IdInsumo == insumo.Key);
+
+                    if (insumoDb == null)
+                    {
+                        insumoFaltante = $"Insumo ID {insumo.Key} no encontrado";
+                        return false;
+                    }
+
+                    if (insumoDb.Cantidad < insumo.Value)
+                    {
+                        insumoFaltante = $"{insumoDb.Nombre} (Necesario: {insumo.Value} {insumoDb.UnidadDeMedida.UnidadDeMedidaNombre}, Disponible: {insumoDb.Cantidad} {insumoDb.UnidadDeMedida.UnidadDeMedidaNombre})";
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            private static void ActualizarInventario(ItaliasPizzaDbContext context, Dictionary<int, float> insumosNecesarios)
+            {
+                foreach (var insumo in insumosNecesarios)
+                {
+                var insumoDb = context.Insumos.Find(insumo.Key);
+                if (insumoDb == null) continue;
+
+                // Conversión explícita y asignación directa
+                float cantidadARestar = (float)insumo.Value;
+                insumoDb.Cantidad = insumoDb.Cantidad - cantidadARestar;
+
+                // Marcar explícitamente la propiedad como modificada
+                context.Entry(insumoDb).Property(i => i.Cantidad).IsModified = true;
+            }
+
+            context.SaveChanges();
+            }
+
+            
+
+
+        public static int ActualizarInventarioSinReceta(int idPedido)
+        {
+            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            {
+                // Versión con Include de cadenas en lugar de ThenInclude
+                var pedido = context.Pedidos
+                    .Include("Detalles")
+                    .Include("Detalles.Producto")
+                    .FirstOrDefault(p => p.IdPedido == idPedido);
+
+                if (pedido == null) return 1;
+
+                if (pedido.IdStatusPedido != (int)StatusPedidoEnum.Realizado &&
+                    pedido.IdStatusPedido != (int)StatusPedidoEnum.Preparando)
+                {
+                    return 2;
+                }
+
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var insumosNecesarios = new Dictionary<int, float>();
+
+                        foreach (var detalle in pedido.Detalles)
+                        {
+                            if (detalle.Producto == null) continue;
+
+                            // Cargar el producto con su receta si existe (usando Load)
+                            context.Entry(detalle.Producto)
+                                .Reference(p => p.Receta)
+                                .Query()
+                                .Include("InsumosParaReceta")
+                                .Include("InsumosParaReceta.Insumo")
+                                .Load();
+
+                            if (detalle.Producto.Receta != null)
+                            {
+                                foreach (var insumoReceta in detalle.Producto.Receta.InsumosParaReceta)
+                                {
+                                    float cantidadTotal = insumoReceta.Cantidad * detalle.Cantidad;
+                                    AcumularInsumo(insumosNecesarios, insumoReceta.IdInsumo, cantidadTotal);
+                                }
+                            }
+                            else
+                            {
+                                var insumo = context.Insumos
+                                    .FirstOrDefault(i => i.Nombre.Equals(detalle.Producto.Nombre, StringComparison.OrdinalIgnoreCase));
+
+                                if (insumo == null)
+                                {
+                                    transaction.Rollback();
+                                    return 6; // Insumo no encontrado
+                                }
+                                AcumularInsumo(insumosNecesarios, insumo.IdInsumo, detalle.Cantidad);
+                            }
+                        }
+
+                        if (!VerificarInventarioDisponible(context, insumosNecesarios, out string insumoFaltante))
+                        {
+                            transaction.Rollback();
+                            return 4;
+                        }
+
+                        ActualizarInventario(context, insumosNecesarios);
+
+                        if (pedido.IdStatusPedido == (int)StatusPedidoEnum.Realizado)
+                        {
+                            pedido.IdStatusPedido = (int)StatusPedidoEnum.Preparando;
+                        }
+
+                        context.SaveChanges();
+                        transaction.Commit();
+                        return 0;
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        Console.WriteLine($"Error: {ex.Message}");
+                        return 5;
+                    }
+                }
+            }
+        }
+
+        // Métodos auxiliares (se mantienen igual que antes)
+        private static void AcumularInsumo(Dictionary<int, float> insumosNecesarios, int idInsumo, float cantidad)
+        {
+            if (insumosNecesarios.ContainsKey(idInsumo))
+                insumosNecesarios[idInsumo] += cantidad;
+            else
+                insumosNecesarios.Add(idInsumo, cantidad);
+        }
+
+
+
+
     }
 
 }
