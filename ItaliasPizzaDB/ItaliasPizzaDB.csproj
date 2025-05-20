@@ -62,6 +62,7 @@
     <Compile Include="DataAccessObjects\RecetaDAO.cs" />
     <Compile Include="DataAccessObjects\SalidaDAO.cs" />
     <Compile Include="DataAccessObjects\UnidadDeMedidaDAO.cs" />
+    <Compile Include="DataTransferObjects\DetallePedidoDTO.cs" />
     <Compile Include="DataTransferObjects\InsumoDTO.cs" />
     <Compile Include="DataTransferObjects\PedidoDTO.cs" />
     <Compile Include="DataTransferObjects\PedidoProveedorDTO.cs" />

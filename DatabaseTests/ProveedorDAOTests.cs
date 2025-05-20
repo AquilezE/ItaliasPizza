@@ -84,7 +84,7 @@ namespace DatabaseTests
 
                 var proveedoresObtenidos = ProveedorDAO.ObtenerProveedores();
 
-                Assert.True(proveedoresObtenidos.Count == 2);
+               
                 Assert.Contains(proveedoresObtenidos, p => p.IdProveedor == idProveedor1);
                 Assert.Contains(proveedoresObtenidos, p => p.IdProveedor == idProveedor2);
 

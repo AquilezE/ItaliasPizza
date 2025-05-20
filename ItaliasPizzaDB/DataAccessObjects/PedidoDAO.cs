@@ -52,7 +52,16 @@ namespace ItaliasPizzaDB.DataAccessObjects
                         break;
                 }
 
-                return query.ToList();
+                var list = query.ToList();
+                foreach (var dom in list.OfType<PedidoParaLlevar>())
+                {
+
+                    context.Entry(dom).Reference(d => d.Direccion).Load();
+                    context.Entry(dom).Reference(d => d.Cliente).Load();
+                }
+
+                return list;
+
             }
         }
 
@@ -60,8 +69,21 @@ namespace ItaliasPizzaDB.DataAccessObjects
         {
             using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
             {
-                return context.Pedidos
+
+                var pedido = context.Pedidos
+                    .Include(p => p.StatusPedido)
+                    .Include(p => p.Detalles)
+                    .Include(p => p.Empleado)
                     .FirstOrDefault(p => p.IdPedido == idPedido);
+
+                if (pedido is PedidoParaLlevar dom)
+                {
+                    context.Entry(dom).Reference(d => d.Direccion).Load();
+                    context.Entry(dom).Reference(d => d.Cliente).Load();
+                }
+                
+                return pedido;
+
             }
         }
 
@@ -77,7 +99,7 @@ namespace ItaliasPizzaDB.DataAccessObjects
 
                 if (pedido.IdStatusPedido == idStatus) return 1;
 
-                if (pedido.IdStatusPedido == 5) return 1;
+                if (pedido.IdStatusPedido == 5) return 2;
 
                 pedido.IdStatusPedido = idStatus;
                 context.SaveChanges();
@@ -185,7 +207,6 @@ namespace ItaliasPizzaDB.DataAccessObjects
             }
         }
 
-
         public static List<Producto> ObtenerProductosActivos()
         {
             using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
@@ -207,6 +228,26 @@ namespace ItaliasPizzaDB.DataAccessObjects
                     .SqlQuery<PedidoDTO>(
                         "EXEC dbo.sp01_GetPedidosReportes @Desde, @Hasta",
                         pDesde, pHasta)
+                    .ToList();
+            }
+        }
+    
+        public static List<DetallePedidoDTO> ObtenerDetallesPorPedido(int idPedido)
+        {
+            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            {
+                
+                return context.DetallesPedido
+                    .Where(d => d.IdPedido == idPedido)
+                    .Include(d => d.Producto)
+                    .Select(d => new DetallePedidoDTO
+                    {
+                        IdProducto = d.Producto.IdProducto,
+                        ProductoNombre = d.Producto.Nombre,
+                        IdReceta = d.Producto.IdReceta,    // <— new
+                        Cantidad = d.Cantidad,
+                        Subtotal = d.Subtotal
+                    })
                     .ToList();
             }
         }

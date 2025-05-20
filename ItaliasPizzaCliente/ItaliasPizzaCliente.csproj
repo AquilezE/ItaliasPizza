@@ -258,17 +258,32 @@
     <Compile Include="Paginas\MenuPedidoPages\MenuVerPedidos.xaml.cs">
       <DependentUpon>MenuVerPedidos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Paginas\MenuPedidoPages\PedidoDetallePages\DetallePedidoLlevar.xaml.cs">
-      <DependentUpon>DetallePedidoLlevar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Paginas\MenuPedidoPages\PedidoDetallePages\DetallePedidoLocal.xaml.cs">
-      <DependentUpon>DetallePedidoLocal.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Paginas\MenuPedidoPages\MenuPedidoDomicilio.xaml.cs">
       <DependentUpon>MenuPedidoDomicilio.xaml</DependentUpon>
     </Compile>
     <Compile Include="Paginas\MenuPedidoPages\MenuPedidoLocal.xaml.cs">
       <DependentUpon>MenuPedidoLocal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuPedidoPages\PedidoDetallePages\Domicilio\DomicilioEnCamino.xaml.cs">
+      <DependentUpon>DomicilioEnCamino.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuPedidoPages\PedidoDetallePages\Domicilio\DomicilioListoParaEntrega.xaml.cs">
+      <DependentUpon>DomicilioListoParaEntrega.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuPedidoPages\PedidoDetallePages\Domicilio\DomicilioPreparado.xaml.cs">
+      <DependentUpon>DomicilioPreparado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuPedidoPages\PedidoDetallePages\Domicilio\DomicilioRealizado.xaml.cs">
+      <DependentUpon>DomicilioRealizado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuPedidoPages\PedidoDetallePages\Local\LocalListoParaEntrega.xaml.cs">
+      <DependentUpon>LocalListoParaEntrega.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuPedidoPages\PedidoDetallePages\Local\LocalPreparando.xaml.cs">
+      <DependentUpon>LocalPreparando.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuPedidoPages\PedidoDetallePages\Local\LocalRealizadoPage.xaml.cs">
+      <DependentUpon>LocalRealizadoPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Paginas\MenuPedidoPages\PedidoPreview.xaml.cs">
       <DependentUpon>PedidoPreview.xaml</DependentUpon>
@@ -329,6 +344,7 @@
     <Compile Include="Utils\GeneradorReporte.cs" />
     <Compile Include="Utils\RolAVisibilidadConverter.cs" />
     <Compile Include="Utils\DialogoNotificacion.cs" />
+    <Compile Include="Utils\StringNullOVaciaAVisibilidadConverter.cs" />
     <Compile Include="Utils\Validador.cs" />
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
@@ -430,19 +446,39 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Paginas\MenuPedidoPages\PedidoDetallePages\DetallePedidoLlevar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Paginas\MenuPedidoPages\PedidoDetallePages\DetallePedidoLocal.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Paginas\MenuPedidoPages\MenuPedidoDomicilio.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Paginas\MenuPedidoPages\MenuPedidoLocal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuPedidoPages\PedidoDetallePages\Domicilio\DomicilioEnCamino.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuPedidoPages\PedidoDetallePages\Domicilio\DomicilioListoParaEntrega.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuPedidoPages\PedidoDetallePages\Domicilio\DomicilioPreparado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuPedidoPages\PedidoDetallePages\Domicilio\DomicilioRealizado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuPedidoPages\PedidoDetallePages\Local\LocalListoParaEntrega.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuPedidoPages\PedidoDetallePages\Local\LocalPreparando.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuPedidoPages\PedidoDetallePages\Local\LocalRealizadoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

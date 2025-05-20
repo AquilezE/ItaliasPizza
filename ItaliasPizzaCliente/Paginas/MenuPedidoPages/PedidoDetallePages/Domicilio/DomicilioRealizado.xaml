@@ -1,0 +1,157 @@
+﻿<Page x:Class="ItaliasPizzaCliente.Paginas.MenuPedidoPages.PedidoDetallePages.Domicilio.DomicilioRealizado"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ItaliasPizzaCliente.Paginas.MenuPedidoPages.PedidoDetallePages.Domicilio"
+      xmlns:utils ="clr-namespace:ItaliasPizzaCliente.Utils"
+      xmlns:singletons="clr-namespace:ItaliasPizzaCliente.Singletons"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Background="White"
+      Title="DomicilioRealizado">
+
+
+    <Page.Resources>
+        <utils:StringNullOVaciaAVisibilidadConverter
+            x:Key="StringNullOVaciaAVisibilidadConverter"/>
+        <utils:RolAVisibilidadConverter x:Key="RolAVisibilidadConverter"/>
+    </Page.Resources>
+
+    <Grid Margin="20">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="200" />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <Grid Grid.Row="0" Grid.ColumnSpan="2" Margin="0 0 0 10">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
+
+      <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20">
+          
+        <TextBlock FontWeight="Bold" Text="ID Pedido:"/>
+                <TextBlock Text="{Binding PedidoParaLlevar.IdPedido}" Margin=" 3  0 10 0 "/>
+
+        <TextBlock FontWeight="Bold" Text="Estado:"/>
+                <TextBlock Text="{Binding StatusPedido.Nombre}" Margin="3 0 10 0 "/>
+
+        <TextBlock FontWeight="Bold" Text="Fecha:"/>
+                <TextBlock Text="{Binding PedidoParaLlevar.Fecha, StringFormat=\{0:dd/MM/yyyy HH:mm\}}"/>
+
+        <TextBlock FontWeight="Bold" Text="Cliente:" Margin="10,0,0,0"/>
+                <TextBlock Text="{Binding PedidoParaLlevar.Cliente.Nombre}"/>
+                <TextBlock Text="{Binding PedidoParaLlevar.Cliente.Apellidos}" Margin="2,0,0,0"/>
+      </StackPanel>
+
+      <Button Grid.Column="1"
+              Content="Cerrar"
+              BorderBrush="#FF3B30"
+              Background="#FF3B30"
+              Foreground="White"
+              Padding="10,4"
+              Click="Cerrar_Click"/>
+    </Grid>
+
+    <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,10,0">
+          <GroupBox Header="Dirección de Entrega" Margin="0,0,0,10">
+            <StackPanel Margin="5">
+                <TextBlock>
+                    <Run Text="{Binding Direccion.Calle}" />
+                    <Run Text=" " />
+                    <Run Text="{Binding PedidoParaLlevar.Direccion.Numero}" />
+                </TextBlock>
+                <TextBlock>
+                    <Run Text="{Binding PedidoParaLlevar.Direccion.Colonia}" />
+                    <Run Text=", " />
+                    <Run Text="{Binding PedidoParaLlevar.Direccion.Ciudad}" />
+                </TextBlock>
+                <TextBlock>
+                    <Run Text="{Binding PedidoParaLlevar.Direccion.Estado}" />
+                    <Run Text=", " />
+                    <Run Text="{Binding PedidoParaLlevar.Direccion.CodigoPostal}" />
+                </TextBlock>
+                        <TextBlock Text="Ref.: " FontWeight="Bold" Visibility="{Binding PedidoParaLlevar.Direccion.Referencia, Converter={StaticResource StringNullOVaciaAVisibilidadConverter}}"/>
+                        <TextBlock Text="{Binding PedidoParaLlevar.Direccion.Referencia}" Visibility="{Binding PedidoParaLlevar.Direccion.Referencia, Converter={StaticResource StringNullOVaciaAVisibilidadConverter}}"/>
+            </StackPanel>
+          </GroupBox>
+
+      <DataGrid ItemsSource="{Binding Detalles}"
+                AutoGenerateColumns="False"
+                IsReadOnly="True"
+                CanUserAddRows="False"
+                RowHeight="50"
+                AlternatingRowBackground="#F8FBFE">
+        <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding IdProducto}" Width="Auto"/>
+                    <DataGridTextColumn Header="Producto" Binding="{Binding ProductoNombre}" Width="*"/>
+          <DataGridTextColumn Header="Cant." Binding="{Binding Cantidad}" Width="Auto"/>
+                    <DataGridTextColumn Header="Subtotal"
+                                        Binding="{Binding Subtotal, StringFormat=C}"
+                                        Width="Auto"
+                                        Visibility="{Binding Path=NombreCargo,
+                                               Source={x:Static singletons:UsuarioSingleton.Instance},
+                                               Converter={StaticResource RolAVisibilidadConverter},
+                                               ConverterParameter=Cajero}"/>
+
+                    <DataGridTemplateColumn Header="Receta"
+                                            Visibility="{Binding Path=NombreCargo,
+                                                   Source={x:Static singletons:UsuarioSingleton.Instance},
+                                                   Converter={StaticResource RolAVisibilidadConverter},
+                                                   ConverterParameter=Cocinero}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Receta"
+                                        CommandParameter="{Binding IdProducto}"
+                                        Click="Receta_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+
+                </DataGrid.Columns>
+      </DataGrid>
+    </StackPanel>
+
+        <Border Grid.Row="1" Grid.Column="1"
+                Background="#F8FBFE"
+                CornerRadius="4"
+                Padding="10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+            <StackPanel>
+                <TextBlock Text="Total" FontSize="16" FontWeight="Bold" Margin="0,0,0,8" HorizontalAlignment="Center"/>
+                <TextBlock Text="{Binding PedidoParaLlevar.Total, StringFormat=C}" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+
+    <Button Grid.Row="2" Grid.Column="1"
+            Content="Cancelar Pedido"
+            Background="#FF3B30"
+            Foreground="White"
+            BorderBrush="#FF3B30"
+            Padding="10,6"
+            HorizontalAlignment="Right"
+            Margin="0,10,0,0"
+            Click="Cancelar_Click"
+            Visibility="{Binding usuarioSingleton.NombreCargo, Converter={StaticResource RolAVisibilidadConverter}, ConverterParameter='Cajero'}"/>
+
+    <Button Grid.Row="2" Grid.Column="0"
+                Content="Preparar"
+                Background="{StaticResource ColorBotonPositivo}"
+                Foreground="White"
+                BorderBrush="{StaticResource ColorBotonPositivo}"
+                Padding="10,6"
+                HorizontalAlignment="Right"
+                Margin="0,10,0,0"
+                Click="Preparar_Click"
+                Visibility="{Binding usuarioSingleton.NombreCargo, Converter={StaticResource RolAVisibilidadConverter}, ConverterParameter='Cocinero'}"/>
+    </Grid>
+</Page>

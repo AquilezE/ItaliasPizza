@@ -52,6 +52,16 @@ namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages
         public static readonly DependencyProperty MesaProperty =
             DependencyProperty.Register("Mesa", typeof(int), typeof(PedidoPreview), new PropertyMetadata(0));
 
+        public string NombreCliente { 
+            get { return (string)GetValue(NombreClienteProperty); }
+            set { SetValue(NombreClienteProperty, value); }
+        }
+
+        public static readonly DependencyProperty NombreClienteProperty =
+            DependencyProperty.Register("NombreCliente", typeof(string), typeof(PedidoPreview), new PropertyMetadata(string.Empty));
+
+
+
         public DateTime Fecha
         {
             get { return (DateTime)GetValue(FechaProperty); }
