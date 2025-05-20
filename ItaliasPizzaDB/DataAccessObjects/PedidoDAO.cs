@@ -95,9 +95,18 @@ namespace ItaliasPizzaDB.DataAccessObjects
                     .FirstOrDefault(p => p.IdPedido == idPedido);
 
 
-                if (pedido == null) return 1;
+                if (pedido == null)
+                {
+                    Console.WriteLine($"No se encontró el pedido con ID {idPedido}");
+                    return 1;
+                }
 
-                if (pedido.IdStatusPedido == idStatus) return 1;
+                if (pedido.IdStatusPedido == idStatus)
+                {
+                    return 1;
+                    Console.WriteLine($"Estado anterior{pedido.IdStatusPedido}");
+                    Console.WriteLine($"Estado nuevo{idStatus}");
+                }
 
                 if (pedido.IdStatusPedido == 5) return 2;
 

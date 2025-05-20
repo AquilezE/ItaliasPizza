@@ -61,27 +61,7 @@
     </Grid>
 
     <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,10,0">
-          <GroupBox Header="Dirección de Entrega" Margin="0,0,0,10">
-            <StackPanel Margin="5">
-                <TextBlock>
-                    <Run Text="{Binding Direccion.Calle}" />
-                    <Run Text=" " />
-                    <Run Text="{Binding PedidoParaLlevar.Direccion.Numero}" />
-                </TextBlock>
-                <TextBlock>
-                    <Run Text="{Binding PedidoParaLlevar.Direccion.Colonia}" />
-                    <Run Text=", " />
-                    <Run Text="{Binding PedidoParaLlevar.Direccion.Ciudad}" />
-                </TextBlock>
-                <TextBlock>
-                    <Run Text="{Binding PedidoParaLlevar.Direccion.Estado}" />
-                    <Run Text=", " />
-                    <Run Text="{Binding PedidoParaLlevar.Direccion.CodigoPostal}" />
-                </TextBlock>
-                        <TextBlock Text="Ref.: " FontWeight="Bold" Visibility="{Binding PedidoParaLlevar.Direccion.Referencia, Converter={StaticResource StringNullOVaciaAVisibilidadConverter}}"/>
-                        <TextBlock Text="{Binding PedidoParaLlevar.Direccion.Referencia}" Visibility="{Binding PedidoParaLlevar.Direccion.Referencia, Converter={StaticResource StringNullOVaciaAVisibilidadConverter}}"/>
-            </StackPanel>
-          </GroupBox>
+
 
       <DataGrid ItemsSource="{Binding Detalles}"
                 AutoGenerateColumns="False"

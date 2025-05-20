@@ -46,8 +46,8 @@ namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages.PedidoDetallePages.Domicil
 
             this.PedidoParaLlevar = pedidoParaLlevar;
 
-            // LlenarDetallesPedido();
-            LlenarDetallesPedidoMock();
+            LlenarDetallesPedido();
+            
         }
 
         private void Cerrar_Click(object sender, RoutedEventArgs e)
@@ -58,7 +58,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages.PedidoDetallePages.Domicil
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
 
-            int result = PedidoDAO.CambiarEstadoPedido((int)StatusPedidoEnum.Cancelado, PedidoParaLlevar.IdPedido);
+            int result = PedidoDAO.CambiarEstadoPedido( PedidoParaLlevar.IdPedido, (int)StatusPedidoEnum.Cancelado);
 
             if (result != 0)
             {
@@ -90,8 +90,9 @@ namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages.PedidoDetallePages.Domicil
                 dialogoNotificacion.ShowErrorNotification("No tienes permisos para preparar este pedido.");
             }
 
-            //int result = PedidoDAO.CambiarEstadoPedido((int)StatusPedidoEnum.Preparando, PedidoParaLlevar.IdPedido);
-            int result = 0;
+            int result = PedidoDAO.CambiarEstadoPedido(PedidoParaLlevar.IdPedido, (int)StatusPedidoEnum.Preparando);
+            
+            Console.WriteLine(result);
 
             if (result == (int)StatusPedidoEnum.Cancelado)
             {
@@ -130,15 +131,6 @@ namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages.PedidoDetallePages.Domicil
                 MessageBox.Show("No se encontraron detalles para el pedido.");
             }
 
-        }
-
-        private void LlenarDetallesPedidoMock()
-        {
-            Detalles.Clear();
-            Detalles.Add(new DetallePedidoDTO { IdProducto = 1, ProductoNombre = "Pizza", Cantidad = 2, Subtotal = 200, IdReceta = 10 });
-            Detalles.Add(new DetallePedidoDTO { IdProducto = 2, ProductoNombre = "Bebida", Cantidad = 1, Subtotal = 50, IdReceta = 20 });
-            Detalles.Add(new DetallePedidoDTO { IdProducto = 3, ProductoNombre = "Ensalada", Cantidad = 1, Subtotal = 30, IdReceta = 11 });
-            Detalles.Add(new DetallePedidoDTO { IdProducto = 4, ProductoNombre = "Postre", Cantidad = 1, Subtotal = 20, IdReceta = 30 });
         }
 
         private void Receta_Click(object sender, RoutedEventArgs e)

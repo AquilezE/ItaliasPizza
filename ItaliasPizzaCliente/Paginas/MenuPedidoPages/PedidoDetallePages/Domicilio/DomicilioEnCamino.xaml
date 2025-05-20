@@ -126,15 +126,31 @@
         </StackPanel>
 
 
-        <Button Grid.Row="2" Grid.Column="0"
-                Content="Iniciar Envio"
-                Background="{StaticResource ColorBotonPositivo}"
-                Foreground="White"
-                BorderBrush="{StaticResource ColorBotonPositivo}"
-                Padding="10,6"
-                HorizontalAlignment="Right"
-                Margin="0,10,0,0"
-                Click="Entregado_Click"
-                />
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center">
+
+            <Button Content="Entregado"
+                    Background="{StaticResource ColorBotonPositivo}"
+                    Foreground="White"
+                    BorderBrush="{StaticResource ColorBotonPositivo}"
+                    Padding="10,6"
+                    HorizontalAlignment="Right"
+                    Margin="0,10,40,0"
+                    Click="Entregado_Click"
+            />
+            <Button Content="No Entregado"
+                    Background="{StaticResource ColorBotonPositivo}"
+                    Foreground="White"
+                    BorderBrush="{StaticResource ColorBotonPositivo}"
+                    Padding="10,6"
+                    HorizontalAlignment="Right"
+                    Margin="40,10,0,0"
+                    Click="NoEntregado_Click"
+            />
+
+
+        </StackPanel>
+        
+        
+        
     </Grid>
 </Page>

@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using ItaliasPizzaCliente.Singletons;
 using ItaliasPizzaCliente.Utils;
 using ItaliasPizzaDB;
+using ItaliasPizzaDB.DataAccessObjects;
 
 namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages.PedidoDetallePages.Domicilio
 {
@@ -44,8 +45,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages.PedidoDetallePages.Domicil
                 return;
             }
 
-            //int result = PedidoDAO.CambiarEstadoPedido((int)StatusPedidoEnum.Preparando, PedidoParaLlevar.IdPedido);
-            int result = 0;
+            int result = PedidoDAO.CambiarEstadoPedido(PedidoParaLlevar.IdPedido ,(int)StatusPedidoEnum.Entregado);
 
             if (result == (int)StatusPedidoEnum.Cancelado)
             {
@@ -62,6 +62,10 @@ namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages.PedidoDetallePages.Domicil
                 DialogoNotificacion dialogoNotificacion = new DialogoNotificacion();
                 dialogoNotificacion.ShowSuccessNotification($"El pedido {PedidoParaLlevar.IdPedido} se ha marcado como entregado");
 
+                var menuPage = new MenuVerPedidos();
+                NavigationService?.Navigate(menuPage);
+
+
             }
         }
 
@@ -69,6 +73,12 @@ namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages.PedidoDetallePages.Domicil
         {
             var menuPage = new MenuVerPedidos();
             NavigationService?.Navigate(menuPage);
+        }
+
+        private void NoEntregado_Click(object sender, RoutedEventArgs e)
+        {
+            DialogoNotificacion dialogo = new DialogoNotificacion();
+            dialogo.ShowWarningNotification("No se ha implementado :C");
         }
     }
 }

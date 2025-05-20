@@ -21,6 +21,25 @@ namespace ItaliasPizzaCliente.Singletons
         public string NombreCargo { get; set; }
         public int IdEmpleado { get; set; }
 
+        public int IdCargo 
+        {
+            get
+            {
+                if (NombreCargo == "Gerente")
+                    return 1;
+                else if (NombreCargo == "Cajero")
+                    return 2;
+                else if (NombreCargo == "Cocinero")
+                    return 3;
+                else if (NombreCargo == "Repartidor")
+                    return 4;
+                else if (NombreCargo == "Mesero")
+                    return 5;
+                else
+                    return 0;
+            }
+        }
+
         public static void Reset()
         {
             Instance.NombreUsuario = null;

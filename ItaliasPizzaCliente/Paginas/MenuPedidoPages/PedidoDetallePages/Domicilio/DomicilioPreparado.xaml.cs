@@ -44,12 +44,13 @@ namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages.PedidoDetallePages.Domicil
             PedidoParaLlevar = pedidoParaLlevar;
 
 
-            LlenarDetallesPedidoMock();
-
+            LlenarDetallesPedido();
         }
 
         private void Cerrar_Click(object sender, RoutedEventArgs e)
         {
+            Console.WriteLine(PedidoParaLlevar.Cliente.Nombre);
+
             var menuPage = new MenuVerPedidos();
             NavigationService?.Navigate(menuPage);
         }
@@ -89,8 +90,10 @@ namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages.PedidoDetallePages.Domicil
                 return;
             }
 
-            //int result = PedidoDAO.CambiarEstadoPedido((int)StatusPedidoEnum.ListoParaEntrega, PedidoParaLlevar.IdPedido);
-            int result = 0;
+            int result = PedidoDAO.CambiarEstadoPedido(PedidoParaLlevar.IdPedido, (int)StatusPedidoEnum.ListoParaEntrega);
+
+            Console.WriteLine(result);
+
 
             if (result != 0)
             {

@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ItaliasPizzaDB.DataAccessObjects;
 using ItaliasPizzaCliente.Utils;
+using ItaliasPizzaDB;
 
 namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages.PedidoDetallePages.Domicilio
 {
@@ -34,6 +35,9 @@ namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages.PedidoDetallePages.Domicil
 
         public void Cerrar_Click(object sender, RoutedEventArgs e)
         {
+
+            Console.WriteLine(PedidoParaLlevar.Cliente.Nombre);
+
             NavigationService?.GoBack();
         }
 
@@ -46,8 +50,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages.PedidoDetallePages.Domicil
                 return;
             }
 
-            //int result = PedidoDAO.CambiarEstadoPedido((int)StatusPedidoEnum.ListoParaEntrega, PedidoParaLlevar.IdPedido);
-            int result = 0;
+            int result = PedidoDAO.CambiarEstadoPedido(PedidoParaLlevar.IdPedido, (int)StatusPedidoEnum.EnCamino);
 
             if (result != 0)
             {
