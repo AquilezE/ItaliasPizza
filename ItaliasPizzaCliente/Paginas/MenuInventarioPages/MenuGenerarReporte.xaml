@@ -1,0 +1,80 @@
+﻿<Page x:Class="ItaliasPizzaCliente.Paginas.MenuInventarioPages.MenuGenerarReporte"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ItaliasPizzaCliente.Paginas.MenuInventarioPages"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MenuGenerarReporte"
+      Background="#F1F3F9">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Margin="10" VerticalAlignment="Top" HorizontalAlignment="Center" Width="800">
+            <TextBlock Text="Selecciona un rango de fechas" FontSize="18" FontWeight="Bold" Margin="20 0 0 20"/>
+
+            <StackPanel Orientation="Horizontal" >
+                <DatePicker x:Name="startDatePicker"
+                                           Margin="10 5"
+                                           materialDesign:HintAssist.Hint="Fecha de inicio"
+                                           SelectedDateChanged="DateChanged" 
+                                           Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                                           Width="300" />
+
+                <DatePicker x:Name="endDatePicker"
+                                       Margin="50 5"
+                                       materialDesign:HintAssist.Hint="Fecha de fin"
+                                       Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                                       SelectedDateChanged="DateChanged"
+                                       Width="300" />
+            </StackPanel>
+        </StackPanel>
+        <StackPanel x:Name="stackPanelCheckboxes" Grid.Row="1" Margin="20">
+            <CheckBox x:Name="pedidosCheckbox"
+                Content="Incluir Pedidos"
+                FontSize="16"
+                Foreground="#1E2D56"
+                Background="{StaticResource ColorBotonPositivo}"
+                Style="{StaticResource MaterialDesignCheckBox}"
+                Margin="10,10"
+                IsChecked="False" />
+
+            <CheckBox x:Name="inventarioCheckbox"
+                Content="Incluir Inventario"
+                FontSize="16"
+                Foreground="#1E2D56"
+                Background="{StaticResource ColorBotonPositivo}"
+                Style="{StaticResource MaterialDesignCheckBox}"
+                Margin="10,10"
+                IsChecked="False" />
+
+            <CheckBox x:Name="mermaCheckbox"
+                Content="Incluir Merma"
+                FontSize="16"
+                Foreground="#1E2D56"
+                Background="{StaticResource ColorBotonPositivo}"
+                Style="{StaticResource MaterialDesignCheckBox}"
+                Margin="10,10"
+                IsChecked="False" />
+
+            <CheckBox x:Name="pedidoProvCheckbox"
+                Content="Incluir Pedidos a Proveedor"
+                FontSize="16"
+                Foreground="#1E2D56"
+                Background="{StaticResource ColorBotonPositivo}"
+                Style="{StaticResource MaterialDesignCheckBox}"
+                Margin="10,10"
+                IsChecked="False" />
+
+            <Button Margin="0 100 0 0" HorizontalAlignment="Right" Width="150" Background="{StaticResource ColorMoradoNeutro}" BorderBrush="{StaticResource ColorMoradoNeutro}" Click="GenerateReportButton_Click">
+                Generar Reporte
+            </Button>
+            
+        </StackPanel>
+    </Grid>
+</Page>

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ItaliasPizzaDB.DataTransferObjects;
 using ItaliasPizzaDB.Models;
 
 namespace ItaliasPizzaDB.DataAccessObjects
@@ -84,6 +86,19 @@ namespace ItaliasPizzaDB.DataAccessObjects
             }
         }
 
-    }
+        public static List<PedidoDTO> ObtenerPedidosReporte(DateTime? desde, DateTime? hasta)
+        {
+            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            {
+                var pDesde = new SqlParameter("@Desde", desde);
+                var pHasta = new SqlParameter("@Hasta", hasta);
 
+                return context.Database
+                    .SqlQuery<PedidoDTO>(
+                        "EXEC dbo.sp01_GetPedidosReportes @Desde, @Hasta",
+                        pDesde, pHasta)
+                    .ToList();
+            }
+        }
+    }
 }

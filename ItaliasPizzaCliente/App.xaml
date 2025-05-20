@@ -8,7 +8,10 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Purple" SecondaryColor="Lime" />
+                <materialDesign:BundledTheme BaseTheme="Light"
+                                             PrimaryColor="DeepPurple"
+                                             SecondaryColor="Lime" />
+
 
                 <ResourceDictionary Source="Themes/Generic.xaml"/>
 
@@ -16,16 +19,19 @@
                     Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml" />
                 <ResourceDictionary
                     Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />
+                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Blue.xaml" />-->
                 
             </ResourceDictionary.MergedDictionaries>
 
-            <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#FFB3E5FC"/>
-            <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="Black"/>
-            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#FF2196F3"/>
+            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#7764E4"/>
             <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="White"/>
-            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#FF1976D2"/>
-            <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="LightGray"/>
+
+            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#5F4CC9"/>
+            <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="White"/>
+
+            <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#9988F0"/>
+            <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="White"/>
+            
             <SolidColorBrush x:Key="ColorBotonPositivo" Color="#30BC8D"/>
             <SolidColorBrush x:Key="ColorMoradoNeutro" Color="#7764E4"/>
 

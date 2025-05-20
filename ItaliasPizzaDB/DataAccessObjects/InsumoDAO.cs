@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using ItaliasPizzaDB.Models;
+using ItaliasPizzaDB.DataTransferObjects;
 
 namespace ItaliasPizzaDB.DataAccessObjects
 {
@@ -136,5 +137,16 @@ namespace ItaliasPizzaDB.DataAccessObjects
                 return context.SaveChanges() > 0;
             }
         }
+
+        public static List<InsumoDTO> ObtenerInventarioReporte()
+        {
+            using (var ctx = new ItaliasPizzaDbContext())
+            {
+                return ctx.Database
+                    .SqlQuery<InsumoDTO>("EXEC dbo.sp02_GetInventarioReport")
+                    .ToList();
+            }
+        }
+
     }
 }
