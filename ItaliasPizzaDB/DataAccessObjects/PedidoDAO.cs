@@ -86,6 +86,116 @@ namespace ItaliasPizzaDB.DataAccessObjects
             }
         }
 
+        public static int RegistrarPedidoParaLlevar(int idEmpleado, int idCliente, int idDireccion, List<(int idProducto, int cantidad, float subtotal)> detalles)
+        {
+            using (var context = new ItaliasPizzaDbContext())
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        float total = detalles.Sum(d => d.subtotal);
+
+                        var nuevoPedido = new PedidoParaLlevar
+                        {
+                            Fecha = DateTime.Now,
+                            Total = total,
+                            IdEmpleado = idEmpleado,
+                            IdStatusPedido = (int)StatusPedidoEnum.Realizado,
+                            IdCliente = idCliente,
+                            IdDireccion = idDireccion
+                        };
+
+                        context.Pedidos.Add(nuevoPedido);
+                        context.SaveChanges();
+
+                        foreach (var detalle in detalles)
+                        {
+                            var nuevoDetalle = new DetallePedido
+                            {
+                                IdPedido = nuevoPedido.IdPedido,
+                                IdProducto = detalle.idProducto,
+                                Cantidad = detalle.cantidad,
+                                Subtotal = detalle.subtotal
+                            };
+
+                            context.DetallesPedido.Add(nuevoDetalle);
+                        }
+
+                        context.SaveChanges();
+                        transaction.Commit();
+
+                        return nuevoPedido.IdPedido;
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
+
+        public static int RegistrarPedidoParaLocal(int idEmpleado, int mesa, List<(int idProducto, int cantidad, float subtotal)> detalles)
+        {
+            using (var context = new ItaliasPizzaDbContext())
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        float total = detalles.Sum(d => d.subtotal);
+
+                        var nuevoPedido = new PedidoParaLocal
+                        {
+                            Fecha = DateTime.Now,
+                            Total = total,
+                            IdEmpleado = idEmpleado,
+                            IdStatusPedido = (int)StatusPedidoEnum.Realizado,
+                            Mesa = mesa
+                        };
+
+                        context.Pedidos.Add(nuevoPedido);
+                        context.SaveChanges();
+
+                        foreach (var detalle in detalles)
+                        {
+                            var nuevoDetalle = new DetallePedido
+                            {
+                                IdPedido = nuevoPedido.IdPedido,
+                                IdProducto = detalle.idProducto,
+                                Cantidad = detalle.cantidad,
+                                Subtotal = detalle.subtotal
+                            };
+
+                            context.DetallesPedido.Add(nuevoDetalle);
+                        }
+
+                        context.SaveChanges();
+                        transaction.Commit();
+
+                        return nuevoPedido.IdPedido;
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
+
+
+        public static List<Producto> ObtenerProductosActivos()
+        {
+            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            {
+                return context.Productos
+                    .Where(p => p.Status == true)
+                    .ToList();
+            }
+        }
+
         public static List<PedidoDTO> ObtenerPedidosReporte(DateTime? desde, DateTime? hasta)
         {
             using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())

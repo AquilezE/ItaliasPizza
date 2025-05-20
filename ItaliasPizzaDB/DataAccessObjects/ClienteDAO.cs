@@ -1,4 +1,5 @@
 ﻿using ItaliasPizzaDB.Models;
+using System.Data.Entity; 
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +21,13 @@ namespace ItaliasPizzaDB.DataAccessObjects
             }
         }
 
-        public static bool CrearCliente(Cliente cliente)
+        public static Cliente CrearCliente(Cliente cliente)
         {
-            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            using (var context = new ItaliasPizzaDbContext())
             {
-
                 context.Clientes.Add(cliente);
-                return context.SaveChanges() > 0;
-
+                context.SaveChanges();
+                return cliente;
             }
         }
 
@@ -141,7 +141,15 @@ namespace ItaliasPizzaDB.DataAccessObjects
             }
         }
 
-
+        public static Cliente ObtenerClienteConDireccionesPorTelefono(string telefono)
+        {
+            using (var context = new ItaliasPizzaDbContext())
+            {
+                return context.Clientes
+                    .Include(c => c.Direcciones)
+                    .FirstOrDefault(c => c.Telefono == telefono && c.Status);
+            }
+        }
 
     }
 }

@@ -3,6 +3,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using ItaliasPizzaDB.Models;
+using ItaliasPizzaDB;
+using System.Collections.Generic;
 
 namespace ItaliasPizzaDB.DataAccessObjects
 {
@@ -70,51 +72,94 @@ namespace ItaliasPizzaDB.DataAccessObjects
 
         public static bool ModificarEmpleado(Empleado empleadoEditado, CuentaAcceso cuentaEditada)
         {
-            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            using (var context = new ItaliasPizzaDbContext())
             {
-                bool modificacionExitoso = false;
                 using (var transaction = context.Database.BeginTransaction())
                 {
                     try
                     {
-
                         var empleadoExistente = context.Empleados
-                        .Include(e => e.CuentaAcceso)
-                        .FirstOrDefault(e => e.IdEmpleado == empleadoEditado.IdEmpleado);
-                        if (context.Empleados.Any(e => e.Telefono == empleadoEditado.Telefono))
+                    .FirstOrDefault(e => e.IdEmpleado == empleadoEditado.IdEmpleado);
+
+                        if (empleadoExistente == null)
+                            return false;
+
+                        // Luego cargar manualmente la cuenta de acceso si existe
+                        empleadoExistente.CuentaAcceso = context.CuentasAcceso
+                            .FirstOrDefault(c => c.IdEmpleado == empleadoExistente.IdEmpleado);
+
+                        if (context.Empleados.Any(e => e.Telefono == empleadoEditado.Telefono &&
+                                                    e.IdEmpleado != empleadoEditado.IdEmpleado))
                         {
-                            return modificacionExitoso; 
+                            Console.WriteLine("Teléfono ya existe en otro empleado");
+                            return false;
                         }
 
-                        if (cuentaEditada != null &&
-                            context.CuentasAcceso.Any(c => c.NombreUsuario == cuentaEditada.NombreUsuario))
+                        // Actualizar propiedades del empleado
+                        empleadoExistente.Nombre = empleadoEditado.Nombre;
+                        empleadoExistente.Apellidos = empleadoEditado.Apellidos;
+                        empleadoExistente.Telefono = empleadoEditado.Telefono;
+                        empleadoExistente.IdCargo = empleadoEditado.IdCargo;
+                        empleadoExistente.Status = empleadoEditado.Status;
+
+                        if (cuentaEditada != null)
                         {
-                            return modificacionExitoso; 
+                            if (context.CuentasAcceso.Any(c => c.NombreUsuario == cuentaEditada.NombreUsuario &&
+                                                             c.IdEmpleado != empleadoEditado.IdEmpleado))
+                            {
+                                Console.WriteLine("Nombre de usuario ya existe en otra cuenta");
+                                return false;
+                            }
+
+                            if (empleadoExistente.CuentaAcceso == null)
+                            {
+                                empleadoExistente.CuentaAcceso = new CuentaAcceso
+                                {
+                                    IdEmpleado = empleadoEditado.IdEmpleado,
+                                    NombreUsuario = cuentaEditada.NombreUsuario,
+                                    Contraseña = cuentaEditada.Contraseña
+                                };
+                            }
+                            else
+                            {
+                                empleadoExistente.CuentaAcceso.NombreUsuario = cuentaEditada.NombreUsuario;
+                                empleadoExistente.CuentaAcceso.Contraseña = cuentaEditada.Contraseña;
+                            }
                         }
-
-                        if (cuentaEditada != null && empleadoExistente.CuentaAcceso != null)
-                        {
-                            context.Entry(empleadoExistente.CuentaAcceso).CurrentValues.SetValues(cuentaEditada);
-                        }
-
-                        context.Entry(empleadoExistente).CurrentValues.SetValues(empleadoEditado);
-
-
 
                         context.SaveChanges();
                         transaction.Commit();
-                        modificacionExitoso = true; 
+                        return true;
                     }
                     catch (Exception ex)
                     {
                         transaction.Rollback();
-
+                        Console.WriteLine($"Error al modificar empleado: {ex}");
+                        return false;
                     }
-
-                    return modificacionExitoso;
                 }
             }
         }
 
+        public static Empleado ObtenerEmpleadoPorUsuario(string nombreUsuario)
+        {
+            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            {
+                return context.Empleados
+                    .Include(e => e.Cargo)
+                    .Include(e => e.CuentaAcceso)
+                    .FirstOrDefault(e => e.CuentaAcceso.NombreUsuario == nombreUsuario);
+            }
+        }
+
+        public static List<Cargo> ConsultarCargos()
+        {
+            
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    return context.Cargos.ToList();
+                }
+            
+        }
     }
 }

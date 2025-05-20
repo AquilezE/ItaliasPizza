@@ -1,0 +1,114 @@
+﻿<Window x:Class="ItaliasPizzaCliente.Paginas.MenuProductoPages.VentanaRegistrarReceta"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="Registrar Nueva Receta" Height="600" Width="850"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="White">
+
+    <Grid Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Filtros -->
+            <RowDefinition Height="Auto"/>
+            <!-- Espacio -->
+            <RowDefinition Height="*"/>
+            <!-- Tabla -->
+            <RowDefinition Height="Auto"/>
+            <!-- Receta -->
+            <RowDefinition Height="Auto"/>
+            <!-- Botones -->
+        </Grid.RowDefinitions>
+
+        <!-- Filtros -->
+        <Grid Grid.Row="0" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Filtro por nombre -->
+            <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                <TextBlock Text="Nombre" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                <DockPanel Background="#F7F9FA" Height="30" >
+                    
+                    <TextBox x:Name="TbBuscarNombre"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             VerticalAlignment="Center"
+                             Padding="5,0"
+                             TextChanged="TbBuscarNombre_TextChanged"/>
+                </DockPanel>
+            </StackPanel>
+
+            <!-- Filtro por categoría -->
+            <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                <TextBlock Text="Categoría" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                <ComboBox x:Name="CbCategoria"
+                          Height="30"
+                          Background="#A78BFA"
+                          Foreground="White"
+                          SelectionChanged="CbCategoria_SelectionChanged"
+                          ItemsSource="{Binding Categorias}"
+                          DisplayMemberPath="CategoriaInsumoNombre"
+                          SelectedValuePath="IdCategoriaInsumo">
+
+                    <ComboBox.ItemContainerStyle>
+                        <Style TargetType="ComboBoxItem">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="FontWeight" Value="Normal"/>
+                            <Setter Property="Padding" Value="5,2"/>
+                        </Style>
+                    </ComboBox.ItemContainerStyle>
+
+                </ComboBox>
+
+
+
+</StackPanel>
+        </Grid>
+
+        <!-- Tabla de insumos -->
+        <DataGrid x:Name="DgInsumos" AutoGenerateColumns="False" HeadersVisibility="Column" Grid.Row="2" Height="250"  CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Header="" Binding="{Binding Seleccionado}" Width="80"/>
+                <DataGridTextColumn IsReadOnly="True" Header="INSUMO" Binding="{Binding Nombre}" Width="*"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Precio" Binding="{Binding Precio}" Width="100"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Unidad" Binding="{Binding Unidad}" Width="100"/>
+                <DataGridTemplateColumn Header="Cantidad" Width="120">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Content="-" Width="20" Click="BtnRestar_Click"/>
+                                <TextBox Text="{Binding Cantidad, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Width="40"
+                                         HorizontalContentAlignment="Center"
+                                         BorderThickness="0"
+                                         Background="Transparent"
+                                         IsReadOnly="True"/>
+                                <Button Content="+" Width="20" Click="BtnSumar_Click"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+        <!-- Campo de texto para receta -->
+        <StackPanel Grid.Row="3" Margin="0,10,0,0">
+            <TextBlock Text="Receta" FontWeight="SemiBold" Margin="0,0,0,5"/>
+            <TextBox x:Name="TbInstrucciones" Height="100" TextWrapping="Wrap" AcceptsReturn="True"/>
+        </StackPanel>
+
+        <!-- Botones -->
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,20,0,0">
+            <Button  x:Name="BtnClickRegistrar" Content="Registrar Receta" Width="150" Margin="0,0,10,0" Background="#10B981" Foreground="White" Click="BtnClicRegistrar"/>
+        </StackPanel>
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            
+            <Button Content="Cancelar" Width="150" Background="#EF4444" Foreground="White" Click="BtnClic_Cancelar"/>
+        </StackPanel>
+    </Grid>
+</Window>

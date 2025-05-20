@@ -47,5 +47,6 @@ namespace ItaliasPizzaCliente
                 navFrame.RemoveBackEntry();
             }
         }
+
     }
 }

@@ -1,0 +1,172 @@
+﻿<Page x:Class="ItaliasPizzaCliente.Paginas.MenuPedidoPages.MenuPedidoLocal"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ItaliasPizzaCliente.Paginas.MenuPedidoPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="650" d:DesignWidth="900"
+      Title="PedidoLocal"
+      Background="White">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid Margin="20,10">
+            <Grid.Resources>
+                <Style x:Key="CenteredCellStyle" TargetType="TextBlock">
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="TextAlignment" Value="Center"/>
+                    <Setter Property="Padding" Value="5"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Foreground" Value="#1F2937"/>
+                </Style>
+
+                <!-- Estilo para ComboBox -->
+                <Style TargetType="ComboBox" x:Key="BordeMoradoComboBoxStyle">
+                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="BorderBrush" Value="#7764E4"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                    <Setter Property="Padding" Value="5"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+            </Grid.Resources>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="250"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Encabezado -->
+            <TextBlock Grid.Row="0" Text="Seleccione el producto deseado" 
+                       FontSize="18" FontWeight="Bold" Margin="0,0,0,10"
+                       HorizontalAlignment="Center"/>
+
+            <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,8,0,42" HorizontalAlignment="Left" Width="425">
+                <TextBlock Text="Seleccione la mesa del pedido" 
+                   FontSize="14" FontWeight="SemiBold"
+                   VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <ComboBox x:Name="cbMesa" 
+                    Background="#7764E4" Width="225" Height="38" SelectionChanged="cbMesa_SelectionChanged">
+                    <ComboBoxItem Content="1"/>
+                    <ComboBoxItem Content="2"/>
+                    <ComboBoxItem Content="3"/>
+                </ComboBox>
+            </StackPanel>
+
+            <!-- Sección de productos - Diseño horizontal -->
+            <Grid Grid.Row="2" Margin="0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <!-- Separador -->
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Tabla productos disponibles (IZQUIERDA) -->
+                <Border Grid.Column="0" BorderBrush="#9370DB" BorderThickness="1" CornerRadius="5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Selección Producto" 
+                                   FontSize="16" FontWeight="Bold" 
+                                   Margin="10" HorizontalAlignment="Center"/>
+
+                        <DataGrid x:Name="dgProductosDisponibles"
+                                  Grid.Row="1"
+                                  AutoGenerateColumns="False"
+                                  CanUserAddRows="False"
+                                  SelectionMode="Single"
+                                  Background="White"
+                                  BorderThickness="0"
+                                  HeadersVisibility="Column"
+                                  IsReadOnly="True"
+                                  AlternatingRowBackground="#F5F5F5">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header=" " Width="Auto">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                      Click="CheckBoxProducto_Click"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Producto" Binding="{Binding Nombre}" Width="*"/>
+                                <DataGridTextColumn Header="Precio" Binding="{Binding Precio, StringFormat=C}" Width="Auto"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Border>
+
+                <!-- Tabla productos seleccionados (DERECHA) -->
+                <Border Grid.Column="2" BorderBrush="#9370DB" BorderThickness="1" CornerRadius="5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Productos seleccionados" 
+                                   FontSize="16" FontWeight="Bold" 
+                                   Margin="10" HorizontalAlignment="Center"/>
+
+                        <DataGrid x:Name="dgProductosSeleccionados"
+                                  Grid.Row="1"
+                                  AutoGenerateColumns="False"
+                                  CanUserAddRows="False"
+                                  SelectionMode="Single"
+                                  Background="White"
+                                  BorderThickness="0"
+                                  HeadersVisibility="Column"
+                                  AlternatingRowBackground="#F5F5F5">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Producto" Binding="{Binding Nombre}" Width="*" IsReadOnly="True"/>
+
+                                <DataGridTemplateColumn Header="Cantidad" Width="Auto">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <Button Content="-" Width="25" Background="#FF5252" Foreground="White"
+                                                        Click="DecrementarCantidad_Click" Tag="{Binding}"/>
+                                                <TextBlock Text="{Binding Cantidad}" Width="30" Margin="5,0"
+                                                           TextAlignment="Center" VerticalAlignment="Center"/>
+                                                <Button Content="+" Width="25" Background="#4CAF50" Foreground="White"
+                                                        Click="IncrementarCantidad_Click" Tag="{Binding}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTextColumn Header="Precio" Binding="{Binding Precio, StringFormat=C}" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Total" Binding="{Binding Subtotal, StringFormat=C}" Width="Auto" IsReadOnly="True"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <!-- Total -->
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,10,10">
+                            <TextBlock Text="Total:" FontSize="16" FontWeight="Bold" Margin="0,0,10,0"/>
+                            <TextBlock x:Name="txtTotal" Text="$0.00" FontSize="16" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <!-- Botones finales -->
+            <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left" Margin="560,10,0,30">
+                <Button Content="Finalizar pedido" Width="150" Height="40" 
+                        Background="#4CAF50" Foreground="White" FontWeight="Bold"
+                        Margin="0,0,20,0" Click="FinalizarPedido_Click"/>
+                <Button Content="Cancelar" Width="120" Height="40" 
+                        Background="#F44336" Foreground="White" FontWeight="Bold"
+                        Click="Cancelar_Click"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Page>

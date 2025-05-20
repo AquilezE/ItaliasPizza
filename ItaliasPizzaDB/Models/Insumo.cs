@@ -14,9 +14,9 @@ namespace ItaliasPizzaDB.Models
         public int IdInsumo { get; set; }
         public string Nombre { get; set; }
         public bool Status {get; set; }
-        public float Cantidad { get; set; }
-       
+        public float Precio { get; set; }
 
+        public float Cantidad { get; set; }
 
         public int IdCategoriaInsumo { get; set; }
         [ForeignKey("IdCategoriaInsumo")]

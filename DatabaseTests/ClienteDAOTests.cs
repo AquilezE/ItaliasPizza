@@ -61,16 +61,19 @@ namespace DatabaseTests
                     Status = true
                 };
 
-                bool resultado = ClienteDAO.CrearCliente(nuevoCliente);
+                Cliente clienteCreado = ClienteDAO.CrearCliente(nuevoCliente);
 
-                Assert.True(resultado);
+                Assert.NotNull(clienteCreado);
+                Assert.True(clienteCreado.IdCliente > 0);
 
                 using (var context = new ItaliasPizzaDbContext())
                 {
                     var clienteEnBD = context.Clientes
-                        .FirstOrDefault(c => c.Nombre == "Laura" && c.Apellidos == "González");
+                        .FirstOrDefault(c => c.IdCliente == clienteCreado.IdCliente);
 
                     Assert.NotNull(clienteEnBD);
+                    Assert.Equal("Laura", clienteEnBD.Nombre);
+                    Assert.Equal("González", clienteEnBD.Apellidos);
                     Assert.Equal("5551234567", clienteEnBD.Telefono);
                     Assert.True(clienteEnBD.Status);
                 }
@@ -475,6 +478,48 @@ namespace DatabaseTests
                 Assert.False(resultado);
             }
         }
+
+        [Fact]
+        public void ObtenerClienteConDireccionesPorTelefono_DebeRetornarClienteConDirecciones()
+        {
+            using (var scope = new TransactionScope())
+            {
+                string telefono = "1234567890";
+                int idClienteCreado;
+                int idDireccion1, idDireccion2;
+
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    var cliente = new Cliente
+                    {
+                        Nombre = "Juan Pérez",
+                        Telefono = telefono,
+                        Status = true,
+                        Direcciones = new List<Direccion>
+                {
+                    new Direccion { Calle = "Av. Principal", Colonia = "Centro", Numero = 123 },
+                    new Direccion { Calle = "Calle Secundaria", Colonia = "Sur", Numero = 456 }
+                }
+                    };
+
+                    context.Clientes.Add(cliente);
+                    context.SaveChanges();
+
+                    idClienteCreado = cliente.IdCliente;
+                    idDireccion1 = cliente.Direcciones.ElementAt(0).IdDireccion;
+                    idDireccion2 = cliente.Direcciones.ElementAt(1).IdDireccion;
+                }
+
+                var clienteObtenido = ClienteDAO.ObtenerClienteConDireccionesPorTelefono(telefono);
+
+                Assert.NotNull(clienteObtenido);
+                Assert.Equal(idClienteCreado, clienteObtenido.IdCliente);
+                Assert.Equal(2, clienteObtenido.Direcciones.Count);
+                Assert.Contains(clienteObtenido.Direcciones, d => d.IdDireccion == idDireccion1);
+                Assert.Contains(clienteObtenido.Direcciones, d => d.IdDireccion == idDireccion2);
+            }
+        }
+
 
     }
 }
