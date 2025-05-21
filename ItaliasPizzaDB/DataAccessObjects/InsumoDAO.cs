@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using ItaliasPizzaDB.Models;
+using ItaliasPizzaDB.DataTransferObjects;
 
 namespace ItaliasPizzaDB.DataAccessObjects
 {
@@ -148,6 +149,8 @@ namespace ItaliasPizzaDB.DataAccessObjects
             }
         }
 
+
+
         public static Insumo BuscarInsumoPorNombre(string nombre)
         {
             using (var context = new ItaliasPizzaDbContext())
@@ -155,5 +158,16 @@ namespace ItaliasPizzaDB.DataAccessObjects
                 return context.Insumos.FirstOrDefault(i => i.Nombre.Contains(nombre));
             }
         }
+
+        public static List<InsumoDTO> ObtenerInventarioReporte()
+        {
+            using (var ctx = new ItaliasPizzaDbContext())
+            {
+                return ctx.Database
+                    .SqlQuery<InsumoDTO>("EXEC dbo.sp02_GetInventarioReport")
+                    .ToList();
+            }
+        }
+
     }
 }

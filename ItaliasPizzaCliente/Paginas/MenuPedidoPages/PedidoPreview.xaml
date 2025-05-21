@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ItaliasPizzaCliente.Paginas.MenuPedidoPages"
+             xmlns:models="clr-namespace:ItaliasPizzaDB.Models;assembly=ItaliasPizzaDB"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Border Background="#f8fbfe" CornerRadius="4" Padding="10" Margin="5" BorderBrush="#e0e0e0" BorderThickness="1">
@@ -22,11 +23,30 @@
                     <TextBlock FontWeight="Bold" Text="{Binding Total}" Foreground="#222"/>
                 </StackPanel>
 
-                <TextBlock Text="Mesa: " Foreground="#444" FontSize="14"/>
-                <TextBlock Text="{Binding Mesa}" FontSize="14" Foreground="#444" Margin="10,0,0,0"/>
+                <ContentControl Content="{Binding}">
+                    <ContentControl.Resources>
+                        <DataTemplate DataType="{x:Type models:PedidoParaLocal}">
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                <TextBlock Text="Mesa:" Foreground="#444" FontSize="14"/>
+                                <TextBlock Text="{Binding Mesa}" Foreground="#444"
+                                           FontSize="14" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </DataTemplate>
 
-                <TextBlock Text="Fecha: " Foreground="#444" FontSize="14" Margin="0,5,0,0"/>
-                <TextBlock Text="{Binding Fecha}" FontSize="14" Foreground="#444" Margin="10,0,0,0"/>
+                        <DataTemplate DataType="{x:Type models:PedidoParaLlevar}">
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                <TextBlock Text="Cliente:" Foreground="#444" FontSize="14"/>
+                                <TextBlock Text="{Binding Cliente.Nombre}" Foreground="#444"
+                                           FontSize="14" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ContentControl.Resources>
+                </ContentControl>
+                <StackPanel Orientation="Horizontal">
+                    
+                    <TextBlock Text="Fecha: " Foreground="#444" FontSize="14"/>
+                    <TextBlock Text="{Binding Fecha}" FontSize="14" Foreground="#444" Margin="10,0,0,0"/>
+                </StackPanel>
             </StackPanel>
 
             <Button Grid.Column="1" Content="Ver Detalles" 

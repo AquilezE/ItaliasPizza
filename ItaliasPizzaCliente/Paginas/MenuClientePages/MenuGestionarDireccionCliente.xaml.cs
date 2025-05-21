@@ -58,14 +58,11 @@ namespace ItaliasPizzaCliente.Paginas.MenuClientePages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Iniciando validación de formatos...");
-            /*if (!ValidarFormatos())
+            if (ValidarFormatos())
             {
-                Console.WriteLine("Validación de formatos falló");
                 return;
-            }*/
+            }
 
-            Console.WriteLine("Creando nueva dirección...");
             Direccion nuevaDireccion = new Direccion
             {
                 Calle = txtCalle.Text,
@@ -79,8 +76,6 @@ namespace ItaliasPizzaCliente.Paginas.MenuClientePages
                 IdCliente = idClienteObtenido
             };
 
-            Console.WriteLine($"ID Cliente: {idClienteObtenido}");
-            Console.WriteLine("Validando dirección repetida...");
             var direccionRepetida = ClienteDAO.ValidarDireccionRepetida(nuevaDireccion);
             if (direccionRepetida == true)
             {

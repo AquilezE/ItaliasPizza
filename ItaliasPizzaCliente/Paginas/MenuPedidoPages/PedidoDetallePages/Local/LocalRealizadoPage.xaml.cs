@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItaliasPizzaDB.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,16 +14,20 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages.PedidoDetallePages
+namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages.PedidoDetallePages.Local
 {
     /// <summary>
-    /// Interaction logic for DetallePedidoLlevar.xaml
+    /// Interaction logic for LocalRealizadoPage.xaml
     /// </summary>
-    public partial class DetallePedidoLlevar : Page
+    public partial class LocalRealizadoPage : Page
     {
-        public DetallePedidoLlevar()
+        public LocalRealizadoPage(PedidoParaLocal pedidoParaLocal)
         {
             InitializeComponent();
+
+            this.DataContext = pedidoParaLocal;
         }
+
+
     }
 }

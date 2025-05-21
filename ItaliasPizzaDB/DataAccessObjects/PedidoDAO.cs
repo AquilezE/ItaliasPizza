@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ItaliasPizzaDB.DataTransferObjects;
 using ItaliasPizzaDB.Models;
 
 namespace ItaliasPizzaDB.DataAccessObjects
@@ -50,7 +52,16 @@ namespace ItaliasPizzaDB.DataAccessObjects
                         break;
                 }
 
-                return query.ToList();
+                var list = query.ToList();
+                foreach (var dom in list.OfType<PedidoParaLlevar>())
+                {
+
+                    context.Entry(dom).Reference(d => d.Direccion).Load();
+                    context.Entry(dom).Reference(d => d.Cliente).Load();
+                }
+
+                return list;
+
             }
         }
 
@@ -58,8 +69,21 @@ namespace ItaliasPizzaDB.DataAccessObjects
         {
             using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
             {
-                return context.Pedidos
+
+                var pedido = context.Pedidos
+                    .Include(p => p.StatusPedido)
+                    .Include(p => p.Detalles)
+                    .Include(p => p.Empleado)
                     .FirstOrDefault(p => p.IdPedido == idPedido);
+
+                if (pedido is PedidoParaLlevar dom)
+                {
+                    context.Entry(dom).Reference(d => d.Direccion).Load();
+                    context.Entry(dom).Reference(d => d.Cliente).Load();
+                }
+                
+                return pedido;
+
             }
         }
 
@@ -71,11 +95,20 @@ namespace ItaliasPizzaDB.DataAccessObjects
                     .FirstOrDefault(p => p.IdPedido == idPedido);
 
 
-                if (pedido == null) return 1;
+                if (pedido == null)
+                {
+                    Console.WriteLine($"No se encontró el pedido con ID {idPedido}");
+                    return 1;
+                }
 
-                if (pedido.IdStatusPedido == idStatus) return 1;
+                if (pedido.IdStatusPedido == idStatus)
+                {
+                    return 1;
+                    Console.WriteLine($"Estado anterior{pedido.IdStatusPedido}");
+                    Console.WriteLine($"Estado nuevo{idStatus}");
+                }
 
-                if (pedido.IdStatusPedido == 5) return 1;
+                if (pedido.IdStatusPedido == 5) return 2;
 
                 pedido.IdStatusPedido = idStatus;
                 context.SaveChanges();
@@ -182,7 +215,6 @@ namespace ItaliasPizzaDB.DataAccessObjects
                 }
             }
         }
-
 
         public static List<Producto> ObtenerProductosActivos()
         {
@@ -424,6 +456,41 @@ namespace ItaliasPizzaDB.DataAccessObjects
 
 
 
-    }
+    
 
+        public static List<PedidoDTO> ObtenerPedidosReporte(DateTime? desde, DateTime? hasta)
+        {
+            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            {
+                var pDesde = new SqlParameter("@Desde", desde);
+                var pHasta = new SqlParameter("@Hasta", hasta);
+
+                return context.Database
+                    .SqlQuery<PedidoDTO>(
+                        "EXEC dbo.sp01_GetPedidosReportes @Desde, @Hasta",
+                        pDesde, pHasta)
+                    .ToList();
+            }
+        }
+    
+        public static List<DetallePedidoDTO> ObtenerDetallesPorPedido(int idPedido)
+        {
+            using (ItaliasPizzaDbContext context = new ItaliasPizzaDbContext())
+            {
+                
+                return context.DetallesPedido
+                    .Where(d => d.IdPedido == idPedido)
+                    .Include(d => d.Producto)
+                    .Select(d => new DetallePedidoDTO
+                    {
+                        IdProducto = d.Producto.IdProducto,
+                        ProductoNombre = d.Producto.Nombre,
+                        IdReceta = d.Producto.IdReceta,    // <— new
+                        Cantidad = d.Cantidad,
+                        Subtotal = d.Subtotal
+                    })
+                    .ToList();
+            }
+        }
+    }
 }

@@ -1,9 +1,13 @@
-﻿using ItaliasPizzaCliente.Singletons;
+﻿using ItaliasPizzaCliente.Paginas.MenuPedidoPages.PedidoDetallePages.Domicilio;
+using ItaliasPizzaCliente.Paginas.MenuPedidoPages.PedidoDetallePages.Local;
+using ItaliasPizzaCliente.Singletons;
+using ItaliasPizzaDB;
 using ItaliasPizzaDB.DataAccessObjects;
 using ItaliasPizzaDB.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages
 {
@@ -27,48 +32,83 @@ namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages
 
         public ObservableCollection<Pedido> Pedidos { get; set; } = new ObservableCollection<Pedido>();
 
+        private readonly DispatcherTimer _pollTimer;
+
         public MenuVerPedidos()
         {
             InitializeComponent();
             this.DataContext = this;
-            CargarPedidos(UsuarioSingleton.Instance.NombreCargo);
+            CargarPedidos();
+
+
+            _pollTimer = new DispatcherTimer();
+            _pollTimer.Interval = TimeSpan.FromSeconds(5);
+            _pollTimer.Tick += (s, e) => CargarPedidos();
+            _pollTimer.Start();
+
+
 
         }
 
         private void PedidoPreview_VerDetallesClicked(object sender, EventArgs e)
         {
-            var preview = (PedidoPreview)sender;
+            var pedido = (Pedido)((PedidoPreview)sender).DataContext;
+            Page page;
 
-            var pedido = (Pedido)preview.DataContext;
-            
-            switch (pedido)
+
+            if (pedido is PedidoParaLocal local)
             {
-                case PedidoParaLocal _:
-                    
-                    //TODO: Aqui no se qpd alch
-
-                default:
-
-                    break;
+                switch (local.IdStatusPedido)
+                {
+                    case 1:
+                        page = new LocalRealizadoPage(local);
+                        break;
+                    case 2:
+                        page = new LocalPreparando(local);
+                        break;
+                    case 3:
+                        page = new LocalListoParaEntrega(local);
+                        break;
+                    default:
+                        throw new InvalidOperationException("Estado local desconocido.");
+                }
             }
-            
+            else if (pedido is PedidoParaLlevar dom)
+            {
+                switch (dom.IdStatusPedido)
+                {
+                    case 1:
+                        page = new DomicilioRealizado(dom);
+                        break;
+                    case 2:
+                        page = new DomicilioPreparado(dom);
+                        break;
+                    case 3:
+                        page = new DomicilioListoParaEntrega(dom);
+                        break;
+                    case 4:
+                        page = new DomicilioEnCamino(dom);
+                        break;
+                    default:
+                        throw new InvalidOperationException("Estado domicilio desconocido.");
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException("Tipo de pedido desconocido.");
+            }
+
+            NavigationService?.Navigate(page);
+
         }
 
-        private void CargarPedidos(string instanceNombreCargo)
+        private void CargarPedidos()
         {
-            var list = new List<Pedido>();
-
-            list.Add(new Pedido()
-            {
-                IdPedido = 1,
-                Total = 100,
-                Fecha = DateTime.Now,
-            });
-
-
+;
+            Pedidos.Clear();
+            var list = PedidoDAO.ObtenerPedidos(UsuarioSingleton.Instance.IdCargo);
             foreach (var p in list)
                 Pedidos.Add(p);
-
         }
 
 
