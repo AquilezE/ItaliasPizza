@@ -56,6 +56,7 @@
     <Compile Include="DataAccessObjects\ClienteDAO.cs" />
     <Compile Include="DataAccessObjects\CorteDeCajaDAO.cs" />
     <Compile Include="DataAccessObjects\InsumoDAO.cs" />
+    <Compile Include="DataAccessObjects\MermaDAO.cs" />
     <Compile Include="DataAccessObjects\PedidoDAO.cs" />
     <Compile Include="DataAccessObjects\PedidoProveedorDAO.cs" />
     <Compile Include="DataAccessObjects\ProductoDAO.cs" />
@@ -64,6 +65,8 @@
     <Compile Include="DataAccessObjects\UnidadDeMedidaDAO.cs" />
     <Compile Include="DataTransferObjects\DetallePedidoDTO.cs" />
     <Compile Include="DataTransferObjects\InsumoDTO.cs" />
+    <Compile Include="DataTransferObjects\InsumoProveedorDTO.cs" />
+    <Compile Include="DataTransferObjects\MermaDetalleDTO.cs" />
     <Compile Include="DataTransferObjects\PedidoDTO.cs" />
     <Compile Include="DataTransferObjects\PedidoProveedorDTO.cs" />
     <Compile Include="DataAccessObjects\VistaProveedorInsumosAO.cs" />
@@ -116,6 +119,14 @@
     <Compile Include="Migrations\202505200024013_aniadiVistasySps.Designer.cs">
       <DependentUpon>202505200024013_aniadiVistasySps.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202505230548475_addMerma.cs" />
+    <Compile Include="Migrations\202505230548475_addMerma.Designer.cs">
+      <DependentUpon>202505230548475_addMerma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505230739471_arreglandoCrearVistaInsumosPorProveedor.cs" />
+    <Compile Include="Migrations\202505230739471_arreglandoCrearVistaInsumosPorProveedor.Designer.cs">
+      <DependentUpon>202505230739471_arreglandoCrearVistaInsumosPorProveedor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cargo.cs" />
     <Compile Include="Models\CategoriaInsumo.cs" />
@@ -129,6 +140,7 @@
     <Compile Include="Models\Empleado.cs" />
     <Compile Include="Models\Insumo.cs" />
     <Compile Include="Models\InsumoParaReceta.cs" />
+    <Compile Include="Models\Merma.cs" />
     <Compile Include="Models\Pedido.cs" />
     <Compile Include="Models\PedidoParaLlevar.cs" />
     <Compile Include="Models\PedidoParaLocal.cs" />
@@ -190,6 +202,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202505192315575_mergeGio.resx">
       <DependentUpon>202505192315575_mergeGio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505230548475_addMerma.resx">
+      <DependentUpon>202505230548475_addMerma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505230739471_arreglandoCrearVistaInsumosPorProveedor.resx">
+      <DependentUpon>202505230739471_arreglandoCrearVistaInsumosPorProveedor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

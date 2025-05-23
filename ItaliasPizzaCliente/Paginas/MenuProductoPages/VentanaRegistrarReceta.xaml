@@ -86,7 +86,7 @@
                                          HorizontalContentAlignment="Center"
                                          BorderThickness="0"
                                          Background="Transparent"
-                                         IsReadOnly="True"/>
+                                         IsReadOnly="False"/>
                                 <Button Content="+" Width="20" Click="BtnSumar_Click"/>
                             </StackPanel>
                         </DataTemplate>

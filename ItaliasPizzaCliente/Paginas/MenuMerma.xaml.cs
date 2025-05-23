@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ItaliasPizzaCliente.Paginas.MenuInventarioPages;
+using ItaliasPizzaCliente.UserControllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ItaliasPizzaCliente.Paginas.MenuMergaPages;
 
 namespace ItaliasPizzaCliente.Paginas
 {
@@ -23,6 +26,21 @@ namespace ItaliasPizzaCliente.Paginas
         public MenuMerma()
         {
             InitializeComponent();
+        }
+
+        private void selectionChanged(object sender, RoutedEventArgs e)
+        {
+            var selected = upperBar.SelectedItem as NavButton;
+
+            navFrame.Navigate(selected.Navlink);
+        }
+
+        private void navFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            if (navFrame.CanGoBack)
+            {
+                navFrame.RemoveBackEntry();
+            }
         }
     }
 }

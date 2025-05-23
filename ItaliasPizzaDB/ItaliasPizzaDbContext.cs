@@ -13,13 +13,9 @@ namespace ItaliasPizzaDB
     {
 
         public ItaliasPizzaDbContext()
-            : base("ItaliasPizzaDbContext") // Name of the connection string
+            : base("ItaliasPizzaDbContext") 
         {
-            this.Configuration.ProxyCreationEnabled = false;
-            this.Configuration.LazyLoadingEnabled = false;
 
-            //Mierda para la fukin vista
-            Database.SetInitializer<ItaliasPizzaDbContext>(null);
         }
 
 
@@ -56,6 +52,8 @@ namespace ItaliasPizzaDB
         public DbSet<Transaccion> Transacciones { get; set; }
         public DbSet<TipoTransaccion> TiposTransaccion { get; set; }
         public DbSet<CorteDeCaja> CortesDeCaja { get; set; }
+        public DbSet<Merma> Mermas { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

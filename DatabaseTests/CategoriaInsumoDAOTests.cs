@@ -15,13 +15,12 @@ namespace DatabaseTests
         [Fact]
         public void ObtenerCategoriasInsumo_DebeRetornarListaDeCategoriasInsumo()
         {
-            //Aqui usamos las que se generaron en el inicializador
-            //Carnes,Lacteos,Vegetales
+           
 
             var categoriasObtenidas = CategoriaInsumoDAO.ObtenerCategoriasInsumo();
 
             Assert.NotEmpty(categoriasObtenidas);
-            Assert.Equal(3, categoriasObtenidas.Count);
+            Assert.Equal(6, categoriasObtenidas.Count);
         }
     }
 }

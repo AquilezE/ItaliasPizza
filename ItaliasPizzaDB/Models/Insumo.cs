@@ -29,6 +29,8 @@ namespace ItaliasPizzaDB.Models
 
         public virtual ICollection<InsumoParaReceta> InsumosParaReceta { get; set; }
         public virtual ICollection<ProveedorInsumo> ProveedorInsumos {  get; set; }
+        public virtual ICollection<Merma> Mermas { get; set; }
+
 
     }
 }

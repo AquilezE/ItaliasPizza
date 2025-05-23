@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ItaliasPizzaDB.DataTransferObjects;
 using ItaliasPizzaDB.Models;
 
 namespace ItaliasPizzaDB.DataAccessObjects
@@ -155,6 +156,29 @@ namespace ItaliasPizzaDB.DataAccessObjects
                     .ToList();
             }
         }
+
+        public static List<InsumoProveedorDTO> ObtenerProveedoresInsumos(int idProveedor)
+        {
+            using (var context = new ItaliasPizzaDbContext())
+            {
+                var insumos = context.ProveedoresInsumos
+                    .Where(pi => pi.IdProveedor == idProveedor)
+                    .Select(pi => new InsumoProveedorDTO
+                    {
+                        IdInsumo = pi.Insumo.IdInsumo,
+                        NombreInsumo = pi.Insumo.Nombre,
+                        Precio = pi.Insumo.Precio,
+                        Unidad = pi.Insumo.UnidadDeMedida.UnidadDeMedidaNombre,
+                        IdProveedor = pi.Proveedor.IdProveedor,
+                        NombreProveedor = pi.Proveedor.Nombre,
+                        IdCategoriaInsumo = pi.Insumo.IdCategoriaInsumo
+                    })
+                    .ToList();
+
+                return insumos;
+            }
+        }
+
 
     }
 }

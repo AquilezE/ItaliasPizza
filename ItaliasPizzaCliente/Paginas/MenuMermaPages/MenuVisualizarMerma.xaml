@@ -1,0 +1,72 @@
+﻿<Page x:Class="ItaliasPizzaCliente.Paginas.MenuMergaPages.MenuVisualizarMerma"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ItaliasPizzaCliente.Paginas.MenuMergaPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MenuVisualizarMerma"
+      Background="White">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Filtros de fecha -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
+            <StackPanel Margin="10" Width="200">
+                <TextBlock Text="Fecha Inicial" FontWeight="Bold" Margin="0,0,0,5"/>
+                <DatePicker x:Name="DpDesde" />
+            </StackPanel>
+            <StackPanel Margin="10" Width="200">
+                <TextBlock Text="Fecha Final" FontWeight="Bold" Margin="0,0,0,5"/>
+                <DatePicker x:Name="DpHasta" />
+            </StackPanel>
+            <Button Content="Buscar" Width="100" Margin="20,20,0,0"
+                    Background="#20c997" Foreground="White" Click="BtnBuscar_Click"/>
+        </StackPanel>
+
+        <!-- Tabla de mermas -->
+        <DataGrid x:Name="MermasDataGrid"
+                  Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  HeadersVisibility="Column"
+                  Margin="0,10"
+                  AlternatingRowBackground="#f0f0f0"
+                  RowBackground="White"
+                  BorderThickness="0"
+                  IsReadOnly="True"
+                  SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Fecha" Binding="{Binding FechaFormateada}" Width="2*" />
+                <DataGridTextColumn Header="Total" Binding="{Binding TotalPerdido, StringFormat=C}" Width="2*" />
+                <DataGridTemplateColumn Header="Acción">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Ver Detalles"
+                                    Tag="{Binding Fecha}"
+                                    Click="BtnVerDetalles_Click"
+                                    Background="#0dcaf0" Foreground="White" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Paginación -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+            <Button Content="◀" Margin="5" Click="BtnAnterior_Click"/>
+            <Button Content="1" Background="#6f42c1" Foreground="White" Margin="5" Click="BtnPagina_Click"/>
+            <Button Content="2" Margin="5" Click="BtnPagina_Click"/>
+            <Button Content="3" Margin="5" Click="BtnPagina_Click"/>
+            <Button Content="4" Margin="5" Click="BtnPagina_Click"/>
+            <Button Content="▶" Margin="5" Click="BtnSiguiente_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>

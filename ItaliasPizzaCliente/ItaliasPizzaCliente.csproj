@@ -246,8 +246,14 @@
     <Compile Include="Paginas\MenuInventarioPages\PrevisualizadorPDF.xaml.cs">
       <DependentUpon>PrevisualizadorPDF.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Paginas\MenuMermaPages\MenuVisualizarMerma.xaml.cs">
+      <DependentUpon>MenuVisualizarMerma.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Paginas\MenuMerma.xaml.cs">
       <DependentUpon>MenuMerma.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Paginas\MenuMermaPages\VentanaDetalleMerma.xaml.cs">
+      <DependentUpon>VentanaDetalleMerma.xaml</DependentUpon>
     </Compile>
     <Compile Include="Paginas\MenuPedido.xaml.cs">
       <DependentUpon>MenuPedido.xaml</DependentUpon>
@@ -430,7 +436,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Paginas\MenuMermaPages\MenuVisualizarMerma.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Paginas\MenuMerma.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuMermaPages\VentanaDetalleMerma.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -592,6 +606,7 @@
       <Name>ItaliasPizzaDB</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.5.2.1\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.5.2.1\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

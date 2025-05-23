@@ -358,6 +358,41 @@ namespace DatabaseTests.Inicializador
             };
             context.ProveedoresInsumos.Add(proveedorInsumoTomate);
 
+            // Registros de prueba para Merma
+            var merma1 = new Merma
+            {
+                IdInsumo = insumoCarne.IdInsumo,
+                Cantidad = 2.5f,
+                Fecha = new DateTime(2025, 5, 20)
+            };
+            context.Mermas.Add(merma1);
+
+            var merma2 = new Merma
+            {
+                IdInsumo = insumoQueso.IdInsumo,
+                Cantidad = 500f,
+                Fecha = new DateTime(2025, 5, 20)
+            };
+            context.Mermas.Add(merma2);
+
+            var merma3 = new Merma
+            {
+                IdInsumo = insumoTomate.IdInsumo,
+                Cantidad = 1.2f,
+                Fecha = new DateTime(2025, 5, 21)
+            };
+            context.Mermas.Add(merma3);
+
+            var merma4 = new Merma
+            {
+                IdInsumo = insumoPepperoni.IdInsumo,
+                Cantidad = 1.0f,
+                Fecha = new DateTime(2025, 5, 21)
+            };
+            context.Mermas.Add(merma4);
+
+
+
             context.SaveChanges();
             base.Seed(context);
 

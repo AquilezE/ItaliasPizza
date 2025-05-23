@@ -23,11 +23,19 @@ using static ItaliasPizzaCliente.Paginas.MenuProveedoresPages.VentanaResumenPedi
 namespace ItaliasPizzaCliente.Paginas.MenuProveedoresPages
 {
 
-    public class InsumoProveedorViewUI : VistaProveedorInsumos, INotifyPropertyChanged
+    public class InsumoProveedorViewUI : INotifyPropertyChanged
     {
-        private bool _seleccionado;
-        private int _cantidad;
+        // Propiedades del DTO
+        public int IdInsumo { get; set; }
+        public string NombreInsumo { get; set; }
+        public float Precio { get; set; }
+        public string Unidad { get; set; }
+        public int IdProveedor { get; set; }
+        public string NombreProveedor { get; set; }
+        public int IdCategoriaInsumo { get; set; }
 
+        // Propiedades de UI
+        private bool _seleccionado;
         public bool Seleccionado
         {
             get => _seleccionado;
@@ -41,6 +49,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuProveedoresPages
             }
         }
 
+        private int _cantidad;
         public int Cantidad
         {
             get => _cantidad;
@@ -93,19 +102,18 @@ namespace ItaliasPizzaCliente.Paginas.MenuProveedoresPages
         {
             if (CbProveedores.SelectedItem is Proveedor proveedorSeleccionado)
             {
-                var insumosProveedor =
-                    VistaInsumosPorProveedorDAO.ObtenerInsumosDeProveedor(proveedorSeleccionado.IdProveedor);
+                var insumosProveedorDTOs = ProveedorDAO.ObtenerProveedoresInsumos(proveedorSeleccionado.IdProveedor);
 
                 // Si hay categoría seleccionada, filtrar adicionalmente
                 if (CbCategorias.SelectedItem is CategoriaInsumo categoriaSeleccionada && categoriaSeleccionada.IdCategoriaInsumo > 0)
                 {
-                    insumosProveedor = insumosProveedor
+                    insumosProveedorDTOs = insumosProveedorDTOs
                         .Where(i => i.IdCategoriaInsumo == categoriaSeleccionada.IdCategoriaInsumo)
                         .ToList();
                 }
-                
+
                 Insumos.Clear();
-                foreach (var item in insumosProveedor)
+                foreach (var item in insumosProveedorDTOs)
                 {
                     Insumos.Add(new InsumoProveedorViewUI
                     {
