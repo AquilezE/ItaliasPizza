@@ -112,9 +112,9 @@
     <Compile Include="Migrations\202505192315575_mergeGio.Designer.cs">
       <DependentUpon>202505192315575_mergeGio.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202505110024013_aniadiVistasySps.cs" />
-    <Compile Include="Migrations\202505110024013_aniadiVistasySps.Designer.cs">
-      <DependentUpon>202505110024013_aniadiVistasySps.cs</DependentUpon>
+    <Compile Include="Migrations\202505200024013_aniadiVistasySps.cs" />
+    <Compile Include="Migrations\202505200024013_aniadiVistasySps.Designer.cs">
+      <DependentUpon>202505200024013_aniadiVistasySps.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cargo.cs" />
@@ -161,8 +161,8 @@
     <EmbeddedResource Include="Migrations\202505012027228_aniadiCantidadAInsumo.resx">
       <DependentUpon>202505012027228_aniadiCantidadAInsumo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202505110024013_aniadiVistasySps.resx">
-      <DependentUpon>202505110024013_aniadiVistasySps.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202505200024013_aniadiVistasySps.resx">
+      <DependentUpon>202505200024013_aniadiVistasySps.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202505070320453_productoCambios.resx">
       <DependentUpon>202505070320453_productoCambios.cs</DependentUpon>

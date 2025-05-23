@@ -20,12 +20,12 @@
             AddColumn("dbo.Insumoes", "Precio", c => c.Single(nullable: false));
             CreateIndex("dbo.Productoes", "IdCategoriaProducto");
             AddForeignKey("dbo.Productoes", "IdCategoriaProducto", "dbo.CategoriaProductoes", "IdCategoriaProducto", cascadeDelete: true);
-            DropColumn("dbo.Insumoes", "Cantidad");
+            
         }
         
         public override void Down()
         {
-            AddColumn("dbo.Insumoes", "Cantidad", c => c.Single(nullable: false));
+           
             DropForeignKey("dbo.Productoes", "IdCategoriaProducto", "dbo.CategoriaProductoes");
             DropIndex("dbo.Productoes", new[] { "IdCategoriaProducto" });
             DropColumn("dbo.Insumoes", "Precio");

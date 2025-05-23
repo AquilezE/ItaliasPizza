@@ -21,12 +21,12 @@
                     })
                 .PrimaryKey(t => t.IdInsumo);
             
-            AddColumn("dbo.Insumoes", "Cantidad", c => c.Single(nullable: false));
+           
         }
         
         public override void Down()
         {
-            DropColumn("dbo.Insumoes", "Cantidad");
+            
             DropTable("dbo.VistaInsumosPorProveedor");
         }
     }
