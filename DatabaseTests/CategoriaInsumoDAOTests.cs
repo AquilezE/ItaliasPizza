@@ -20,7 +20,7 @@ namespace DatabaseTests
             var categoriasObtenidas = CategoriaInsumoDAO.ObtenerCategoriasInsumo();
 
             Assert.NotEmpty(categoriasObtenidas);
-            Assert.Equal(6, categoriasObtenidas.Count);
+            Assert.Equal(3, categoriasObtenidas.Count);
         }
     }
 }

@@ -123,10 +123,6 @@
     <Compile Include="Migrations\202505230548475_addMerma.Designer.cs">
       <DependentUpon>202505230548475_addMerma.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202505230739471_arreglandoCrearVistaInsumosPorProveedor.cs" />
-    <Compile Include="Migrations\202505230739471_arreglandoCrearVistaInsumosPorProveedor.Designer.cs">
-      <DependentUpon>202505230739471_arreglandoCrearVistaInsumosPorProveedor.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cargo.cs" />
     <Compile Include="Models\CategoriaInsumo.cs" />
@@ -205,9 +201,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202505230548475_addMerma.resx">
       <DependentUpon>202505230548475_addMerma.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202505230739471_arreglandoCrearVistaInsumosPorProveedor.resx">
-      <DependentUpon>202505230739471_arreglandoCrearVistaInsumosPorProveedor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
