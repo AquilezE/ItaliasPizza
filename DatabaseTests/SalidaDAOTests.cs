@@ -28,21 +28,11 @@ namespace DatabaseTests
                         });
                         await context.SaveChangesAsync();
                     }
-
-                    if (!context.Empleados.Any(e => e.IdEmpleado == 1))
-                    {
-                        context.Empleados.Add(new Empleado
-                        {
-                            IdEmpleado = 1,
-                            Nombre = "Empleado de Prueba"
-                        });
-                        await context.SaveChangesAsync();
-                    }
                 }
 
                 float cantidad = 150.0f;
                 string descripcion = "Pago del servicio de internet mes enero";
-                int idEmpleado = 1;
+                int idEmpleado = 2;
                 int idTipoTransaccion = 1;
 
                 bool resultado = await SalidaDAO.RegistrarTransaccion(cantidad, descripcion, idEmpleado, idTipoTransaccion);
@@ -100,7 +90,7 @@ namespace DatabaseTests
                         Cambio = 500.0f,
                         VentaDelDia = 2000.0f,
                         Gasto = gastoInicial,
-                        IdEmpleado = 1
+                        IdEmpleado = 2
                     };
 
                     context.CortesDeCaja.Add(corte);
@@ -160,7 +150,7 @@ namespace DatabaseTests
                         FechaApertura = DateTime.Now.AddDays(-1),
                         FechaCierre = DateTime.Now.AddDays(-1).AddHours(1),
                         Gasto = 100.0f,
-                        IdEmpleado = 1
+                        IdEmpleado = 2
                     };
 
                     var corteReciente = new CorteDeCaja
@@ -168,7 +158,7 @@ namespace DatabaseTests
                         FechaApertura = DateTime.Now,
                         FechaCierre = DateTime.Now.AddHours(1),
                         Gasto = gastoInicial,
-                        IdEmpleado = 1
+                        IdEmpleado = 2
                     };
 
                     context.CortesDeCaja.Add(corteAntiguo);

@@ -33,7 +33,7 @@ namespace DatabaseTests
                     {
                         Fecha = fechaCreada,
                         Total = 100.0f,
-                        IdEmpleado = 1,
+                        IdEmpleado = 2,
                         IdStatusPedido = 1
                     };
 
@@ -47,7 +47,7 @@ namespace DatabaseTests
 
                 Assert.Equal(100.0f, pedidoObtenido.Total);
                 Assert.Equal(fechaCreada.Date, pedidoObtenido.Fecha.Date);
-                Assert.Equal(1, pedidoObtenido.IdEmpleado);
+                Assert.Equal(2, pedidoObtenido.IdEmpleado);
                 Assert.Equal(1, pedidoObtenido.IdStatusPedido);
             }
         }
@@ -66,7 +66,7 @@ namespace DatabaseTests
                     {
                         Fecha = DateTime.Now,
                         Total = 100.0f,
-                        IdEmpleado = 1,
+                        IdEmpleado = 3,
                         IdStatusPedido = 1
                     };
 
@@ -107,7 +107,7 @@ namespace DatabaseTests
                     {
                         Fecha = DateTime.Now,
                         Total = 100.0f,
-                        IdEmpleado = 1,
+                        IdEmpleado = 3,
                         IdStatusPedido = (int) StatusPedidoEnum.Realizado
                     };
 
@@ -115,7 +115,7 @@ namespace DatabaseTests
                     {
                         Fecha = DateTime.Now,
                         Total = 200.0f,
-                        IdEmpleado = 1,
+                        IdEmpleado = 3,
                         IdStatusPedido = (int)StatusPedidoEnum.Preparando
                     };
 
@@ -123,7 +123,7 @@ namespace DatabaseTests
                     {
                         Fecha = DateTime.Now,
                         Total = 300.0f,
-                        IdEmpleado = 1,
+                        IdEmpleado = 3,
                         IdStatusPedido = (int) StatusPedidoEnum.Realizado
                     };
 
@@ -159,7 +159,7 @@ namespace DatabaseTests
                     {
                         Fecha = DateTime.Now,
                         Total = 100.0f,
-                        IdEmpleado = 1,
+                        IdEmpleado = 4,
                         IdStatusPedido = (int)StatusPedidoEnum.Realizado
                     };
 
@@ -167,7 +167,7 @@ namespace DatabaseTests
                     {
                         Fecha = DateTime.Now,
                         Total = 200.0f,
-                        IdEmpleado = 1,
+                        IdEmpleado = 4,
                         IdStatusPedido = (int)StatusPedidoEnum.Preparando
                     };
 
@@ -175,7 +175,7 @@ namespace DatabaseTests
                     {
                         Fecha = DateTime.Now,
                         Total = 300.0f,
-                        IdEmpleado = 1,
+                        IdEmpleado = 4,
                         IdStatusPedido = (int)StatusPedidoEnum.ListoParaEntrega
                     };
 
@@ -183,7 +183,7 @@ namespace DatabaseTests
                     {
                         Fecha = DateTime.Now,
                         Total = 400.0f,
-                        IdEmpleado = 1,
+                        IdEmpleado = 4,
                         IdStatusPedido = (int)StatusPedidoEnum.Realizado
                     };
 
@@ -223,7 +223,7 @@ namespace DatabaseTests
                     {
                         Fecha = DateTime.Now,
                         Total = 100.0f,
-                        IdEmpleado = 1,
+                        IdEmpleado = 6,
                         IdStatusPedido = 3
                     };
 
@@ -231,7 +231,7 @@ namespace DatabaseTests
                     {
                         Fecha = DateTime.Now,
                         Total = 200.0f,
-                        IdEmpleado = 1,
+                        IdEmpleado = 6,
                         IdStatusPedido = 4
                     };
 
@@ -239,7 +239,7 @@ namespace DatabaseTests
                     {
                         Fecha = DateTime.Now,
                         Total = 300.0f,
-                        IdEmpleado = 1,
+                        IdEmpleado = 6,
                         IdStatusPedido = 3
                     };
 
@@ -277,7 +277,7 @@ namespace DatabaseTests
                     {
                         Fecha = DateTime.Now,
                         Total = 100.0f,
-                        IdEmpleado = 1,
+                        IdEmpleado = 5,
                         IdStatusPedido = (int)StatusPedidoEnum.ListoParaEntrega
                     };
 
@@ -285,7 +285,7 @@ namespace DatabaseTests
                     {
                         Fecha = DateTime.Now,
                         Total = 200.0f,
-                        IdEmpleado = 1,
+                        IdEmpleado = 5,
                         IdStatusPedido = (int)StatusPedidoEnum.EnCamino
                     };
 
@@ -293,7 +293,7 @@ namespace DatabaseTests
                     {
                         Fecha = DateTime.Now,
                         Total = 300.0f,
-                        IdEmpleado = 1,
+                        IdEmpleado = 5,
                         IdStatusPedido = (int)StatusPedidoEnum.ListoParaEntrega
                     };
 
@@ -301,7 +301,7 @@ namespace DatabaseTests
                     {
                         Fecha = DateTime.Now,
                         Total = 400.0f,
-                        IdEmpleado = 1,
+                        IdEmpleado = 5,
                         IdStatusPedido = (int)StatusPedidoEnum.Realizado
                     };
 
@@ -341,7 +341,7 @@ namespace DatabaseTests
                     {
                         Fecha = DateTime.Now,
                         Total = 100.0f,
-                        IdEmpleado = 1,
+                        IdEmpleado = 2,
                         IdStatusPedido = (int)StatusPedidoEnum.Realizado
                     };
 
@@ -349,7 +349,7 @@ namespace DatabaseTests
                     {
                         Fecha = DateTime.Now,
                         Total = 200.0f,
-                        IdEmpleado = 1,
+                        IdEmpleado = 2,
                         IdStatusPedido = (int)StatusPedidoEnum.Cancelado
                     };
 
@@ -357,7 +357,7 @@ namespace DatabaseTests
                     {
                         Fecha = DateTime.Now,
                         Total = 300.0f,
-                        IdEmpleado = 1,
+                        IdEmpleado = 2,
                         IdStatusPedido = (int)StatusPedidoEnum.NoEntregado
                     };
 
@@ -395,7 +395,7 @@ namespace DatabaseTests
                     {
                         Fecha = DateTime.Now,
                         Total = 100.0f,
-                        IdEmpleado = 1,
+                        IdEmpleado = 2,
                         IdStatusPedido = (int)StatusPedidoEnum.Realizado
                     };
 
@@ -412,7 +412,7 @@ namespace DatabaseTests
         }
 
         [Fact]
-        public void CambiarEstadoPedido_RetornaUnoSiSeCambioEstadoYEstaCancelado()
+        public void CambiarEstadoPedido_RetornaDosSiSeCambioEstadoYEstaCancelado()
         {
             using (var scope = new TransactionScope())
             {
@@ -424,7 +424,7 @@ namespace DatabaseTests
                     {
                         Fecha = DateTime.Now,
                         Total = 100.0f,
-                        IdEmpleado = 1,
+                        IdEmpleado = 2,
                         IdStatusPedido = (int)StatusPedidoEnum.Cancelado
                     };
 
@@ -436,7 +436,7 @@ namespace DatabaseTests
 
                 var resultado = PedidoDAO.CambiarEstadoPedido(idPedido1, (int)StatusPedidoEnum.Preparando);
 
-                Assert.Equal(1, resultado);
+                Assert.Equal(2, resultado);
             }
         }
 
@@ -502,7 +502,7 @@ namespace DatabaseTests
                     idDireccionReal = direccion.IdDireccion;
                 }
 
-                int idEmpleado = 1;
+                int idEmpleado = 2;
                 var detalles = new List<(int idProducto, int cantidad, float subtotal)>
         {
             (idProducto1, 2, 100.0f),  // Usar ID real del producto 1

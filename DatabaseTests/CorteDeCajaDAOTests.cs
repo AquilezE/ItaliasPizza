@@ -29,7 +29,7 @@ namespace DatabaseTests
                     {
                         FechaApertura = fecha1,
                         Cambio = 1000,
-                        IdEmpleado = 1,
+                        IdEmpleado = 2,
                         FechaCierre = fechaPorDefecto
                     };
 
@@ -37,7 +37,7 @@ namespace DatabaseTests
                     {
                         FechaApertura = fecha2,
                         Cambio = 1500,
-                        IdEmpleado = 2,
+                        IdEmpleado = 3,
                         FechaCierre = fechaPorDefecto
                     };
 
@@ -50,7 +50,7 @@ namespace DatabaseTests
 
                 Assert.NotNull(ultimoCorte);
                 Assert.Equal(1500, ultimoCorte.Cambio);
-                Assert.Equal(2, ultimoCorte.IdEmpleado);
+                Assert.Equal(3, ultimoCorte.IdEmpleado);
                 Assert.Equal(fecha2.Date, ultimoCorte.FechaApertura.Date);
             }
         }
@@ -61,7 +61,7 @@ namespace DatabaseTests
             using (var scope = new TransactionScope())
             {
                 DateTime fecha = DateTime.Now.Date;
-                int idEmpleado = 1;
+                int idEmpleado = 2;
                 float cambioInicial = 1000.0f;
 
                 int resultado = CorteDeCajaDAO.RegistrarNuevoCorteDeCaja(idEmpleado, cambioInicial, fecha);
@@ -109,7 +109,7 @@ namespace DatabaseTests
                     {
                         FechaApertura = fechaApertura,
                         Cambio = 1000,
-                        IdEmpleado = 1,
+                        IdEmpleado = 2,
                         FechaCierre = fechaNoCerrado,
                         VentaDelDia = 0,
                         Gasto = 0
@@ -155,7 +155,7 @@ namespace DatabaseTests
                         FechaApertura = fechaApertura,
                         FechaCierre = fechaCierreExistente,
                         Cambio = 1000,
-                        IdEmpleado = 1,
+                        IdEmpleado = 2,
                         VentaDelDia = 0,    
                         Gasto = 0           
                     };
@@ -199,7 +199,7 @@ namespace DatabaseTests
                     {
                         FechaApertura = DateTime.Now,
                         Cambio = 1000,
-                        IdEmpleado = 1,
+                        IdEmpleado = 2,
                         FechaCierre = fechaNoCerrado,
                         VentaDelDia = ventaInicial,
                         Gasto = 0
@@ -255,7 +255,7 @@ namespace DatabaseTests
                     {
                         FechaApertura = DateTime.Now,
                         Cambio = 1000,
-                        IdEmpleado = 1,
+                        IdEmpleado = 2,
                         FechaCierre = fechaNoCerrado,
                         VentaDelDia = 0,
                         Gasto = 0
