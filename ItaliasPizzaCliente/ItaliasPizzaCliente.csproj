@@ -246,6 +246,9 @@
     <Compile Include="Paginas\MenuInventarioPages\PrevisualizadorPDF.xaml.cs">
       <DependentUpon>PrevisualizadorPDF.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Paginas\MenuMermaPages\MenuRegistrarMerma.xaml.cs">
+      <DependentUpon>MenuRegistrarMerma.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Paginas\MenuMermaPages\MenuVisualizarMerma.xaml.cs">
       <DependentUpon>MenuVisualizarMerma.xaml</DependentUpon>
     </Compile>
@@ -433,6 +436,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Paginas\MenuInventarioPages\PrevisualizadorPDF.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuMermaPages\MenuRegistrarMerma.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -84,7 +84,8 @@ namespace ItaliasPizzaCliente.Paginas.MenuInventarioPages
                 Status = true,
                 Cantidad = float.Parse(txtCantidad.Text),
                 IdCategoriaInsumo = (int)comboBoxCategoria.SelectedValue,
-                IdUnidadDeMedida = (int)comboBoxUnidadMedida.SelectedValue
+                IdUnidadDeMedida = (int)comboBoxUnidadMedida.SelectedValue,
+                Precio = float.Parse(txtPrecioUnitario.Text)
             };
 
             InsumoDAO.CrearInsumo(nuevoInsumo);

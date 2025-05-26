@@ -517,6 +517,74 @@ namespace DatabaseTests
             }
         }
 
+        [Fact]
+        public void BuscarInsumoPorNombre_CoincidenciaParcialDevuelveInsumo()
+        {
+            using (var scope = new TransactionScope())
+            {
+                int idInsumo;
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    var insumo = new Insumo
+                    {
+                        Nombre = "InsumoEspecialTest",
+                        IdCategoriaInsumo = 1,
+                        IdUnidadDeMedida = 1,
+                        Status = true
+                    };
+
+                    context.Insumos.Add(insumo);
+                    context.SaveChanges();
+
+                    idInsumo = insumo.IdInsumo;
+                }
+
+                var resultado = InsumoDAO.BuscarInsumoPorNombre("Especial");
+
+                Assert.NotNull(resultado);
+                Assert.Equal(idInsumo, resultado.IdInsumo);
+                Assert.Contains("Especial", resultado.Nombre);
+            }
+        }
+
+        [Fact]
+        public void RestarInventario_DescuentaCantidadCorrectamente()
+        {
+            using (var scope = new TransactionScope())
+            {
+                int idInsumo;
+                float cantidadInicial = 10.0f;
+                float cantidadARestar = 2.5f;
+
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    var insumo = new Insumo
+                    {
+                        Nombre = "InsumoConInventario",
+                        IdCategoriaInsumo = 1,
+                        IdUnidadDeMedida = 1,
+                        Cantidad= cantidadInicial,
+                        Status = true
+                    };
+
+                    context.Insumos.Add(insumo);
+                    context.SaveChanges();
+                    idInsumo = insumo.IdInsumo;
+                }
+
+                bool resultado = InsumoDAO.RestarInventario(idInsumo, cantidadARestar);
+                Assert.True(resultado);
+
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    var insumoActualizado = context.Insumos.FirstOrDefault(i => i.IdInsumo == idInsumo);
+                    Assert.NotNull(insumoActualizado);
+                    Assert.Equal(cantidadInicial - cantidadARestar, insumoActualizado.Cantidad, 2);
+                }
+            }
+        }
+
+
 
     }
 }

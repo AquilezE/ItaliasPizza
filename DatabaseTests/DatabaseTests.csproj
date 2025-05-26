@@ -93,6 +93,7 @@
     <Compile Include="EmpleadoDAOTests.cs" />
     <Compile Include="Inicializador\InitializadorTestDb.cs" />
     <Compile Include="InsumoDAOTests.cs" />
+    <Compile Include="MermaDAOTest.cs" />
     <Compile Include="PedidoDAOTests.cs" />
     <Compile Include="ProductoDAOTests.cs" />
     <Compile Include="ProveedorDAOTests.cs" />

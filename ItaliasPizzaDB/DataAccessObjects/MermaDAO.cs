@@ -1,4 +1,5 @@
 ﻿using ItaliasPizzaDB.DataTransferObjects;
+using ItaliasPizzaDB.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -55,7 +56,27 @@ namespace ItaliasPizzaDB.DataAccessObjects
             }
         }
 
-    }
+        public static bool RegistrarMerma(int idInsumo, float cantidad)
+        {
+            using (var context = new ItaliasPizzaDbContext())
+            {
+                var insumo = context.Insumos.FirstOrDefault(i => i.IdInsumo == idInsumo);
+                if (insumo == null)
+                    throw new Exception("Insumo no encontrado");
 
+                var nuevaMerma = new Merma
+                {
+                    IdInsumo = idInsumo,
+                    Cantidad = cantidad,
+                    Fecha = DateTime.Now
+                };
+
+                context.Mermas.Add(nuevaMerma);
+                context.SaveChanges();
+
+                return true;
+            }
+        }
+    }
 
 }

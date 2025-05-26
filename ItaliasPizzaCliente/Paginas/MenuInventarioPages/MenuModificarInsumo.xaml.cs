@@ -86,7 +86,8 @@ namespace ItaliasPizzaCliente.Paginas.MenuInventarioPages
                 Status = true,
                 Cantidad = insumoSeleccionado.Cantidad,
                 IdCategoriaInsumo = (int)comboBoxCategoria.SelectedValue,
-                IdUnidadDeMedida = (int)comboBoxUnidadMedida.SelectedValue
+                IdUnidadDeMedida = (int)comboBoxUnidadMedida.SelectedValue,
+                Precio = float.Parse(txtPrecioUnitario.Text)
             };
 
             InsumoDAO.ActualizarInsumo(nuevoInsumo);
@@ -139,7 +140,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuInventarioPages
             if (insumoSeleccionado != null)
             {
                 txtNombre.Text = insumoSeleccionado.Nombre;
-                //txtPrecioUnitario.Text = insumoSeleccionado..ToString("0.##");
+                txtPrecioUnitario.Text = insumoSeleccionado.Precio.ToString("0.##");
 
                 comboBoxCategoria.SelectedValue = insumoSeleccionado.IdCategoriaInsumo;
                 comboBoxUnidadMedida.SelectedValue = insumoSeleccionado.IdUnidadDeMedida;

@@ -334,7 +334,7 @@
                                Margin="5,0,0,0"/>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Margin="214,63,166,-62" Grid.ColumnSpan="2" Grid.Row="1"/>
+            <StackPanel Margin="-5,116,5,-115" Grid.Row="1"/>
         </Grid>
 
         <!-- Botones en la parte inferior -->
