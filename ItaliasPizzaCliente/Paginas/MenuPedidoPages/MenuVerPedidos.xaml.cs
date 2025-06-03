@@ -56,8 +56,10 @@ namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages
             Page page;
 
 
+
             if (pedido is PedidoParaLocal local)
             {
+                Console.Write("pedido es local");
                 switch (local.IdStatusPedido)
                 {
                     case 1:
@@ -75,6 +77,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages
             }
             else if (pedido is PedidoParaLlevar dom)
             {
+                Console.Write("pedido es local");
                 switch (dom.IdStatusPedido)
                 {
                     case 1:

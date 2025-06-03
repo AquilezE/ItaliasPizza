@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,6 +19,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ItaliasPizzaCliente.Singletons;
 using static ItaliasPizzaCliente.Paginas.MenuProveedoresPages.VentanaResumenPedido;
 
 namespace ItaliasPizzaCliente.Paginas.MenuProveedoresPages
@@ -138,6 +140,8 @@ namespace ItaliasPizzaCliente.Paginas.MenuProveedoresPages
 
         private void BtnRegistrarPedido_Click(object sender, RoutedEventArgs e)
         {
+
+
             var proveedorSeleccionado = CbProveedores.SelectedItem as Proveedor;
             if (proveedorSeleccionado == null)
             {
@@ -156,6 +160,8 @@ namespace ItaliasPizzaCliente.Paginas.MenuProveedoresPages
                     Unidad = i.Unidad,
                     PrecioUnitario = i.Precio
                 }).ToList();
+
+
 
             if (!seleccionados.Any())
             {
@@ -180,6 +186,10 @@ namespace ItaliasPizzaCliente.Paginas.MenuProveedoresPages
                     .ToList();
 
                 // Guardar en base de datos
+
+                float totalPedido = seleccionados.Sum(i => i.Cantidad * i.PrecioUnitario);
+
+                SalidaDAO.RegistrarTransaccion(totalPedido, $"Pedido a proovedor ${proveedorSeleccionado.Nombre}", UsuarioSingleton.Instance.IdEmpleado, 3);
                 PedidoProveedorDAO.GuardarPedido(proveedorSeleccionado.IdProveedor, detalles);
 
                 new VentanaEmergente("Pedido registrado con éxito", "", "Aceptar", "", false).ShowDialog();

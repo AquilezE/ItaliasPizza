@@ -48,5 +48,15 @@ namespace ItaliasPizzaCliente
             }
         }
 
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            UsuarioSingleton.Reset();
+
+            var loginWindow = new LoginWindow();
+            loginWindow.Show();
+            this.Close();
+        }
     }
 }

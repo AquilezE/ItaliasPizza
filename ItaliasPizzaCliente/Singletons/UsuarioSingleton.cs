@@ -47,6 +47,8 @@ namespace ItaliasPizzaCliente.Singletons
             Instance.IdEmpleado = 0;
         }
 
+
+
         public static void SetUsuario(Empleado empleado)
         {
             Instance.NombreUsuario = empleado.Nombre;

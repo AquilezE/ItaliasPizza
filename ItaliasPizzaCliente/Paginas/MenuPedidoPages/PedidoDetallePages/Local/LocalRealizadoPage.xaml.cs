@@ -46,7 +46,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages.PedidoDetallePages.Local
         {
             InitializeComponent();
 
-            this.DataContext = pedidoParaLocal;
+            this.DataContext = this;
 
             this.PedidoParaLocal = pedidoParaLocal;
 

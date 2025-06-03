@@ -1,5 +1,6 @@
 ﻿using ItaliasPizzaDB;
 using ItaliasPizzaDB.DataAccessObjects;
+using ItaliasPizzaDB.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,14 +46,11 @@ namespace ItaliasPizzaCliente.Paginas.MenuProveedoresPages
                 return;
             }
 
-            // 1. Obtener fechas seleccionadas
             DateTime desde = DpDesde.SelectedDate.Value.Date;
             DateTime hasta = DpHasta.SelectedDate.Value.Date.AddDays(1).AddTicks(-1);
 
-            // 2. Llamar al DAO para traer los pedidos en ese rango
             var pedidos = PedidoProveedorDAO.ObtenerPedidosPorRango(desde, hasta);
 
-            // 3. Convertir cada pedido a un objeto visual para mostrar en el DataGrid
             var visuales = pedidos.Select(p => new PedidoProveedorVisual
             {
                 IdPedidoProveedor = p.IdPedidoProveedor,
@@ -62,9 +60,43 @@ namespace ItaliasPizzaCliente.Paginas.MenuProveedoresPages
                 Status = ((StatusPedidoEnum)p.Status).ToString()
             }).ToList();
 
-            // 4. Mostrar en el DataGrid
             dgPedidos.ItemsSource = visuales;
         }
 
+
+        private void BtnEntregado_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var pedido = button?.Tag as PedidoProveedorVisual;
+
+
+
+            if (pedido != null)
+            {
+                PedidoProveedorDAO.AgregarDetallePedidoAInsumos(pedido.IdPedidoProveedor);
+                MessageBox.Show($"Pedido {pedido.IdPedidoProveedor} marcado como entregado.");
+            }       
+            else
+            {
+                MessageBox.Show($"NO SE PUDO TU COSA.");
+            }
+
+
+            DateTime desde = DpDesde.SelectedDate.Value.Date;
+            DateTime hasta = DpHasta.SelectedDate.Value.Date.AddDays(1).AddTicks(-1);
+
+            var pedidos = PedidoProveedorDAO.ObtenerPedidosPorRango(desde, hasta);
+
+            var visuales = pedidos.Select(p => new PedidoProveedorVisual
+            {
+                IdPedidoProveedor = p.IdPedidoProveedor,
+                NombreProveedor = p.Proveedor?.Nombre ?? "Desconocido",
+                FechaPedido = p.FechaPedido,
+                Total = p.Total,
+                Status = ((StatusPedidoEnum)p.Status).ToString()
+            }).ToList();
+
+            dgPedidos.ItemsSource = visuales;
+        }
     }
 }

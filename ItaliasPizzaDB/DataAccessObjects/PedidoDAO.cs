@@ -40,11 +40,13 @@ namespace ItaliasPizzaDB.DataAccessObjects
                         query = query.Where(p => p.IdStatusPedido == (int)StatusPedidoEnum.Realizado || p.IdStatusPedido == (int)StatusPedidoEnum.Preparando);
                         break;
                     case (int)RolesEnum.Mesero: 
-                        query = query.Where(p => p.IdStatusPedido== (int)StatusPedidoEnum.ListoParaEntrega);
+                        query = query.Where(p => p.IdStatusPedido== (int)StatusPedidoEnum.ListoParaEntrega && p is PedidoParaLocal);
                         break;
                     case (int)RolesEnum.Repartidor:
-                        query = query.Where(p => p.IdStatusPedido== (int)StatusPedidoEnum.ListoParaEntrega || p.IdStatusPedido == (int)StatusPedidoEnum.EnCamino);
-                        break;
+                        query = query.Where(p =>
+                            (p.IdStatusPedido == (int)StatusPedidoEnum.ListoParaEntrega ||
+                             p.IdStatusPedido == (int)StatusPedidoEnum.EnCamino) &&
+                            p is PedidoParaLlevar); break;
                     case (int)RolesEnum.Gerente:
                         query = query.Where(p => p.IdStatusPedido == (int)StatusPedidoEnum.Cancelado || p.IdStatusPedido == (int)StatusPedidoEnum.NoEntregado);
                         break;
@@ -266,10 +268,10 @@ namespace ItaliasPizzaDB.DataAccessObjects
 
                         ActualizarInventario(context, insumosNecesarios);
 
-                        if (pedido.IdStatusPedido == (int)StatusPedidoEnum.Realizado)
-                        {
-                            pedido.IdStatusPedido = (int)StatusPedidoEnum.Preparando;
-                        }
+                        //if (pedido.IdStatusPedido == (int)StatusPedidoEnum.Realizado)
+                        //{
+                        //    pedido.IdStatusPedido = (int)StatusPedidoEnum.Preparando;
+                        //}
 
                         context.SaveChanges();
                         transaction.Commit();
@@ -404,7 +406,7 @@ namespace ItaliasPizzaDB.DataAccessObjects
                                 if (insumo == null)
                                 {
                                     transaction.Rollback();
-                                    return 6; // Insumo no encontrado
+                                    return 6; 
                                 }
                                 AcumularInsumo(insumosNecesarios, insumo.IdInsumo, detalle.Cantidad);
                             }
@@ -622,7 +624,7 @@ namespace ItaliasPizzaDB.DataAccessObjects
                             return 4; 
                         }
 
-                        ActualizarInventario(context, insumosNecesarios);
+                        ActualizarInventario(context, insumosNecesarios);                                                                                                                               
 
                         context.SaveChanges();
                         transaction.Commit();

@@ -27,7 +27,19 @@
                     <DataGridTextColumn Header="Fecha" Binding="{Binding FechaPedido}" Width="Auto"/>
                     <DataGridTextColumn Header="Total" Binding="{Binding Total, StringFormat=C}" Width="Auto"/>
                     <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="Auto"/>
+                    <DataGridTemplateColumn Header="Acción" Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Entregado"
+                                        Click="BtnEntregado_Click"
+                                        Padding="5,2"
+                                        Tag="{Binding}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
+
+
             </DataGrid>
         </StackPanel>
     </Grid>

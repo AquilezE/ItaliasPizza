@@ -110,6 +110,34 @@ namespace ItaliasPizzaDB.DataAccessObjects
                 }
             }
         }
+
+        public static int RestarSalidaAlCorteDelDia(float montoSalida)
+        {
+            using (var context = new ItaliasPizzaDbContext())
+            {
+                try
+                {
+                    DateTime fechaNoCerrado = new DateTime(1900, 1, 1);
+                    var corte = context.CortesDeCaja
+                        .FirstOrDefault(c => c.FechaCierre == fechaNoCerrado);
+
+                    if (corte == null)
+                        return -1; 
+
+                    if (montoSalida <= 0)
+                        return -2; 
+
+                    corte.VentaDelDia -= montoSalida;
+                    context.SaveChanges();
+
+                    return 0; 
+                }
+                catch (Exception ex)
+                {
+                     return -1; // Error general
+                }
+            }
+        }
     }
 }
 
