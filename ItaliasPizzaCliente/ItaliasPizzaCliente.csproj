@@ -273,6 +273,9 @@
     <Compile Include="Paginas\MenuPedidoPages\MenuPedidoLocal.xaml.cs">
       <DependentUpon>MenuPedidoLocal.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Paginas\MenuPedidoPages\NoEntregadoWindow.xaml.cs">
+      <DependentUpon>NoEntregadoWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Paginas\MenuPedidoPages\PedidoDetallePages\Domicilio\DomicilioEnCamino.xaml.cs">
       <DependentUpon>DomicilioEnCamino.xaml</DependentUpon>
     </Compile>
@@ -472,6 +475,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Paginas\MenuPedidoPages\MenuPedidoLocal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Paginas\MenuPedidoPages\NoEntregadoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

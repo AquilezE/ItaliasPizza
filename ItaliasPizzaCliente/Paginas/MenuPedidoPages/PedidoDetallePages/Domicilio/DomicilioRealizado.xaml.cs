@@ -58,7 +58,7 @@ namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages.PedidoDetallePages.Domicil
         private void Cancelar_Click(object sender, RoutedEventArgs e)
         {
 
-            int result = PedidoDAO.CambiarEstadoPedido( PedidoParaLlevar.IdPedido, (int)StatusPedidoEnum.Cancelado);
+            int result = PedidoDAO.CancelarPedido(PedidoParaLlevar.IdPedido);
 
             if (result != 0)
             {

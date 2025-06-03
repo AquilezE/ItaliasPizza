@@ -77,8 +77,30 @@ namespace ItaliasPizzaCliente.Paginas.MenuPedidoPages.PedidoDetallePages.Domicil
 
         private void NoEntregado_Click(object sender, RoutedEventArgs e)
         {
-            DialogoNotificacion dialogo = new DialogoNotificacion();
-            dialogo.ShowWarningNotification("No se ha implementado :C");
+
+
+            var modal = new NoEntregadoWindow();
+            bool? resultModal = modal.ShowDialog();
+
+
+            if (resultModal != true || string.IsNullOrWhiteSpace(modal.Razon))
+            {
+                return;
+            }
+
+            int result = PedidoDAO.MarcarPedidoNoEntregado(PedidoParaLlevar.IdPedido, modal.Razon);
+
+            DialogoNotificacion dialogoNotificacion = new DialogoNotificacion();
+            if (result != 0)
+            {
+                dialogoNotificacion.ShowErrorNotification($"El pedido {PedidoParaLlevar.IdPedido} no se pudo marcar como no entregado.");
+            }
+            else
+            {
+                dialogoNotificacion.ShowSuccessNotification($"El pedido {PedidoParaLlevar.IdPedido} se ha marcado como no entregado.");
+            }
+
+            NavigationService?.GoBack();
         }
     }
 }

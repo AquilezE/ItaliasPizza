@@ -19,6 +19,8 @@ namespace ItaliasPizzaDB.Models
         public int IdEmpleado { get; set; }
         public int IdStatusPedido { get; set; }
 
+        public string RazonNoEntregado { get; set; } = null;
+
         [ForeignKey("IdEmpleado")]
         public virtual Empleado Empleado { get; set; }
 
@@ -26,5 +28,6 @@ namespace ItaliasPizzaDB.Models
         public virtual StatusPedido StatusPedido { get; set; }
 
         public virtual ICollection<DetallePedido> Detalles { get; set; }
+
     }
 }
