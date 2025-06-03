@@ -18,7 +18,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ItaliasPizzaDB.DataAccessObjects;
-using ItaliasPizzaDB.DataAccessObjects.ItaliasPizzaDB.DataAccessObjects;
 using Path = System.IO.Path;
 using System.Collections.ObjectModel;
 using ItaliasPizzaCliente.Utils;

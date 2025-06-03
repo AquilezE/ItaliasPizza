@@ -95,6 +95,7 @@
     <Compile Include="InsumoDAOTests.cs" />
     <Compile Include="MermaDAOTest.cs" />
     <Compile Include="PedidoDAOTests.cs" />
+    <Compile Include="PedidoProveedorDAOTests.cs" />
     <Compile Include="ProductoDAOTests.cs" />
     <Compile Include="ProveedorDAOTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

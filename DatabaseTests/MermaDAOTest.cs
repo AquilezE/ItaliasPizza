@@ -54,5 +54,91 @@ namespace DatabaseTests
             }
         }
 
+        [Fact]
+        public void ObtenerResumenDeMermas_DeberiaRetornarTotalesPorDia()
+        {
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    var unidad = new UnidadDeMedida { UnidadDeMedidaNombre = "Kg" };
+                    var categoria = new CategoriaInsumo { CategoriaInsumoNombre = "Vegetales" };
+                    context.UnidadesDeMedida.Add(unidad);
+                    context.CategoriasInsumo.Add(categoria);
+                    context.SaveChanges();
+
+                    var insumo = new Insumo
+                    {
+                        Nombre = "Tomate",
+                        Precio = 20,
+                        UnidadDeMedida = unidad,
+                        IdCategoriaInsumo = categoria.IdCategoriaInsumo
+                    };
+                    context.Insumos.Add(insumo);
+                    context.SaveChanges();
+
+                    context.Mermas.AddRange(new List<Merma>
+                    {
+                        new Merma { Cantidad = 2, Fecha = DateTime.Today, IdInsumo = insumo.IdInsumo },
+                        new Merma { Cantidad = 1, Fecha = DateTime.Today, IdInsumo = insumo.IdInsumo }
+                    });
+
+                    context.SaveChanges();
+                }
+
+                var resumen = MermaDAO.ObtenerResumenDeMermas();
+
+                Assert.NotEmpty(resumen);
+                var hoy = resumen.FirstOrDefault(r => r.Fecha == DateTime.Today);
+                Assert.NotNull(hoy);
+                Assert.Equal(60, hoy.TotalPerdido); // 2*20 + 1*20 = 60
+            }
+        }
+
+        [Fact]
+        public void ObtenerDetallePorFecha_DeberiaRetornarDetallesCorrectos()
+        {
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                using (var context = new ItaliasPizzaDbContext())
+                {
+                    var unidad = new UnidadDeMedida { UnidadDeMedidaNombre = "Litros" };
+                    var categoria = new CategoriaInsumo { CategoriaInsumoNombre = "Líquidos" };
+                    context.UnidadesDeMedida.Add(unidad);
+                    context.CategoriasInsumo.Add(categoria);
+                    context.SaveChanges();
+
+                    var insumo = new Insumo
+                    {
+                        Nombre = "Aceite",
+                        Precio = 50,
+                        UnidadDeMedida = unidad,
+                        IdCategoriaInsumo = categoria.IdCategoriaInsumo
+                    };
+                    context.Insumos.Add(insumo);
+                    context.SaveChanges();
+
+                    context.Mermas.Add(new Merma
+                    {
+                        Cantidad = 1.5f,
+                        Fecha = DateTime.Today,
+                        IdInsumo = insumo.IdInsumo
+                    });
+                    context.SaveChanges();
+                }
+
+                var detalles = MermaDAO.ObtenerDetallePorFecha(DateTime.Today);
+
+                Assert.Single(detalles);
+                var detalle = detalles.First();
+                Assert.Equal("Aceite", detalle.NombreInsumo);
+                Assert.Equal(1.5f, detalle.Cantidad);
+                Assert.Equal(50, detalle.PrecioUnitario);
+                Assert.Equal("Litros", detalle.Unidad);
+            }
+        }
+
+
+
     }
 }

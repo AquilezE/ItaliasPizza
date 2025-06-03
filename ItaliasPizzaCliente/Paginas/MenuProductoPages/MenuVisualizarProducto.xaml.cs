@@ -1,5 +1,4 @@
-﻿using ItaliasPizzaDB.DataAccessObjects.ItaliasPizzaDB.DataAccessObjects;
-using ItaliasPizzaDB.Models;
+﻿using ItaliasPizzaDB.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ItaliasPizzaDB.DataAccessObjects;
 
 namespace ItaliasPizzaCliente.Paginas.MenuProductoPages
 {

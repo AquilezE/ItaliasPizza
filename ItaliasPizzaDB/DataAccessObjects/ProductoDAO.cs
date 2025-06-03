@@ -9,9 +9,7 @@ using System.Threading.Tasks;
 
 namespace ItaliasPizzaDB.DataAccessObjects
 {
-    namespace ItaliasPizzaDB.DataAccessObjects
-    {
-
+   
         public class ProductoDAO
         {
 
@@ -129,6 +127,6 @@ namespace ItaliasPizzaDB.DataAccessObjects
         }
 
 
-    }
+    
 
 }
