@@ -17,7 +17,7 @@
                     <Border x:Name="back" CornerRadius="8" Padding="{TemplateBinding Padding}" Background="Transparent" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Path x:Name="icon" Height="30" Width="30" Stretch="Uniform" Fill="#7b8792" Data="{TemplateBinding Icon}"/>
-                            <TextBlock x:Name ="textBlock" Text="{TemplateBinding Text}" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="#7b8792" FontSize="20"/>
+                            <TextBlock x:Name ="textBlock" Text="{TemplateBinding Text}" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="#7b8792" FontSize="16"/>
                         </StackPanel>
                     </Border>
 

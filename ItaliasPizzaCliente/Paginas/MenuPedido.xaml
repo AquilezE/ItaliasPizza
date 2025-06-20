@@ -5,9 +5,14 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ItaliasPizzaCliente.Paginas"
       xmlns:userControllers="clr-namespace:ItaliasPizzaCliente.UserControllers"
+      xmlns:utils="clr-namespace:ItaliasPizzaCliente.Utils"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MenuPedido">
+
+    <Page.Resources>
+        <utils:RolAVisibilidadConverter x:Key="RolAVisibilidadConverter"/>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -34,13 +39,15 @@
                 <userControllers:NavButton Style="{StaticResource {x:Type userControllers:NavButton}}"
                                            Text="Pedido local" 
                                            Margin="10 0 10 0" Padding="30"
-                                           Navlink="/Paginas/MenuPedidoPages/MenuPedidoLocal.xaml"  
+                                           Navlink="/Paginas/MenuPedidoPages/MenuPedidoLocal.xaml"
+                                           Visibility="{Binding NombreCargo, Converter={StaticResource RolAVisibilidadConverter}, ConverterParameter='Cajero,Mesero'}"
                                            Icon="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm-7 7H3v4c0 1.1.9 2 2 2h4v-2H5v-4zM5 5h4V3H5c-1.1 0-2 .9-2 2v4h2V5zm14-2h-4v2h4v4h2V5c0-1.1-.9-2-2-2zm0 16h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4z"/>
                 <userControllers:NavButton Style="{StaticResource {x:Type userControllers:NavButton}}"
                                            Text="Pedido a domicilio" 
                                            Margin="10 0 10 0" Padding="30"
                                            Navlink="/Paginas/MenuPedidoPages/MenuPedidoDomicilio.xaml"  
-                                           Icon="M12 2a5 5 0 0 0-5 5v1H5a2 2 0 0 0-2 2v1h18V10a2 2 0 0 0-2-2h-2V7a5 5 0 0 0-5-5zM4 20a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1H4v1z"/>
+                                           Icon="M12 2a5 5 0 0 0-5 5v1H5a2 2 0 0 0-2 2v1h18V10a2 2 0 0 0-2-2h-2V7a5 5 0 0 0-5-5zM4 20a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1H4v1z"
+                                           Visibility="{Binding NombreCargo, Converter={StaticResource RolAVisibilidadConverter}, ConverterParameter='Cajero'}"/>
             </ListBox>
         </StackPanel>
 
